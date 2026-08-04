@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOSE | Technology</title>
+  <meta name="description" content="Bose의 핵심 기술을 스크롤 인터랙션으로 만나보세요." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/technology.css" />
+</head>
+<body data-page="technology">
+  <main class="page" id="main">
+    <!-- ============ 인트로 ============ -->
+    <section class="intro">
+      <p class="intro_title" data-reveal>Engineered to Hear More</p>
+      <p class="intro_desc" data-reveal data-reveal-delay="100">보이지 않는 기술이, 들리는 경험을 완성합니다.</p>
+    </section>
+
+    <!-- ============ 회전 → 분해 (스크롤 스크럽, GSAP) ============ -->
+    <section class="rotate_section" id="rotate_section">
+      <div class="rotate_stage">
+        <div class="rotate_frames" aria-hidden="true">
+          <img class="rotate_frame" data-frame="0" src="images/tech_img01.png" alt="" />
+          <img class="rotate_frame" data-frame="1" src="images/tech_img02.png" alt="" />
+          <img class="rotate_frame" data-frame="2" src="images/tech_img03.png" alt="" />
+          <img class="rotate_frame" data-frame="3" src="images/tech_img04.png" alt="" />
+          <img class="rotate_frame rotate_explode" data-frame="4" src="images/tech_img05.png" alt="Bose 헤드폰 이어캡이 분해되며 드러나는 드라이버와 센서 구조" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CustomTune (화면 고정 · GSAP) ============ -->
+    <section class="feature feature--custom" data-feature>
+      <div class="feature_stage">
+        <figure class="feature_media">
+          <img src="images/tech_img06.png" alt="CustomTune 드라이버 유닛" />
+        </figure>
+        <div class="feature_copy">
+          <h2 class="feature_title">CustomTune</h2>
+          <p class="feature_subtitle">귀에 맞춰 완성되는 개인 맞춤 사운드</p>
+          <p class="feature_desc">
+            귀 구조를 분석해 사용자에게 맞는 사운드를 조정합니다.<br />
+            측정 데이터를 바탕으로 오디오와 노이즈 캔슬링을 최적화합니다.<br />
+            더욱 자연스럽고 균형 잡힌 사운드를 구현합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Immersive Audio (화면 고정 · GSAP) ============ -->
+    <section class="feature feature--immersive" data-feature>
+      <div class="feature_stage">
+        <figure class="feature_media">
+          <img src="images/tech_img07.png" alt="Immersive Audio 드라이버" />
+        </figure>
+        <div class="feature_copy">
+          <h2 class="feature_title">Immersive Audio</h2>
+          <p class="feature_subtitle">공간을 채우는 새로운 사운드 경험</p>
+          <p class="feature_desc">
+            오디오 신호를 공간감 있는 사운드로 처리합니다.<br />
+            드라이버와 오디오 프로세서가 입체적인 음향을 구현합니다.<br />
+            더욱 현실감 있는 청취 경험을 제공합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Noise Cancelling (화면 고정 · GSAP) ============ -->
+    <section class="feature feature--noise" data-feature>
+      <div class="feature_stage">
+        <figure class="feature_media">
+          <img src="images/tec_noise.png" alt="노이즈 캔슬링 음파 시각화" />
+        </figure>
+        <div class="feature_copy">
+          <h2 class="feature_title">Noise Cancelling</h2>
+          <p class="feature_subtitle">세계 최초의 노이즈 캔슬링 기술</p>
+          <p class="feature_desc">
+            외부와 내부의 소음을 실시간으로 감지합니다.<br />
+            반대 위상의 신호를 생성해 소음을 효과적으로 줄입니다.<br />
+            더욱 조용하고 몰입감 있는 청취 환경을 제공합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ActiveSense (화면 고정 · GSAP) ============ -->
+    <section class="feature feature--active" data-feature>
+      <div class="feature_stage">
+        <figure class="feature_media">
+          <img src="images/tech_img08.png" alt="ActiveSense 마이크 센서 구조" />
+        </figure>
+        <div class="feature_copy">
+          <h2 class="feature_title">ActiveSense</h2>
+          <p class="feature_subtitle">공간을 채우는 새로운 사운드 경험</p>
+          <p class="feature_desc">
+            주변 소음을 실시간으로 분석합니다.<br />
+            환경 변화에 맞춰 노이즈 캔슬링을 자동으로 조절합니다.<br />
+            필요한 순간 편안한 청취 환경을 유지합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 마무리 리캡 ============ -->
+    <section class="recap">
+      <figure class="recap_media recap_media--explode" data-reveal>
+        <img src="images/tech_img05.png" alt="분해된 헤드폰 내부 구조" />
+      </figure>
+      <figure class="recap_media recap_media--angle" data-reveal data-reveal-delay="100">
+        <img src="images/tech_img04.png" alt="Bose 헤드폰 측면 각도" />
+      </figure>
+      <figure class="recap_media recap_media--full" data-reveal data-reveal-delay="200">
+        <img src="images/tech_img01.png" alt="Bose 헤드폰 정면" />
+      </figure>
+    </section>
+
+    <!-- ============ Shop CTA ============ -->
+    <section class="section shop_cta">
+      <div class="container">
+        <div class="shop_cta_head" data-reveal>
+          <h2 class="shop_cta_title">Every Technology.<br />One Listening Experience.</h2>
+          <p class="shop_cta_desc">모든 기술은 하나의 경험을 위해 설계되었습니다.</p>
+          <a class="btn btn--ghost" href="shop.html">View Product</a>
+        </div>
+
+        <ul class="shop_cta_cards">
+          <li class="tech_card" data-reveal>
+            <a href="shop.html">
+              <span class="tech_card_img"><img src="images/tec_card01.png" alt="" /></span>
+              <span class="tech_card_body">
+                <span class="tech_card_cat">HEADPHONE</span>
+                <span class="tech_card_name">QC ULTRA HEADPHONE (2ND GEN)</span>
+              </span>
+            </a>
+          </li>
+          <li class="tech_card" data-reveal data-reveal-delay="80">
+            <a href="shop.html">
+              <span class="tech_card_img"><img src="images/tec_card02.png" alt="" /></span>
+              <span class="tech_card_body">
+                <span class="tech_card_cat">HEADPHONE</span>
+                <span class="tech_card_name">QC ULTRA HEADPHONE</span>
+              </span>
+            </a>
+          </li>
+          <li class="tech_card" data-reveal data-reveal-delay="160">
+            <a href="shop.html">
+              <span class="tech_card_img"><img src="images/tec_card03.png" alt="" /></span>
+              <span class="tech_card_body">
+                <span class="tech_card_cat">EARBUDS</span>
+                <span class="tech_card_name">QC ULTRA EARBUDS (2ND GEN)</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <!-- GSAP: 스크롤과 직접 연결된 회전/고정 모션에만 사용 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/technology.js"></script>
+</body>
+</html>

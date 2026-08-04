@@ -1,0 +1,312 @@
+/* =========================================================
+   technology.css — Technology 페이지 전용 스타일
+   (Figma 실측: node 1113:623, fileKey 2wHicEsAeYVlXcMARhlEHN)
+   ★ 회전/고정 인터랙션은 js/technology.js (GSAP ScrollTrigger)가 담당합니다.
+   ========================================================= */
+
+/* ---------- intro ---------- */
+.intro {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  text-align: center;
+}
+.intro_title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+}
+.intro_desc {
+  font-size: var(--fs-body);
+  color: var(--color-text-muted);
+}
+
+/* =========================================================
+   rotate_section : 헤드폰 4컷 크로스페이드 → 분해 이미지로 전환
+   스크롤에 그대로 붙어서(scrub) 재생되는 모션이라 GSAP 필요.
+   ========================================================= */
+.rotate_section {
+  position: relative;
+  height: 350vh; /* 스크롤 재생 구간 (js에서 pin 유지) */
+}
+.rotate_stage {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.rotate_frames {
+  position: relative;
+  width: min(60vw, 640px);
+  aspect-ratio: 1 / 1;
+}
+.rotate_frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+}
+.rotate_frame[data-frame="0"] {
+  opacity: 1; /* 시작 프레임 */
+}
+.rotate_explode {
+  transform: scale(1.15);
+}
+
+/* =========================================================
+   feature : CustomTune / Immersive Audio / Noise Cancelling / ActiveSense
+   화면에 고정(pin)된 상태로 이미지·텍스트가 등장한 뒤 다음 섹션으로 넘어갑니다.
+   ========================================================= */
+.feature {
+  position: relative;
+  height: 220vh; /* 고정 상태로 머무는 스크롤 구간 */
+}
+.feature_stage {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.feature_media {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(52vw, 1000px);
+  aspect-ratio: 1 / 1;
+}
+.feature_media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.feature_copy {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 420px;
+}
+.feature_title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: var(--fs-lead);
+  margin-bottom: var(--sp-2);
+}
+.feature_subtitle {
+  font-size: var(--fs-lead);
+  margin-bottom: var(--sp-4);
+}
+.feature_desc {
+  font-size: var(--fs-body);
+  color: var(--color-text-muted);
+  line-height: var(--lh-base);
+}
+
+/* CustomTune : 이미지 크게, 텍스트 우측 */
+.feature--custom .feature_media {
+  width: min(60vw, 1100px);
+}
+.feature--custom .feature_copy {
+  left: calc(50% + 351px);
+}
+
+/* Immersive Audio : 이미지 중앙, 텍스트 좌측 끝 */
+.feature--immersive .feature_copy {
+  left: calc(50% - 817px);
+}
+
+/* Noise Cancelling : 이미지 중앙 상단, 텍스트 중앙 하단 */
+.feature--noise .feature_media {
+  top: 40%;
+}
+.feature--noise .feature_copy {
+  left: 50%;
+  top: 74%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* ActiveSense : 이미지 중앙 상단, 텍스트 우측 */
+.feature--active .feature_media {
+  top: 40%;
+}
+.feature--active .feature_copy {
+  left: calc(50% + 439px);
+  top: 74%;
+}
+
+/* ---------- recap : 마무리 리캡 ---------- */
+.recap {
+  position: relative;
+  height: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.recap_media {
+  position: absolute;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.recap_media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.recap_media--explode {
+  width: min(48vw, 700px);
+  height: min(48vw, 700px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.recap_media--angle {
+  width: min(24vw, 380px);
+  height: min(24vw, 380px);
+  left: 8%;
+  top: 20%;
+}
+.recap_media--full {
+  width: min(24vw, 380px);
+  height: min(24vw, 380px);
+  right: 8%;
+  bottom: 15%;
+}
+
+/* ---------- shop_cta ---------- */
+.shop_cta_head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-8);
+}
+.shop_cta_title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-tight);
+}
+.shop_cta_desc {
+  font-size: var(--fs-body);
+  color: var(--color-text-muted);
+  margin-bottom: var(--sp-3);
+}
+
+.shop_cta_cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-7);
+}
+.tech_card a {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.25s var(--ease);
+}
+.tech_card a:hover {
+  transform: translateY(-6px);
+}
+.tech_card_img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background: #f2f2f2;
+}
+.tech_card_img img {
+  max-width: 78%;
+  max-height: 78%;
+  object-fit: contain;
+}
+.tech_card_body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-5) var(--sp-6);
+  background: #f2f2f2;
+}
+.tech_card_cat {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: #555;
+}
+.tech_card_name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: #0d0d0d;
+}
+
+/* =========================================================
+   접근성: 모션 최소화 사용자는 고정(pin)·회전 없이
+   모든 내용을 정적으로 순서대로 표시합니다.
+   (실제 정적 레이아웃 전환은 js/technology.js 에서 처리)
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .rotate_section,
+  .feature {
+    height: auto;
+  }
+  .rotate_stage,
+  .feature_stage {
+    height: auto;
+    position: static;
+    padding-block: var(--sp-9);
+  }
+  .rotate_frame {
+    position: static;
+    opacity: 1;
+    display: none;
+  }
+  .rotate_frame[data-frame="4"] {
+    display: block;
+    width: min(60vw, 640px);
+    margin-inline: auto;
+  }
+  .feature_media,
+  .feature_copy {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 480px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .feature_copy {
+    margin-top: var(--sp-6);
+  }
+}
+
+/* ---------- 반응형 최소 대응 ---------- */
+@media (max-width: 1100px) {
+  .feature_copy,
+  .feature--custom .feature_copy,
+  .feature--immersive .feature_copy,
+  .feature--noise .feature_copy,
+  .feature--active .feature_copy {
+    left: 50%;
+    top: auto;
+    bottom: 8%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 90%;
+  }
+  .recap {
+    height: 700px;
+  }
+  .shop_cta_cards {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+}

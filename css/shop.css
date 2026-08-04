@@ -1,0 +1,218 @@
+/* =========================================================
+   shop.css — Shop 페이지 전용 스타일
+   ========================================================= */
+.eyebrow,
+.title-lg {
+  color: #F2F2F2;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  /* 48px */
+}
+
+.shop_head {
+  padding-bottom: var(--sp-6);
+}
+
+.shop_head .title-lg {
+  margin-top: var(--sp-2);
+}
+
+.shop_controls__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+}
+
+.filter_chip_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.filter_chip {
+  padding: 10px 20px;
+  font-family: var(--font-head);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.filter_chip:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.filter_chip.is_active {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
+.sort_select {
+  padding: 10px 16px;
+  font-family: var(--font-head);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-input);
+}
+.sort_select:hover,
+.sort_select:focus,
+.sort_select:focus-visible{
+  outline: none;
+}
+
+/* ---------- 제품 그리드 ---------- */
+.product_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6) var(--sp-5);
+  margin-top: var(--sp-7);
+}
+
+.product_card {
+  display: flex;
+  flex-direction: column;
+}
+
+.product_card__image {
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  align-self: stretch;
+  /* aspect-ratio: 4 / 3;  ← 삭제 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-bottom: var(--sp-4);
+  transition: background-color 0.25s var(--ease);
+
+}
+
+.product_card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s var(--ease);
+  object-fit: cover;
+  /* 프레임을 꽉 채우고 넘치는 부분은 잘림 */
+}
+
+.product_card:hover .product_card__image {
+  background: var(--color-surface-2);
+}
+
+.product_card:hover .product_card__image img {
+  transform: scale(1.05);
+}
+
+/* 색상 스와치 (첫 제품: 클릭 가능 버튼 / 그 외: 장식용 dot) */
+.swatch_list {
+  display: flex;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.swatch_btn,
+.swatch_dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--swatch-color, #333);
+}
+
+.swatch_btn {
+  border: 2px solid transparent;
+  padding: 2px;
+  background-clip: content-box;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.swatch_btn:hover {
+  transform: scale(1.12);
+}
+
+.swatch_btn.is_active {
+  border-color: var(--color-text);
+}
+
+.product_card__category {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.product_card__name {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  transition: color 0.2s var(--ease);
+
+}
+
+.product_card__name:hover {
+  color: var(--color-accent);
+}
+
+.product_card__price {
+  margin-top: var(--sp-1);
+  font-weight: 700;
+}
+
+/* ---------- 페이지네이션 ---------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-8);
+}
+
+.pagination__btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-line);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.pagination__btn.is_active {
+  color: #0d0d0d;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.pagination__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---------- 반응형 최소 대응 ---------- */
+@media (max-width: 1100px) {
+  .product_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .shop_controls__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

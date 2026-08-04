@@ -1,0 +1,212 @@
+/* =========================================================
+   history.css — History 페이지 전용 스타일
+   (Figma 실측: node 1113:562, fileKey 2wHicEsAeYVlXcMARhlEHN)
+   ========================================================= */
+
+/* ---------- hero : 이미지만 (문구 없음) ---------- */
+.hero {
+  position: relative;
+  height: 1000px;
+  margin-top: calc(var(--header-h) * -1);
+  overflow: hidden;
+}
+.hero_bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8; /* 실측: opacity-80 */
+}
+
+/* =========================================================
+   decade : 연도별 섹션 (제목 중앙 + 이미지·텍스트 좌우 교차)
+   .decade_page 가 "책장을 넘기는" 모션의 대상입니다.
+   perspective 는 부모(.decade)에, 실제 회전은 js/history.js(GSAP)가 겁니다.
+   ========================================================= */
+.decade {
+  position: relative;
+  height: 1000px;
+  perspective: 1600px;
+}
+/* 실측: 이미지·텍스트 모두 섹션(1920 기준) 기준 절대좌표로 배치 */
+.decade_page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+.decade_title {
+  position: absolute;
+  left: 50%;
+  top: 64px;
+  transform: translateX(-50%);
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: var(--fs-display);
+  white-space: nowrap;
+}
+
+/* ---------- 이미지 ---------- */
+.decade_media {
+  position: absolute;
+  top: 300px; /* 기본(이미지 좌측): 실측 top */
+  left: 320px;
+}
+.decade_media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0; /* 실측: 라운드 없음 */
+}
+/* 사이즈 실측값 */
+.decade_media {
+  width: 460px;
+  height: 500px;
+}
+.decade_media--landscape {
+  width: 500px;
+  height: 400px;
+}
+.decade_media--portrait {
+  width: 400px;
+  height: 500px;
+}
+/* 2000s : 이미지가 투명 배경이라 카드처럼 여백을 줌 */
+.decade_media--pad img {
+  object-fit: contain;
+  background: var(--color-surface);
+  padding: var(--sp-6);
+}
+
+/* --reverse : 이미지가 우측 (실측 top:250 / right:320) */
+.decade--reverse .decade_media,
+.decade--reverse .decade_media_group {
+  left: auto;
+  right: 320px;
+  top: 250px;
+}
+
+/* ---------- 텍스트 ----------
+   기준: 화면 중앙선(50%)에서 안쪽 가장자리까지 320px */
+.decade_copy {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(50% + 320px); /* 기본(이미지 좌측일 때): 텍스트는 우측 */
+  max-width: 480px;
+}
+.decade--reverse .decade_copy {
+  left: auto;
+  right: calc(50% + 320px); /* --reverse(이미지 우측일 때): 텍스트는 좌측 */
+}
+.decade_eyebrow {
+  font-family: var(--font-head);
+  font-size: var(--fs-body);
+  color: var(--color-text-muted);
+  margin-bottom: var(--sp-4);
+}
+.decade_body p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+}
+.decade_body p + p {
+  margin-top: var(--sp-1);
+}
+
+/* 1970s: 큰 이미지 + 회전된 작은 사진 한 장이 겹치는 구성 */
+.decade_media_group {
+  position: absolute;
+  width: 460px;
+  height: 500px;
+}
+.decade_media_group .decade_media {
+  position: static;
+  width: 100%;
+  height: 100%;
+}
+.decade_media--tilt {
+  position: absolute;
+  right: -12%;
+  bottom: -14%;
+  width: 338.321px;
+  height: 264.055px;
+  aspect-ratio: 41 / 32;
+  transform: rotate(23.664deg);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+.decade_media--tilt img {
+  border: 8px solid var(--color-bg);
+}
+
+/* ---------- 인용구 밴드 (1970s → 1980s 사이) ---------- */
+.history_quote {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1600px;
+}
+.history_quote_page {
+  font-family: var(--font-head);
+  font-size: var(--fs-h3);
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+/* =========================================================
+   반응형 — 데스크톱(1920) 기준 우선 구현.
+   작은 데스크톱 창 대비 최소 대응만 포함.
+   ========================================================= */
+@media (max-width: 1100px) {
+  .decade {
+    height: auto;
+    padding-block: var(--sp-9);
+  }
+  .decade_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-6);
+    padding-top: 100px;
+  }
+  .decade_title {
+    position: static;
+    transform: none;
+    margin-bottom: 0;
+  }
+  .decade_media,
+  .decade_media_group,
+  .decade--reverse .decade_media,
+  .decade--reverse .decade_media_group,
+  .decade_copy,
+  .decade--reverse .decade_copy {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+  }
+  .decade_media img {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .decade_media--tilt {
+    display: none;
+  }
+}
+
+/* 모션 최소화 사용자: 책 넘김/텍스트 등장 회전 없이 항상 제자리에 표시 */
+@media (prefers-reduced-motion: reduce) {
+  .decade_page,
+  .decade_title,
+  .decade_eyebrow,
+  .decade_body p,
+  .history_quote_page {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

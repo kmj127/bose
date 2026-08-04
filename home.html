@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOSE | Home</title>
+  <meta name="description" content="Bose 브랜드와 핵심 기술을 만나보세요." />
+
+  <!-- 웹폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+  <!-- Swiper: product 섹션의 가로 슬라이더에만 사용 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- 공통 스타일 (순서 중요: reset → tokens → common → 페이지) -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body data-page="home">
+  <!-- 헤더/푸터는 js/common.js 가 자동 삽입합니다 -->
+
+  <!-- ============ 풀페이지 스냅 wrapper ============
+       fp_wrapper 안의 각 섹션은 fp_section 클래스를 달고 있고,
+       휠/터치 입력은 GSAP Observer(home.js)가 가로채서
+       한 번에 한 섹션씩 전환합니다. 브라우저 기본 스크롤은 막혀 있음.
+       data-fp-scroll: 섹션 내부에 자체 세로 스크롤이 있는 경우
+       (지금은 gallery) 표시 — 내부 스크롤 끝까지 가야 다음 섹션으로 넘어감. -->
+  <main class="page fp_wrapper" id="main">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero fp_section" data-fp>
+      <div class="hero_bg" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============ About 미리보기 ============ -->
+    <section class="section about fp_section" data-fp>
+      <div class="container about_inner" data-reveal>
+        <figure class="about_media">
+          <img src="images/bose_img01.png" alt="Bose 창립자 Amar G. Bose" />
+        </figure>
+        <p class="eyebrow">ABOUT</p>
+        <p class="about_desc">
+          소리를 향한 60년의 여정.<br />
+          Bose는 더 나은 음악 경험을 위해 끊임없이 연구합니다.
+        </p>
+        <a class="link_arrow" href="about.html">
+          Learn More
+          <img src="images/icons/arrow_right.svg" alt="" aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ Product 슬라이더 (Swiper) ============ -->
+    <section class="product fp_section" data-fp>
+      <div class="swiper product_slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="images/home_head01.png" alt="Bose 헤드폰 상세 이미지 1" /></div>
+          <div class="swiper-slide"><img src="images/home_head02.png" alt="Bose 헤드폰 상세 이미지 2" /></div>
+          <div class="swiper-slide"><img src="images/home_head03.png" alt="Bose 헤드폰 상세 이미지 3" /></div>
+          <div class="swiper-slide"><img src="images/home_head04.png" alt="Bose 헤드폰 상세 이미지 4" /></div>
+          <div class="swiper-slide"><img src="images/home_head05.png" alt="Bose 헤드폰 상세 이미지 5" /></div>
+        </div>
+      </div>
+      <a class="link_arrow product_more" href="shop.html">
+        View All Product
+        <img src="images/icons/arrow_right.svg" alt="" aria-hidden="true" />
+      </a>
+    </section>
+
+    <!-- ============ HEAR MORE ============
+         MORE 확대 모션: 기존 scroll scrub 방식 대신,
+         이 섹션이 fp_section 중 활성(is_active)이 될 때
+         home.js의 playKeywordGrow()가 타임라인을 재생합니다. -->
+    <section class="keyword fp_section" data-fp>
+      <h2 class="keyword_title">
+        <span class="keyword_word keyword_main" data-reveal>HEAR</span>
+        <br />
+        <span class="keyword_word accent keyword_grow">MORE</span>
+      </h2>
+
+      <div class="keyword_marquee" data-reveal data-reveal-delay="300">
+        <div class="keyword_marquee_track">
+          <p class="keyword_text">
+            CUSTOMTUNE&nbsp;•&nbsp;NOISE CANCELLING&nbsp;•&nbsp;IMMERSIVE AUDIO&nbsp;•&nbsp;CINEMA MODE&nbsp;•&nbsp;COMFORT&nbsp;•&nbsp;BATTERY LIFE&nbsp;•&nbsp;CLEAR CALLS&nbsp;•&nbsp;BOSE APP&nbsp;•
+          </p>
+          <p class="keyword_text" aria-hidden="true">
+            CUSTOMTUNE&nbsp;•&nbsp;NOISE CANCELLING&nbsp;•&nbsp;IMMERSIVE AUDIO&nbsp;•&nbsp;CINEMA MODE&nbsp;•&nbsp;COMFORT&nbsp;•&nbsp;BATTERY LIFE&nbsp;•&nbsp;CLEAR CALLS&nbsp;•&nbsp;BOSE APP&nbsp;•
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 라이프스타일 갤러리 ============
+         data-fp-scroll: 내부에서 세로로 이미지를 먼저 다 스크롤해야
+         다음 섹션(category)으로 휠 전환이 넘어감. -->
+    <section class="gallery fp_section" data-fp data-fp-scroll>
+      <figure class="gallery_item" data-reveal><img src="images/home_img01.png" alt="Bose 이어버드를 착용한 사람" /></figure>
+      <figure class="gallery_item" data-reveal><img src="images/home_img02.png" alt="Bose 헤드폰을 착용한 사람" /></figure>
+      <figure class="gallery_item" data-reveal><img src="images/home_img03.png" alt="Bose 이어버드를 착용한 사람" /></figure>
+      <figure class="gallery_item" data-reveal><img src="images/home_img04.png" alt="Bose 스피커와 함께하는 사람들" /></figure>
+      <figure class="gallery_item" data-reveal><img src="images/home_img05.png" alt="Bose 스피커와 함께하는 사람들" /></figure>
+    </section>
+
+    <!-- ============ SHOP 카테고리 ============ -->
+    <section class="section category fp_section" data-fp>
+      <div class="container">
+        <div class="category_head" data-reveal>
+          <p class="eyebrow">SHOP</p>
+          <p class="category_desc">당신의 일상에 맞는 사운드를 찾아보세요.</p>
+          <a class="link_arrow" href="shop.html">
+            View All Product
+            <img src="images/icons/arrow_right.svg" alt="" aria-hidden="true" />
+          </a>
+        </div>
+        <ul class="category_list">
+          <li class="category_card" data-reveal>
+            <a href="shop.html">
+              <span class="category_img"><img src="images/home_headphone01.png" alt="" /></span>
+              <span class="category_label">HEADPHONE</span>
+            </a>
+          </li>
+          <li class="category_card" data-reveal data-reveal-delay="80">
+            <a href="shop.html">
+              <span class="category_img"><img src="images/home_earbuds02.png" alt="" /></span>
+              <span class="category_label">EARBUDS</span>
+            </a>
+          </li>
+          <li class="category_card" data-reveal data-reveal-delay="160">
+            <a href="shop.html">
+              <span class="category_img"><img src="images/home_specker01.png" alt="" /></span>
+              <span class="category_label">SPEAKER</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 페이지 이동 리스트 ============ -->
+    <section class="section menu_list fp_section" data-fp>
+      <div class="container">
+        <a class="menu_row" href="history.html" data-reveal>
+          <span class="menu_left">
+            <span class="menu_num">01</span>
+            <span class="menu_title">History</span>
+          </span>
+          <span class="menu_right">
+            <span class="menu_tag">SINCE 1964</span>
+            <span class="icon_mask icon_arrow_circle" aria-hidden="true"></span>
+          </span>
+        </a>
+        <a class="menu_row" href="technology.html" data-reveal data-reveal-delay="80">
+          <span class="menu_left">
+            <span class="menu_num">02</span>
+            <span class="menu_title">Technology</span>
+          </span>
+          <span class="menu_right">
+            <span class="menu_tag">ENGINEERED</span>
+            <span class="icon_mask icon_arrow_circle" aria-hidden="true"></span>
+          </span>
+        </a>
+        <a class="menu_row" href="#footer_contact" data-reveal data-reveal-delay="160">
+          <span class="menu_left">
+            <span class="menu_num">03</span>
+            <span class="menu_title">Support</span>
+          </span>
+          <span class="menu_right">
+            <span class="menu_tag">ALWAYS ON</span>
+            <span class="icon_mask icon_arrow_circle" aria-hidden="true"></span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ BOSE APP ============ -->
+    <section class="section app fp_section" data-fp>
+      <div class="container app_inner">
+        <h2 class="app_title" data-reveal>YOUR SOUND.<br /><span class="text-muted">PERFECTED.</span></h2>
+        <p class="app_desc" data-reveal data-reveal-delay="80">BOSE 앱으로 나만의 사운드를 완성해 보세요.</p>
+
+        <div class="app_media" data-reveal data-reveal-delay="120">
+          <img src="images/home_app.png" alt="Bose 앱 실행 화면" />
+          <span class="app_tag app_tag--tl is_active"><em>01.</em>PERSONALIZE</span>
+          <span class="app_tag app_tag--tr"><em>02.</em>QUIET</span>
+          <span class="app_tag app_tag--bl"><em>03.</em>IMMERSION</span>
+          <span class="app_tag app_tag--br"><em>04.</em>STATUS</span>
+        </div>
+
+        <a class="link_arrow" href="shop.html">
+          CONTINUE IN BOSE APP
+          <img src="images/icons/arrow_right.svg" alt="" aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- GSAP core + Observer: 풀페이지 섹션 전환(휠/터치 가로채기)에 사용 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOSE | Shop</title>
+  <meta name="description" content="Bose Collection에서 원하는 제품을 탐색해보세요." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/shop.css" />
+</head>
+<body data-page="shop">
+  <main class="page" id="main">
+    <section class="section shop_head">
+      <div class="container">
+        <p class="eyebrow">BOSE</p>
+        <h1 class="title-lg">COLLECTION</h1>
+      </div>
+    </section>
+
+    <!-- ============ 필터 / 정렬 ============
+         결정사항: 필터 칩·정렬·페이지네이션은 모두 "시각용"이며
+         실제 상품 목록을 필터링/정렬하지 않습니다. (PRD 제외범위: 실제 API 연동 없음) -->
+    <section class="shop_controls">
+      <div class="container shop_controls__inner">
+        <ul class="filter_chip_list" role="group" aria-label="카테고리 (표시 전용)">
+          <li><button class="filter_chip is_active" type="button" data-filter="all">ALL</button></li>
+          <li><button class="filter_chip" type="button" data-filter="headphone">HEADPHONE</button></li>
+          <li><button class="filter_chip" type="button" data-filter="earbuds">EARBUDS</button></li>
+          <li><button class="filter_chip" type="button" data-filter="speaker">SPEAKER</button></li>
+          <li><button class="filter_chip" type="button" data-filter="soundbar">SOUNDBAR</button></li>
+          <li><button class="filter_chip" type="button" data-filter="professional">PROFESSIONAL</button></li>
+        </ul>
+
+        <div class="sort_select_wrap">
+          <label class="sr_only" for="sort_select">정렬 (표시 전용)</label>
+          <select class="sort_select" id="sort_select">
+            <option>Sort by</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Name</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 제품 그리드 ============ -->
+    <section class="section shop_grid_section">
+      <div class="container">
+        <ul class="product_grid" id="product_grid">
+          <!-- 1. 컬러 스와치 인터랙션 적용 제품 -->
+          <li class="product_card" data-category="headphone">
+            <a class="product_card__link" href="shop.html" aria-label="QC Ultra Headphone (2nd Gen) 상세 보기">
+              <div class="product_card__image">
+                <img id="swatch_product_img" src="images/shop_black.png" alt="QC Ultra Headphone (2nd Gen)" />
+              </div>
+            </a>
+            <ul class="swatch_list" aria-label="색상 선택">
+              <li>
+                <button type="button" class="swatch_btn is_active" style="--swatch-color:#2b2b2b"
+                        data-img="images/shop_black.png" aria-pressed="true" aria-label="Black 색상 선택"></button>
+              </li>
+              <li>
+                <button type="button" class="swatch_btn" style="--swatch-color:#b9975b"
+                        data-img="images/shop_gold.png" aria-pressed="false" aria-label="Gold 색상 선택"></button>
+              </li>
+              <li>
+                <button type="button" class="swatch_btn" style="--swatch-color:#d8cdbb"
+                        data-img="images/shop_sand.png" aria-pressed="false" aria-label="Sand 색상 선택"></button>
+              </li>
+              <li>
+                <button type="button" class="swatch_btn" style="--swatch-color:#4b5aa0"
+                        data-img="images/shop_violet.png" aria-pressed="false" aria-label="Violet 색상 선택"></button>
+              </li>
+            </ul>
+            <p class="product_card__category">HEADPHONE</p>
+            <a class="product_card__name" href="shop.html">QC Ultra Headphone (2nd Gen)</a>
+            <p class="product_card__price">378,000원</p>
+          </li>
+
+          <!-- 2~9. 정적 카드 (색상 표시는 장식용) -->
+          <li class="product_card" data-category="headphone">
+            <a class="product_card__link" href="shop.html" aria-label="QC Ultra Headphone 상세 보기">
+              <div class="product_card__image"><img src="images/shop_headphone02.png" alt="QC Ultra Headphone" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#8c8c8c"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#e9e4da"></span></li>
+            </ul>
+            <p class="product_card__category">HEADPHONE</p>
+            <a class="product_card__name" href="shop.html">QC Ultra Headphone</a>
+            <p class="product_card__price">269,000원</p>
+          </li>
+
+          <li class="product_card" data-category="headphone">
+            <a class="product_card__link" href="shop.html" aria-label="QC Headphone 상세 보기">
+              <div class="product_card__image"><img src="images/shop_headphone03.png" alt="QC Headphone" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#7c8ea6"></span></li>
+            </ul>
+            <p class="product_card__category">HEADPHONE</p>
+            <a class="product_card__name" href="shop.html">QC Headphone</a>
+            <p class="product_card__price">294,000원</p>
+          </li>
+
+          <li class="product_card" data-category="earbuds">
+            <a class="product_card__link" href="shop.html" aria-label="QuietComfort Ultra Earbuds 2세대 상세 보기">
+              <div class="product_card__image"><img src="images/shop_earbuds01.png" alt="QuietComfort Ultra Earbuds (2nd Gen)" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#8c3b3b"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#8c8c8c"></span></li>
+            </ul>
+            <p class="product_card__category">EARBUDS</p>
+            <a class="product_card__name" href="shop.html">QuietComfort Ultra Earbuds (2nd Gen)</a>
+            <p class="product_card__price">296,000원</p>
+          </li>
+
+          <li class="product_card" data-category="earbuds">
+            <a class="product_card__link" href="shop.html" aria-label="Ultra Open Earbuds 상세 보기">
+              <div class="product_card__image"><img src="images/shop_earbuds02.png" alt="Ultra Open Earbuds" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#c9a24a"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#5b7fa6"></span></li>
+            </ul>
+            <p class="product_card__category">EARBUDS</p>
+            <a class="product_card__name" href="shop.html">Ultra Open Earbuds</a>
+            <p class="product_card__price">289,000원</p>
+          </li>
+
+          <li class="product_card" data-category="earbuds">
+            <a class="product_card__link" href="shop.html" aria-label="QuietComfort Earbuds 상세 보기">
+              <div class="product_card__image"><img src="images/shop_earbuds03.png" alt="QuietComfort Earbuds" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#7c8ea6"></span></li>
+            </ul>
+            <p class="product_card__category">EARBUDS</p>
+            <a class="product_card__name" href="shop.html">QuietComfort Earbuds</a>
+            <p class="product_card__price">179,000원</p>
+          </li>
+
+          <li class="product_card" data-category="speaker">
+            <a class="product_card__link" href="shop.html" aria-label="SoundLink Micro Portable Speaker 2세대 상세 보기">
+              <div class="product_card__image"><img src="images/shop_specker01.png" alt="SoundLink Micro Portable Speaker (2nd Gen)" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#8c3b3b"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#3b5f8c"></span></li>
+            </ul>
+            <p class="product_card__category">SPEAKER</p>
+            <a class="product_card__name" href="shop.html">SoundLink Micro Portable Speaker (2nd Gen)</a>
+            <p class="product_card__price">139,000원</p>
+          </li>
+
+          <li class="product_card" data-category="speaker">
+            <a class="product_card__link" href="shop.html" aria-label="SoundLink Flex Portable Speaker 2세대 상세 보기">
+              <div class="product_card__image"><img src="images/shop_specker02.png" alt="SoundLink Flex Portable Speaker (2nd Gen)" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#3b6b5f"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#8c8c8c"></span></li>
+            </ul>
+            <p class="product_card__category">SPEAKER</p>
+            <a class="product_card__name" href="shop.html">SoundLink Flex Portable Speaker (2nd Gen)</a>
+            <p class="product_card__price">179,000원</p>
+          </li>
+
+          <li class="product_card" data-category="speaker">
+            <a class="product_card__link" href="shop.html" aria-label="SoundLink Max Portable Speaker 상세 보기">
+              <div class="product_card__image"><img src="images/shop_specker03.png" alt="SoundLink Max Portable Speaker" /></div>
+            </a>
+            <ul class="swatch_list swatch_list--static" aria-hidden="true">
+              <li><span class="swatch_dot" style="--swatch-color:#3b5f8c"></span></li>
+              <li><span class="swatch_dot" style="--swatch-color:#111"></span></li>
+            </ul>
+            <p class="product_card__category">SPEAKER</p>
+            <a class="product_card__name" href="shop.html">SoundLink Max Portable Speaker</a>
+            <p class="product_card__price">379,000원</p>
+          </li>
+        </ul>
+
+        <!-- 페이지네이션: 표시 전용. 2페이지 상당 데이터가 없어 비활성 처리 -->
+        <nav class="pagination" aria-label="페이지 (표시 전용)">
+          <button type="button" class="pagination__btn is_active" aria-current="page">1</button>
+          <button type="button" class="pagination__btn" disabled title="준비 중인 페이지입니다">2</button>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+/* =========================================================
+   home.css — Home 페이지 전용 스타일
+   (Figma 실측: node 1113:368, fileKey 2wHicEsAeYVlXcMARhlEHN)
+   ========================================================= */
+
+/* ---------- hero : 배경 + 헤더만 (문구 없음, 실측 그대로) ---------- */
+.hero_bg {
+  position: absolute;
+  inset: 0;
+  /* 원본 디자인은 사막/황무지 배경 사진이나, images/ 에 해당 에셋이 없어
+     톤에 맞는 그라데이션으로 대체. 실제 사진을 받으면 img로 교체 예정 */
+  background: radial-gradient(120% 90% at 50% 0%, #3a2418 0%, #1a120d 45%, #0d0d0d 100%);
+}
+
+/* ---------- about : 중앙 정렬 1단 구성 (이미지 → 카피 → 링크) ---------- */
+.about_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  max-width: 600px;
+  text-align: center;
+}
+.about_media {
+  width: 100%;
+  height: 400px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  margin-bottom: var(--sp-2);
+}
+.about_media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about_desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-base);
+}
+
+/* ---------- product : Swiper 가로 슬라이더 ---------- */
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-6);
+}
+.product_slider {
+  width: 100%;
+}
+.product_slider .swiper-slide {
+  width: 500px;
+  height: 600px;
+}
+.product_slider .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- keyword : HEAR MORE ---------- */
+.keyword {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 240px;
+  text-align: center;
+}
+.keyword_title {
+  font-family: var(--font-head);
+  line-height: 1;
+  margin: 0;
+}
+.keyword_word {
+  display: inline-block;
+  line-height: 1;
+  font-size: var(--fs-display);
+  font-weight: 900;
+  opacity: 0;
+  transform: translateY(16px) scale(0.8);
+  margin: 0;
+}
+.keyword_word.keyword_main {
+  transform-origin: center bottom;
+}
+.keyword_word.accent {
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  margin-top: 0;
+}
+/* MORE: 이제 scroll scrub이 아니라 home.js의 playKeywordGrow()가
+   섹션 진입 시 재생. 초기 상태(작고 흐림)는 JS의 gsap.set으로 부여. */
+.keyword_grow {
+  transform-origin: center center;
+}
+
+.keyword_marquee {
+  overflow: hidden;
+  width: 100%;
+}
+.keyword_marquee_track {
+  display: flex;
+  gap: var(--sp-6);
+  width: max-content;
+  animation: keyword_scroll 26s linear infinite;
+}
+.keyword_text {
+  font-family: var(--font-head);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  white-space: nowrap;
+  padding-inline: 0;
+  color: var(--color-text);
+  transition: color 0.25s var(--ease), text-shadow 0.25s var(--ease);
+}
+.keyword_marquee:hover .keyword_text {
+  color: var(--color-accent);
+  text-shadow: 0 0 18px rgba(255, 107, 53, 0.55);
+}
+@keyframes keyword_scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- gallery : 세로 라이프스타일 이미지 시퀀스 ----------
+   fp_section[data-fp-scroll] 규칙(아래)이 실제 스크롤 동작을 담당.
+   원본 이미지 비율을 유지하고, 한 장씩 스냅되도록 정렬합니다. */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: min(4vh, var(--sp-6));
+  padding-block: min(4vh, var(--sp-6));
+}
+.gallery_item {
+  width: min(760px, 82vw);
+  flex-shrink: 0;
+  margin-inline: auto;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+.gallery_item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* ---------- category : SHOP 카테고리 카드 ---------- */
+.category_head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-7);
+}
+.category_desc {
+  font-size: var(--fs-lead);
+}
+.category_head .link_arrow {
+  margin-top: var(--sp-3);
+}
+.category_list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+.category_card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+}
+.category_img {
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.category_img img {
+  max-width: 82%;
+  max-height: 82%;
+  object-fit: contain;
+  transition: transform 0.3s var(--ease);
+}
+.category_card:hover .category_img {
+  background: var(--color-surface-2);
+  transform: translateY(-6px);
+}
+.category_card:hover .category_img img {
+  transform: scale(1.05);
+}
+.category_label {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+}
+
+/* ---------- menu_list : History / Technology / Support 이동 리스트 ---------- */
+.menu_list .container {
+  width: 100%;
+}
+.menu_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 159px;
+  border-bottom: 1px solid var(--color-line-soft);
+  transition: padding-left 0.2s var(--ease), color 0.2s var(--ease);
+}
+.menu_row:first-child {
+  border-top: 1px solid var(--color-line-soft);
+}
+.menu_row:hover {
+  padding-left: var(--sp-4);
+  color: var(--color-accent);
+}
+.menu_left {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+.menu_num {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-lead);
+}
+.menu_title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+}
+.menu_right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+}
+.menu_tag {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: var(--fs-lead);
+}
+.menu_right .icon_arrow_circle {
+  color: var(--color-text-muted);
+}
+
+/* ---------- app : BOSE 앱 소개 ---------- */
+.app_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-5);
+  max-width: 600px;
+}
+.app_title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+}
+.app_desc {
+  font-size: var(--fs-lead);
+}
+.app_media {
+  position: relative;
+  width: 100%;
+  margin-block: var(--sp-6);
+}
+.app_media > img {
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}
+.app_tag {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: var(--fs-lead);
+  padding-bottom: var(--sp-2);
+}
+.app_tag em {
+  font-style: normal;
+}
+.app_tag.is_active {
+  border-bottom: 2px solid var(--color-accent);
+}
+.app_tag--tl { left: 0; top: 8%; }
+.app_tag--tr { right: 0; top: 8%; }
+.app_tag--bl { left: 0; bottom: 8%; }
+.app_tag--br { right: 0; bottom: 8%; }
+
+/* =========================================================
+   풀페이지 스냅 — 섹션마다 화면 전체를 차지하고 겹쳐 쌓아둔 뒤
+   home.js(GSAP Observer)가 전환을 제어합니다.
+   각 섹션 안쪽 콘텐츠 높이(800/1200/1300/1820px 등)는 그대로 두고,
+   바깥 fp_section이 항상 100vh를 차지 + 세로 중앙정렬로 감싸는 구조.
+   ========================================================= */
+.fp_wrapper {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.fp_section {
+  position: absolute;
+  inset: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+.fp_section.is_active {
+  visibility: visible;
+  z-index: 2;
+}
+/* hero는 배경이라 flex 중앙정렬이 필요없어 덮어씀 */
+.hero.fp_section {
+  display: block;
+}
+
+/* 내부 자체 스크롤이 필요한 섹션(gallery): 콘텐츠를 위에서부터 쌓고
+   섹션 자체가 스크롤 컨테이너가 됨. 스크롤바는 시각적으로 숨김 처리하고,
+   한 장씩 자연스럽게 정지하도록 snap을 적용합니다. */
+.fp_section[data-fp-scroll] {
+  align-items: center;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+.fp_section[data-fp-scroll]::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   반응형 — 데스크톱(1920) 기준 우선 구현.
+   ========================================================= */
+@media (max-width: 1100px) {
+  .category_list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .app_tag--tl,
+  .app_tag--tr,
+  .app_tag--bl,
+  .app_tag--br {
+    position: static;
+    margin-block: var(--sp-2);
+  }
+  .app_media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
