@@ -73,8 +73,9 @@ function initFullPageScroll(reduceMotion, keywordTl) {
   let currentIndex = 0;
   let isAnimating = false;
 
-  gsap.set(sections, { autoAlpha: 0 });
-  gsap.set(sections[0], { autoAlpha: 1 });
+  gsap.set(sections, { opacity: 0, yPercent: 0, pointerEvents: "none" });
+  gsap.set(sections[0], { opacity: 1, pointerEvents: "auto" });
+  sections.forEach((section) => section.classList.remove("is_active"));
   sections[0].classList.add("is_active");
 
   function showSection(index) {
@@ -92,13 +93,14 @@ function initFullPageScroll(reduceMotion, keywordTl) {
       },
     });
 
-    tl.to(prevSection, { yPercent: -20 * dir, autoAlpha: 0 })
-      .fromTo(nextSection, { yPercent: 20 * dir, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1 }, 0);
+    tl.to(prevSection, { yPercent: -12 * dir, opacity: 0, pointerEvents: "none" })
+      .fromTo(nextSection, { yPercent: 12 * dir, opacity: 0, pointerEvents: "none" }, { yPercent: 0, opacity: 1, pointerEvents: "auto" }, 0);
 
     prevSection.classList.remove("is_active");
     nextSection.classList.add("is_active");
+    prevSection.style.pointerEvents = "none";
+    nextSection.style.pointerEvents = "auto";
 
-    // keyword 섹션 진입/이탈 시 MORE 확대 모션 재생·리셋
     if (keywordTl) {
       if (nextSection.classList.contains("keyword")) {
         keywordTl.restart();
@@ -132,6 +134,13 @@ function initFullPageScroll(reduceMotion, keywordTl) {
     showSection(currentIndex + direction);
   }
 
+  /* ---------------------------------------------------------
+     wheelSpeed: -1 을 쓰면 델타 부호가 뒤집히기 때문에
+     GSAP Observer 컨벤션상 onDown/onUp이 아래처럼 매핑됩니다:
+       onDown → 휠을 위로 굴릴 때 → 이전 섹션(-1)
+       onUp   → 휠을 아래로 굴릴 때 → 다음 섹션(+1)
+     (원래 코드가 맞는 조합이었습니다.)
+     --------------------------------------------------------- */
   Observer.create({
     target: window,
     type: "wheel,touch",

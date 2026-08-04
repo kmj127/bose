@@ -3,6 +3,23 @@
    (Figma 실측: node 1113:368, fileKey 2wHicEsAeYVlXcMARhlEHN)
    ========================================================= */
 
+/* ---------- header : 스크롤 방향에 따른 숨김/노출 ----------
+   .header--hidden 은 home.js의 initHeaderToggle()이 토글합니다.
+   direction > 0(아래로 스크롤) → 클래스 추가(숨김)
+   direction < 0(위로 스크롤)   → 클래스 제거(노출) */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  transition: transform 0.4s var(--ease, ease-in-out);
+  will-change: transform;
+}
+.header.header--hidden {
+  transform: translateY(-100%);
+}
+
 /* ---------- hero : 배경 + 헤더만 (문구 없음, 실측 그대로) ---------- */
 .hero_bg {
   position: absolute;
@@ -156,29 +173,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--sp-2);
-  margin-bottom: var(--sp-7);
+  gap: clamp(6px, 1vh, var(--sp-2));
+  margin-bottom: clamp(20px, 4vh, var(--sp-7));
 }
 .category_desc {
   font-size: var(--fs-lead);
 }
 .category_head .link_arrow {
-  margin-top: var(--sp-3);
+  margin-top: clamp(8px, 1.5vh, var(--sp-3));
 }
 .category_list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-6);
+  gap: clamp(16px, 3vh, var(--sp-6));
 }
 .category_card a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--sp-5);
+  gap: clamp(10px, 2vh, var(--sp-5));
 }
+/* width:100%로 카드 폭을 채우던 방식은 카드 개수·화면 폭에 따라
+   높이가 같이 커져 100vh를 넘길 수 있어, height를 vh로 직접 캡을 걸고
+   aspect-ratio로 폭이 따라오게 바꿈 (전체 총합이 뷰포트를 넘지 않도록) */
 .category_img {
-  width: 100%;
+  height: clamp(140px, 32vh, 280px);
+  width: auto;
+  max-width: 100%;
   aspect-ratio: 5 / 6;
+  margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,7 +237,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 159px;
+  /* 고정 159px 대신 vh 비례값: 화면이 낮아지면 3행 합이 100vh를 넘지 않게
+     자동으로 줄어듦. 큰 화면에서는 원래 디자인값(159px)까지만 커짐 */
+  height: clamp(96px, 14vh, 159px);
   border-bottom: 1px solid var(--color-line-soft);
   transition: padding-left 0.2s var(--ease), color 0.2s var(--ease);
 }
@@ -275,12 +300,16 @@
 .app_media {
   position: relative;
   width: 100%;
-  margin-block: var(--sp-6);
+  margin-block: clamp(16px, 3vh, var(--sp-6));
 }
 .app_media > img {
-  width: 100%;
+  width: auto;
   max-width: 420px;
+  /* 세로로 긴 폰 스크린샷이라 높이가 총 섹션 높이를 좌우함.
+     42vh로 캡을 걸어 제목/카피/버튼과 합쳐도 100vh를 넘지 않게 함 */
+  max-height: 42vh;
   margin-inline: auto;
+  display: block;
 }
 .app_tag {
   position: absolute;
@@ -322,11 +351,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  visibility: visible;
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+  transform: translateY(18px);
 }
 .fp_section.is_active {
-  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
   z-index: 2;
+  transform: translateY(0);
 }
 /* hero는 배경이라 flex 중앙정렬이 필요없어 덮어씀 */
 .hero.fp_section {

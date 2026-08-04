@@ -207,6 +207,15 @@ body {
   /* Figma 실측: 헤더 자체는 배경이 없고 히어로 이미지 위에 얹힘 */
   background: transparent;
   pointer-events: none; /* 자식 버튼/링크에서만 클릭 허용 */
+  transition: transform 0.28s var(--ease), opacity 0.28s var(--ease);
+}
+.site_header.is_hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.site_header.is_visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 .site_header__inner {
   width: 100%;

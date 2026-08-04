@@ -130,7 +130,85 @@ function renderFooter() {
 }
 
 /* ---------------------------------------------------------
-   3) 스크롤 등장 애니메이션
+   3) 헤더 스크롤 방향 감지
+   아래로 스크롤하면 숨기고, 위로 스크롤하면 다시 보이게 함
+   --------------------------------------------------------- */
+function initHeaderScrollBehavior() {
+  const header = document.querySelector(".site_header");
+  if (!header) return;
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  let touchStartY = 0;
+
+  const setHeaderVisibility = (shouldShow) => {
+    if (shouldShow) {
+      header.classList.remove("is_hidden");
+      header.classList.add("is_visible");
+    } else {
+      header.classList.remove("is_visible");
+      header.classList.add("is_hidden");
+    }
+  };
+
+  const updateHeaderByScroll = () => {
+    const currentScrollY = window.scrollY;
+    const isScrollingDown = currentScrollY > lastScrollY && currentScrollY > 24;
+
+    setHeaderVisibility(!isScrollingDown);
+    lastScrollY = currentScrollY;
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeaderByScroll);
+      ticking = true;
+    }
+  };
+
+  const onWheel = (event) => {
+    if (event.deltaY > 0) {
+      setHeaderVisibility(false);
+    } else if (event.deltaY < 0) {
+      setHeaderVisibility(true);
+    }
+  };
+
+  const onTouchStart = (event) => {
+    touchStartY = event.changedTouches?.[0]?.clientY ?? 0;
+  };
+
+  const onTouchEnd = (event) => {
+    const endY = event.changedTouches?.[0]?.clientY ?? touchStartY;
+    const deltaY = endY - touchStartY;
+
+    if (deltaY > 0) {
+      setHeaderVisibility(false);
+    } else if (deltaY < 0) {
+      setHeaderVisibility(true);
+    }
+  };
+
+  const onKeyDown = (event) => {
+    if (event.key === "ArrowDown" || event.key === "PageDown") {
+      setHeaderVisibility(false);
+    }
+    if (event.key === "ArrowUp" || event.key === "PageUp") {
+      setHeaderVisibility(true);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("wheel", onWheel, { passive: true });
+  window.addEventListener("touchstart", onTouchStart, { passive: true });
+  window.addEventListener("touchend", onTouchEnd, { passive: true });
+  window.addEventListener("keydown", onKeyDown);
+  header.classList.add("is_visible");
+}
+
+/* ---------------------------------------------------------
+   4) 스크롤 등장 애니메이션
    [data-reveal] 요소가 화면에 들어오면 .is_in 부여
    --------------------------------------------------------- */
 function initScrollReveal() {
@@ -169,5 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentPage = document.body.dataset.page || "home";
   renderHeader(currentPage);
   renderFooter();
+  initHeaderScrollBehavior();
   initScrollReveal();
 });
