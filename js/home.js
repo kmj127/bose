@@ -63,10 +63,56 @@ function initKeywordGrow(reduceMotion) {
   return tl;
 }
 
+function initGalleryCarousel(reduceMotion) {
+  const gallery = document.querySelector(".gallery");
+  const slides = Array.from(gallery?.querySelectorAll(".gallery_item") ?? []);
+  if (!gallery || slides.length < 2) return;
+
+  if (reduceMotion) {
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("is-active", index === 0);
+      slide.classList.remove("is-prev", "is-next", "is-hidden");
+    });
+    return;
+  }
+
+  let activeIndex = 0;
+
+  function updateSlides() {
+    slides.forEach((slide, index) => {
+      const offset = (index - activeIndex + slides.length) % slides.length;
+      slide.classList.remove("is-active", "is-prev", "is-next", "is-hidden");
+
+      if (offset === 0) {
+        slide.classList.add("is-active");
+      } else if (offset === 1 || offset === -(slides.length - 1)) {
+        slide.classList.add("is-next");
+      } else if (offset === slides.length - 1 || offset === -1) {
+        slide.classList.add("is-prev");
+      } else {
+        slide.classList.add("is-hidden");
+      }
+    });
+  }
+
+  updateSlides();
+  const intervalId = window.setInterval(() => {
+    activeIndex = (activeIndex + 1) % slides.length;
+    updateSlides();
+  }, 4000);
+
+  return () => window.clearInterval(intervalId);
+}
+
 /* ---------- 풀페이지 스냅 스크롤 ---------- */
 function initFullPageScroll(reduceMotion, keywordTl) {
+  if (typeof gsap === "undefined" || typeof Observer === "undefined") return;
+
   const sections = gsap.utils.toArray(".fp_section");
-  if (!sections.length || typeof Observer === "undefined") return;
+  if (!sections.length) return;
+
+  const wrapper = document.querySelector(".fp_wrapper");
+  if (wrapper) wrapper.classList.add("is-fp-ready");
 
   gsap.registerPlugin(Observer);
 
@@ -161,5 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   initProductSlider(reduceMotion);
   const keywordTl = initKeywordGrow(reduceMotion);
+  initGalleryCarousel(reduceMotion);
   initFullPageScroll(reduceMotion, keywordTl);
 });

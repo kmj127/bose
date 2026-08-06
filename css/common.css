@@ -13,6 +13,14 @@ body {
   overflow-x: hidden; /* 가로 스크롤 방지 (모든 기준 공통) */
 }
 
+:lang(en) {
+  font-family: var(--font-head);
+}
+
+:lang(ko) {
+  font-family: var(--font-body);
+}
+
 /* 페이지 콘텐츠가 고정 헤더에 가리지 않도록 */
 .page {
   padding-top: var(--header-h);
