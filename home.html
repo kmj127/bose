@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +10,10 @@
   <!-- 웹폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
   <!-- Swiper: product 섹션의 가로 슬라이더에만 사용 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -21,6 +24,7 @@
   <link rel="stylesheet" href="css/common.css" />
   <link rel="stylesheet" href="css/home.css" />
 </head>
+
 <body data-page="home">
   <!-- 헤더/푸터는 js/common.js 가 자동 삽입합니다 -->
 
@@ -34,7 +38,11 @@
 
     <!-- ============ Hero ============ -->
     <section class="hero fp_section" data-fp>
-      <div class="hero_bg" aria-hidden="true"></div>
+      <div class="hero_bg" aria-hidden="true">
+        <video class="hero_video" autoplay muted loop playsinline preload="auto">
+          <source src="video/bose_hero.mp4" type="video/mp4" />
+        </video>
+      </div>
     </section>
 
     <!-- ============ About 미리보기 ============ -->
@@ -86,10 +94,12 @@
       <div class="keyword_marquee" data-reveal data-reveal-delay="300">
         <div class="keyword_marquee_track">
           <p class="keyword_text">
-            CUSTOMTUNE&nbsp;•&nbsp;NOISE CANCELLING&nbsp;•&nbsp;IMMERSIVE AUDIO&nbsp;•&nbsp;CINEMA MODE&nbsp;•&nbsp;COMFORT&nbsp;•&nbsp;BATTERY LIFE&nbsp;•&nbsp;CLEAR CALLS&nbsp;•&nbsp;BOSE APP&nbsp;•
+            CUSTOMTUNE&nbsp;•&nbsp;NOISE CANCELLING&nbsp;•&nbsp;IMMERSIVE AUDIO&nbsp;•&nbsp;CINEMA
+            MODE&nbsp;•&nbsp;COMFORT&nbsp;•&nbsp;BATTERY LIFE&nbsp;•&nbsp;CLEAR CALLS&nbsp;•&nbsp;BOSE APP&nbsp;•
           </p>
           <p class="keyword_text" aria-hidden="true">
-            CUSTOMTUNE&nbsp;•&nbsp;NOISE CANCELLING&nbsp;•&nbsp;IMMERSIVE AUDIO&nbsp;•&nbsp;CINEMA MODE&nbsp;•&nbsp;COMFORT&nbsp;•&nbsp;BATTERY LIFE&nbsp;•&nbsp;CLEAR CALLS&nbsp;•&nbsp;BOSE APP&nbsp;•
+            CUSTOMTUNE&nbsp;•&nbsp;NOISE CANCELLING&nbsp;•&nbsp;IMMERSIVE AUDIO&nbsp;•&nbsp;CINEMA
+            MODE&nbsp;•&nbsp;COMFORT&nbsp;•&nbsp;BATTERY LIFE&nbsp;•&nbsp;CLEAR CALLS&nbsp;•&nbsp;BOSE APP&nbsp;•
           </p>
         </div>
       </div>
@@ -120,19 +130,19 @@
         <ul class="category_list">
           <li class="category_card" data-reveal>
             <a href="shop.html">
-              <span class="category_img"><img src="images/home_headphone.png" alt="" /></span>
+              <span class="category_img"><img src="images/home_headphone.png" alt="헤드폰" /></span>
               <span class="category_label" lang="en">HEADPHONE</span>
             </a>
           </li>
           <li class="category_card" data-reveal data-reveal-delay="80">
             <a href="shop.html">
-              <span class="category_img"><img src="images/home_earbuds.png" alt="" /></span>
+              <span class="category_img"><img src="images/home_earbuds.png" alt="이어버드" /></span>
               <span class="category_label" lang="en">EARBUDS</span>
             </a>
           </li>
           <li class="category_card" data-reveal data-reveal-delay="160">
             <a href="shop.html">
-              <span class="category_img"><img src="images/home_speaker.png" alt="" /></span>
+              <span class="category_img"><img src="images/home_speacker.png" alt="스피커" /></span>
               <span class="category_label" lang="en">SPEAKER</span>
             </a>
           </li>
@@ -206,4 +216,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
   <script src="js/home.js"></script>
 </body>
+
 </html>
