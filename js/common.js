@@ -9,13 +9,22 @@
    해당 메뉴가 자동으로 활성화됩니다.
    ========================================================= */
 
-/* ---- 공통 데이터: 네비 메뉴 (여기만 고치면 전 페이지 반영) ---- */
+/* ---- 공통 데이터: 네비 메뉴 (여기만 고치면 전 페이지 반영) ----
+   Figma node 7:10919 실측: HOME/ABOUT/HISTORY/TECHNOLOGY/SHOP/SUPPORT 6개 */
 const NAV_ITEMS = [
   { key: "home", label: "Home", href: "home.html" },
   { key: "about", label: "About", href: "about.html" },
   { key: "history", label: "History", href: "history.html" },
   { key: "technology", label: "Technology", href: "technology.html" },
-  { key: "shop", label: "Product", href: "shop.html" }, // 라벨은 Product, 이동은 shop
+  { key: "shop", label: "Shop", href: "shop.html" }, // 라벨은 Shop, 이동은 shop
+  { key: "support", label: "Support", href: "#footer_contact" },
+];
+
+/* ---- 오버레이 하단 링크 (Figma node 7:10919 하단 실측) ---- */
+const NAV_SOCIAL_LINKS = [
+  { label: "Instagram", href: "#" },
+  { label: "Join Bose", href: "#" },
+  { label: "Contact", href: "#footer_contact" },
 ];
 
 /* ---- 아이콘: css/common.css 의 .icon_mask 계열 클래스가 실제 SVG를 불러옵니다 ---- */
@@ -49,17 +58,23 @@ function renderHeader(currentPage) {
   overlay.setAttribute("aria-label", "주 메뉴");
   overlay.innerHTML = `
     <div class="nav_overlay__top">
-      <button class="nav_close_btn" type="button" aria-label="메뉴 닫기">&times;</button>
+      <button class="nav_close_btn" type="button" aria-label="메뉴 닫기">
+        <span class="nav_close_line nav_close_line--1" aria-hidden="true"></span>
+        <span class="nav_close_line nav_close_line--2" aria-hidden="true"></span>
+      </button>
     </div>
     <ul class="nav_list">
       ${NAV_ITEMS.map(
         (item) => `
         <li>
-          <a href="${item.href}" class="${item.key === currentPage ? "is_active" : ""}"
+          <a href="${item.href}" data-label="${item.label}" class="${item.key === currentPage ? "is_active" : ""}"
              ${item.key === currentPage ? 'aria-current="page"' : ""}>${item.label}</a>
         </li>`
       ).join("")}
     </ul>
+    <div class="nav_overlay__bottom">
+      ${NAV_SOCIAL_LINKS.map((item) => `<a href="${item.href}">${item.label}</a>`).join("")}
+    </div>
   `;
 
   document.body.prepend(overlay);
@@ -215,7 +230,6 @@ function initScrollReveal() {
   const targets = document.querySelectorAll("[data-reveal]");
   if (!targets.length) return;
 
-  // 모션 최소화 사용자: 즉시 표시하고 관찰하지 않음
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion) {
     targets.forEach((el) => el.classList.add("is_in"));
@@ -226,7 +240,6 @@ function initScrollReveal() {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // data-reveal-delay 로 지연 순차 등장
           const delay = entry.target.dataset.revealDelay;
           if (delay) entry.target.style.transitionDelay = `${delay}ms`;
           entry.target.classList.add("is_in");

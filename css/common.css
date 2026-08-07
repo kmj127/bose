@@ -401,10 +401,6 @@ body {
   clip-path: inset(0 0 0 0);
 }
 
-/* 현재 페이지 표시 없음 — hover 시에만 색상 변화 */
-.nav_list a.is_active {
-}
-
 /* 오버레이 하단 소셜/연락 링크 */
 .nav_overlay__bottom {
   display: flex;
