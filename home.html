@@ -128,19 +128,19 @@
           </a>
         </div>
         <ul class="category_list">
-          <li class="category_card" data-reveal>
+          <li class="category_card category_card--headphone" data-reveal>
             <a href="shop.html">
               <span class="category_img"><img src="images/home_headphone.png" alt="헤드폰" /></span>
               <span class="category_label" lang="en">HEADPHONE</span>
             </a>
           </li>
-          <li class="category_card" data-reveal data-reveal-delay="80">
+          <li class="category_card category_card--earbuds" data-reveal data-reveal-delay="80">
             <a href="shop.html">
               <span class="category_img"><img src="images/home_earbuds.png" alt="이어버드" /></span>
               <span class="category_label" lang="en">EARBUDS</span>
             </a>
           </li>
-          <li class="category_card" data-reveal data-reveal-delay="160">
+          <li class="category_card category_card--speaker" data-reveal data-reveal-delay="160">
             <a href="shop.html">
               <span class="category_img"><img src="images/home_speacker.png" alt="스피커" /></span>
               <span class="category_label" lang="en">SPEAKER</span>
@@ -150,10 +150,13 @@
       </div>
     </section>
 
-    <!-- ============ 페이지 이동 리스트 ============ -->
+    <!-- ============ 페이지 이동 리스트 ============
+         data-preview: 각 행에 호버했을 때 커서 옆에 뜨는 이미지 경로.
+         home.js의 initMenuPreview()가 mousemove로 위치를 갱신하고
+         mouseenter/leave로 이미지 교체 + 노출을 제어합니다. -->
     <section class="section menu_list fp_section" data-fp>
       <div class="container">
-        <a class="menu_row" href="history.html" data-reveal>
+        <a class="menu_row" href="history.html" data-reveal data-preview="images/home_menu01.png">
           <span class="menu_left">
             <span class="menu_num">01</span>
             <span class="menu_title" lang="en">History</span>
@@ -163,7 +166,7 @@
             <span class="icon_mask icon_arrow_circle" aria-hidden="true"></span>
           </span>
         </a>
-        <a class="menu_row" href="technology.html" data-reveal data-reveal-delay="80">
+        <a class="menu_row" href="technology.html" data-reveal data-reveal-delay="80" data-preview="images/home_menu03.png">
           <span class="menu_left">
             <span class="menu_num">02</span>
             <span class="menu_title" lang="en">Technology</span>
@@ -173,7 +176,7 @@
             <span class="icon_mask icon_arrow_circle" aria-hidden="true"></span>
           </span>
         </a>
-        <a class="menu_row" href="#footer_contact" data-reveal data-reveal-delay="160">
+        <a class="menu_row" href="#footer_contact" data-reveal data-reveal-delay="160" data-preview="images/home_menu02.png">
           <span class="menu_left">
             <span class="menu_num">03</span>
             <span class="menu_title" lang="en">Support</span>
@@ -183,6 +186,12 @@
             <span class="icon_mask icon_arrow_circle" aria-hidden="true"></span>
           </span>
         </a>
+      </div>
+
+      <!-- 호버 시 커서를 따라다니는 프리뷰 이미지. 기본은 숨김(opacity:0),
+           JS가 .is-active를 토글하고 img의 src를 교체합니다. -->
+      <div class="menu_preview" aria-hidden="true">
+        <img class="menu_preview_img" src="" alt="" />
       </div>
     </section>
 

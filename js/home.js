@@ -2,7 +2,8 @@
    home.js — Home 페이지 전용 스크립트
      1) product 섹션의 가로 슬라이더 (Swiper)
      2) keyword 섹션의 MORE 확대 모션 (섹션 진입 시 재생, GSAP timeline)
-     3) 풀페이지 스냅 스크롤 (GSAP Observer)
+     3) menu_list 섹션의 호버 프리뷰 이미지 (커서 따라다니는 썸네일)
+     4) 풀페이지 스냅 스크롤 (GSAP Observer)
    ========================================================= */
 
 function initProductSlider(reduceMotion) {
@@ -102,6 +103,63 @@ function initGalleryCarousel(reduceMotion) {
   }, 4000);
 
   return () => window.clearInterval(intervalId);
+}
+
+/* ---------- menu_list : 호버 시 커서를 따라다니는 프리뷰 이미지 ----------
+   각 .menu_row의 data-preview 경로를 읽어 .menu_preview_img의 src를 바꾸고,
+   mousemove로 .menu_list(섹션) 기준 상대 좌표를 계산해 위치를 갱신합니다. */
+function initMenuPreview(reduceMotion) {
+  const list = document.querySelector(".menu_list");
+  const preview = list?.querySelector(".menu_preview");
+  const img = preview?.querySelector(".menu_preview_img");
+  const rows = list ? Array.from(list.querySelectorAll(".menu_row")) : [];
+
+  if (!list || !preview || !img || !rows.length) return;
+
+  // 모션을 줄이고 싶은 환경에서는 이미지 자체는 유지하되
+  // 부드러운 추적 대신 즉시 위치만 반영합니다.
+  const transitionOverride = reduceMotion ? "opacity 0.01s linear" : "";
+  if (transitionOverride) preview.style.transition = transitionOverride;
+
+  function moveTo(clientX, clientY) {
+    const rect = list.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    preview.style.left = `${x}px`;
+    preview.style.top = `${y}px`;
+  }
+
+  rows.forEach((row) => {
+    const src = row.dataset.preview;
+
+    row.addEventListener("mouseenter", (e) => {
+      if (src) img.src = src;
+      moveTo(e.clientX, e.clientY);
+      preview.classList.add("is-active");
+    });
+
+    row.addEventListener("mousemove", (e) => {
+      moveTo(e.clientX, e.clientY);
+    });
+
+    row.addEventListener("mouseleave", () => {
+      preview.classList.remove("is-active");
+    });
+
+    // 모바일/터치 환경 대비: 포커스 시에도 최소한 이미지가 보이도록
+    row.addEventListener("focus", () => {
+      if (src) img.src = src;
+      const rect = row.getBoundingClientRect();
+      const listRect = list.getBoundingClientRect();
+      preview.style.left = `${rect.left - listRect.left + rect.width / 2}px`;
+      preview.style.top = `${rect.top - listRect.top}px`;
+      preview.classList.add("is-active");
+    });
+
+    row.addEventListener("blur", () => {
+      preview.classList.remove("is-active");
+    });
+  });
 }
 
 /* ---------- 풀페이지 스냅 스크롤 ---------- */
@@ -208,5 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initProductSlider(reduceMotion);
   const keywordTl = initKeywordGrow(reduceMotion);
   initGalleryCarousel(reduceMotion);
+  initMenuPreview(reduceMotion);
   initFullPageScroll(reduceMotion, keywordTl);
 });
