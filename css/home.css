@@ -1,12 +1,12 @@
 /* =========================================================
    home.css — Home 페이지 전용 스타일
+   (Figma 실측: node 1113:368, fileKey 2wHicEsAeYVlXcMARhlEHN)
    ========================================================= */
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
+/* ---------- header : 스크롤 방향에 따른 숨김/노출 ----------
+   .header--hidden 은 home.js의 initHeaderToggle()이 토글합니다.
+   direction > 0(아래로 스크롤) → 클래스 추가(숨김)
+   direction < 0(위로 스크롤)   → 클래스 제거(노출) */
 .header {
   position: fixed;
   top: 0;
@@ -21,72 +21,50 @@
   transform: translateY(-100%);
 }
 
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
+/* ---------- hero : 배경 영상 + 헤더만 (문구 없음, 실측 그대로) ---------- */
 .hero_bg {
   position: absolute;
   inset: 0;
   overflow: hidden;
-
-  background: radial-gradient(
-    120% 90% at 50% 0%,
-    #3a2418 0%,
-    #1a120d 45%,
-    #0d0d0d 100%
-  );
+  /* 영상 로드 실패/재생 전 대비용 폴백 배경 */
+  background: radial-gradient(120% 90% at 50% 0%, #3a2418 0%, #1a120d 45%, #0d0d0d 100%);
 }
 
 .hero_video {
   position: absolute;
   top: 50%;
   left: 50%;
-
   width: 100vw;
   height: 100vh;
-
   min-width: 100%;
   min-height: 100%;
-
   transform: translate(-50%, -50%);
-
   object-fit: cover;
   object-position: center;
 }
 
 
-/* =========================================================
-   ABOUT
-   ========================================================= */
-
+/* ---------- about : 중앙 정렬 1단 구성 (이미지 → 카피 → 링크) ---------- */
 .about_inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   gap: var(--sp-4);
-
   max-width: 600px;
-
   text-align: center;
 }
 
 .about_media {
   width: 100%;
   height: 400px;
-
   border-radius: var(--radius-card);
   overflow: hidden;
-
   margin-bottom: var(--sp-2);
 }
 
 .about_media img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
@@ -96,16 +74,11 @@
   line-height: var(--lh-base);
 }
 
-
-/* =========================================================
-   PRODUCT
-   ========================================================= */
-
+/* ---------- product : Swiper 가로 슬라이더 ---------- */
 .product {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   gap: var(--sp-6);
 }
 
@@ -121,44 +94,31 @@
 .product_slider .swiper-slide img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 }
 
-
-/* =========================================================
-   KEYWORD
-   ========================================================= */
-
+/* ---------- keyword : HEAR MORE ---------- */
 .keyword {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 240px;
-
   text-align: center;
 }
 
 .keyword_title {
   font-family: var(--font-head);
   line-height: 1;
-
   margin: 0;
 }
 
 .keyword_word {
   display: inline-block;
-
   line-height: 1;
-
   font-size: var(--fs-display);
   font-weight: 900;
-
   opacity: 0;
-
   transform: translateY(16px) scale(0.8);
-
   margin: 0;
 }
 
@@ -169,10 +129,11 @@
 .keyword_word.accent {
   font-size: var(--fs-h1);
   font-weight: 800;
-
   margin-top: 0;
 }
 
+/* MORE: 이제 scroll scrub이 아니라 home.js의 playKeywordGrow()가
+   섹션 진입 시 재생. 초기 상태(작고 흐림)는 JS의 gsap.set으로 부여. */
 .keyword_grow {
   transform-origin: center center;
 }
@@ -184,38 +145,25 @@
 
 .keyword_marquee_track {
   display: flex;
-
   gap: var(--sp-6);
-
   width: max-content;
-
   animation: keyword_scroll 26s linear infinite;
 }
 
 .keyword_text {
   font-family: var(--font-head);
-
   font-size: var(--fs-h2);
   font-weight: 500;
-
   line-height: var(--lh-tight);
-
   white-space: nowrap;
-
   padding-inline: 0;
-
   color: var(--color-text);
-
-  transition:
-    color 0.25s var(--ease),
-    text-shadow 0.25s var(--ease);
+  transition: color 0.25s var(--ease), text-shadow 0.25s var(--ease);
 }
 
 .keyword_marquee:hover .keyword_text {
   color: var(--color-accent);
-
-  text-shadow:
-    0 0 18px rgba(255, 107, 53, 0.55);
+  text-shadow: 0 0 18px rgba(255, 107, 53, 0.55);
 }
 
 @keyframes keyword_scroll {
@@ -228,138 +176,72 @@
   }
 }
 
-
-/* =========================================================
-   GALLERY
-   ========================================================= */
-
+/* ---------- gallery : 중앙에서 자동으로 교체되는 이미지 캐러셀 ---------- */
 .gallery {
   position: relative;
-
   width: min(900px, 88vw);
-
-  min-height: clamp(
-    420px,
-    70vh,
-    720px
-  );
-
+  min-height: clamp(420px, 70vh, 720px);
   display: flex;
-
   align-items: center;
   justify-content: center;
-
-  padding-inline: clamp(
-    16px,
-    3vw,
-    32px
-  );
+  padding-inline: clamp(16px, 3vw, 32px);
 }
 
 .gallery_item {
   position: absolute;
-
   inset: 0;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   opacity: 0;
-
   pointer-events: none;
-
-  transform:
-    translateX(22%)
-    scale(0.9);
-
-  transition:
-    opacity 0.8s var(--ease),
-    transform 0.8s var(--ease),
-    filter 0.8s var(--ease);
-
+  transform: translateX(22%) scale(0.9);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease);
   filter: blur(2px);
 }
 
 .gallery_item img {
   width: 240px;
   height: 360px;
-
   display: block;
-
   object-fit: cover;
   object-position: center;
-
   border-radius: 10px;
-
-  box-shadow:
-    0 24px 80px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
 }
 
 .gallery_item.is-active {
   opacity: 1;
-
-  transform:
-    translateX(0)
-    scale(1);
-
+  transform: translateX(0) scale(1);
   filter: blur(0);
-
   z-index: 2;
 }
 
 .gallery_item.is-prev {
   opacity: 0.35;
-
-  transform:
-    translateX(-18%)
-    scale(0.86);
-
+  transform: translateX(-18%) scale(0.86);
   z-index: 1;
 }
 
 .gallery_item.is-next {
   opacity: 0.35;
-
-  transform:
-    translateX(18%)
-    scale(0.86);
-
+  transform: translateX(18%) scale(0.86);
   z-index: 1;
 }
 
 .gallery_item.is-hidden {
   opacity: 0;
-
-  transform:
-    translateX(28%)
-    scale(0.8);
+  transform: translateX(28%) scale(0.8);
 }
 
-
-/* =========================================================
-   CATEGORY
-   ========================================================= */
-
+/* ---------- category : SHOP 카테고리 카드 ---------- */
 .category_head {
   text-align: center;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  gap: clamp(
-    6px,
-    1vh,
-    var(--sp-2)
-  );
-
-  margin-bottom: clamp(
-    20px,
-    4vh,
-    var(--sp-7)
-  );
+  gap: clamp(6px, 1vh, var(--sp-2));
+  margin-bottom: clamp(20px, 4vh, var(--sp-7));
 }
 
 .category_desc {
@@ -367,433 +249,264 @@
 }
 
 .category_head .link_arrow {
-  margin-top: clamp(
-    8px,
-    1.5vh,
-    var(--sp-3)
-  );
+  margin-top: clamp(8px, 1.5vh, var(--sp-3));
 }
 
 .category_list {
   display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: clamp(
-    16px,
-    3vh,
-    var(--sp-6)
-  );
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 3vh, var(--sp-6));
 }
 
 .category_card a {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  gap: clamp(
-    10px,
-    2vh,
-    var(--sp-5)
-  );
+  gap: clamp(10px, 2vh, var(--sp-5));
 }
 
+/* 카드 프레임은 500x600 비율에 맞춰 고정하고,
+   안의 이미지가 프레임을 꽉 채우도록 cover로 처리합니다. */
 .category_img {
   width: min(500px, 100%);
-
   aspect-ratio: 5 / 6;
-
   height: auto;
-
   max-width: 100%;
-
   margin-inline: auto;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.06),
-      rgba(255, 255, 255, 0.02)
-    );
-
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   border-radius: var(--radius-card);
-
   overflow: hidden;
-
-  transition:
-    background-color 0.25s var(--ease),
-    transform 0.25s var(--ease);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
 
 .category_img img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
   object-position: center;
-
   transform: scale(1.02);
+  transition: transform 0.3s var(--ease);
+}
 
-  transition:
-    transform 0.3s var(--ease);
+.category_card:hover .category_img img {
+  transform: scale(1.06);
+}
+
+.category_card:hover .category_img {
+  background: var(--color-surface-2);
+  transform: translateY(-6px);
 }
 
 .category_card:hover .category_img img {
   transform: scale(1.05);
 }
 
-.category_card:hover .category_img {
-  background: var(--color-surface-2);
-
-  transform: translateY(-6px);
-}
-
 .category_label {
   font-family: var(--font-head);
-
   font-weight: 600;
-
   font-size: 24px;
 }
 
-
-/* =========================================================
-   MENU LIST
-   ========================================================= */
-
+/* ---------- menu_list : History / Technology / Support 이동 리스트 ---------- */
 .menu_list .container {
   width: 100%;
 }
 
 .menu_row {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
-
-  height: clamp(
-    96px,
-    14vh,
-    159px
-  );
-
-  border-bottom:
-    1px solid var(--color-line-soft);
-
-  transition:
-    padding-left 0.2s var(--ease);
+  /* 고정 159px 대신 vh 비례값: 화면이 낮아지면 3행 합이 100vh를 넘지 않게
+     자동으로 줄어듦. 큰 화면에서는 원래 디자인값(159px)까지만 커짐 */
+  height: clamp(96px, 14vh, 159px);
+  border-bottom: 1px solid var(--color-line-soft);
+  transition: padding-left 0.2s var(--ease);
 }
 
 .menu_row:first-child {
-  border-top:
-    1px solid var(--color-line-soft);
+  border-top: 1px solid var(--color-line-soft);
 }
 
 .menu_row:hover {
   padding-left: var(--sp-4);
+  /* color: var(--color-accent); 로 전체 자식에 상속시키던 부분을 제거하고,
+     아래처럼 필요한 요소에만 개별 적용합니다. */
 }
-
-
-/* ---------------------------------------------------------
-   MENU LEFT
-   --------------------------------------------------------- */
 
 .menu_left {
   display: flex;
-
   align-items: baseline;
-
   gap: var(--sp-2);
 }
 
 .menu_num {
   font-family: var(--font-head);
-
   font-weight: 600;
-
   font-size: var(--fs-lead);
 }
 
 .menu_title {
   font-family: var(--font-head);
-
   font-weight: 700;
-
   font-size: var(--fs-h2);
-
-  transition:
-    color 0.2s var(--ease);
+  transition: color 0.2s var(--ease);
 }
 
+/* History / Technology / Support 타이틀만 hover 시 주황색으로 */
 .menu_row:hover .menu_title {
   color: var(--color-accent);
 }
 
-
-/* ---------------------------------------------------------
-   MENU RIGHT
-   --------------------------------------------------------- */
-
 .menu_right {
   display: flex;
-
   align-items: center;
-
   gap: var(--sp-6);
 }
 
 .menu_tag {
   font-family: var(--font-head);
-
   font-weight: 500;
-
   font-size: var(--fs-lead);
+  /* SINCE 1964 / ENGINEERED / ALWAYS ON 은 hover 색상 효과에서 제외 */
 }
-
-
-/* =========================================================
-   CIRCLE ARROW
-   =========================================================
-
-   기본 상태
-   → 네가 보내준 SVG와 같은 선 형태
-   → 회색 원 + 회색 화살표
-
-   Hover 상태
-   → 주황색으로 채워진 원
-   → 흰색 화살표
-
-   기존 .icon_mask SVG가 겹치지 않도록
-   mask / background를 모두 제거하고 CSS로 구현
-   ========================================================= */
 
 .menu_right .icon_arrow_circle {
   position: relative;
-
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
-
-  display: block;
-
-  flex-shrink: 0;
-
-  /* 기존 icon_mask 제거 */
-  background: none !important;
-
-  -webkit-mask: none !important;
-  mask: none !important;
-
-  -webkit-mask-image: none !important;
-  mask-image: none !important;
-
-  border: none !important;
-  outline: none !important;
-
-  box-shadow: none !important;
-
-  overflow: visible;
+  transition: background-color 0.2s var(--ease);
+  /* background-color: currentColor 는 common.css의 .icon_mask에서 지정됨.
+     이 값이 곧 원+화살표가 합쳐진 SVG의 채움색임 (색을 분리할 수 없는 단일 도형) */
 }
 
+/* hover 시 원본 결합 아이콘(원+화살표)을 투명 처리해서 숨김.
+   opacity 대신 background-color를 건드려야 아래 ::before/::after
+   (별도 박스라 부모 opacity 영향 안 받음)가 독립적으로 보임 */
+.menu_row:hover .icon_arrow_circle {
+  background-color: transparent;
+}
 
-/* =========================================================
-   기본 상태 : 회색 선 원
-   ========================================================= */
-
+/* 원 배경 (hover 전용) */
 .menu_right .icon_arrow_circle::before {
   content: "";
-
   position: absolute;
-
-  top: 2px;
-  left: 2px;
-
-  width: 36px;
-  height: 36px;
-
+  inset: 0;
   border-radius: 50%;
-
-  /* SVG의 #555555과 동일 */
   background-color: transparent;
-
-  border: 1px solid #555555;
-
-  box-sizing: border-box;
-
-  opacity: 1;
-
-  z-index: 1;
-
-  transition:
-    background-color 0.2s var(--ease),
-    border-color 0.2s var(--ease);
+  border: 1px solid transparent;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.2s var(--ease), background-color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 
+.menu_row:hover .icon_arrow_circle::before {
+  opacity: 1;
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
 
-/* =========================================================
-   기본 상태 : 회색 화살표
-   ========================================================= */
-
+/* 화살표만 있는 별도 아이콘 (hover 전용, 원 없는 arrow_right.svg 재사용) */
 .menu_right .icon_arrow_circle::after {
   content: "";
-
   position: absolute;
-
-  top: 50%;
-  left: 50%;
-
+  inset: 0;
+  margin: auto;
   width: 14px;
   height: 14px;
-
-  transform:
-    translate(-50%, -50%);
-
-  /* SVG의 #555555 */
-  background-color: #555555;
-
-  -webkit-mask-image:
-    url("../images/icons/arrow_right.svg");
-
-  mask-image:
-    url("../images/icons/arrow_right.svg");
-
+  background-color: #ffffff;
+  -webkit-mask-image: url("../images/icons/arrow_right.svg");
+  mask-image: url("../images/icons/arrow_right.svg");
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-
   -webkit-mask-position: center;
   mask-position: center;
-
   -webkit-mask-size: contain;
   mask-size: contain;
-
-  opacity: 1;
-
-  z-index: 2;
-
-  transition:
-    background-color 0.2s var(--ease);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
 }
 
-
-/* =========================================================
-   HOVER
-   ========================================================= */
-
-/* 주황색으로 채워지는 원 */
-.menu_row:hover .icon_arrow_circle::before {
-  background-color: var(--color-accent);
-
-  border-color: var(--color-accent);
-}
-
-/* 흰색 화살표 */
 .menu_row:hover .icon_arrow_circle::after {
-  background-color: #ffffff;
+  opacity: 1;
 }
 
-
-/* =========================================================
-   FOCUS
-   ========================================================= */
-
-.menu_row:focus-visible .icon_arrow_circle::before {
-  background-color: var(--color-accent);
-
-  border-color: var(--color-accent);
-}
-
-.menu_row:focus-visible .icon_arrow_circle::after {
-  background-color: #ffffff;
-}
-
-
-/* =========================================================
-   MENU PREVIEW
-   ========================================================= */
-
+/* ---------- menu_preview : 메뉴 행 호버 시 커서를 따라다니는 프리뷰 이미지 ----------
+   menu_list(.fp_section)에 항상 transform 값이 걸려 있어 이 요소의
+   position:absolute 기준(containing block)이 되므로, 섹션 내부 좌표계에서
+   left/top을 JS로 갱신하면 시각적으로는 뷰포트 기준처럼 자연스럽게 동작함. */
 .menu_preview {
   position: absolute;
-
   left: 0;
   top: 0;
-
   width: 220px;
   height: 300px;
-
   border-radius: var(--radius-card);
-
   overflow: hidden;
-
   pointer-events: none;
-
   z-index: 30;
-
   opacity: 0;
-
-  box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.4);
-
-  transform:
-    translate(-50%, -60%)
-    scale(0.92);
-
-  transition:
-    opacity 0.3s var(--ease),
-    transform 0.3s var(--ease);
-
-  will-change:
-    transform,
-    opacity;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -60%) scale(0.92);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  will-change: transform, opacity;
 }
 
 .menu_preview.is-active {
   opacity: 1;
-
-  transform:
-    translate(-50%, -60%)
-    scale(1);
+  transform: translate(-50%, -60%) scale(1);
 }
 
 .menu_preview_img {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   display: block;
 }
 
-
-/* =========================================================
-   APP
-   ========================================================= */
-
+/* ---------- app : BOSE 앱 소개 ---------- */
 .app_inner {
-  display: flex;
+  width: 100%;
+  max-width: 100%;
 
+  display: flex;
   flex-direction: column;
   align-items: center;
 
   text-align: center;
 
-  gap: var(--sp-5);
-
-  max-width: 600px;
+  overflow: visible;
 }
 
 .app_title {
-  font-family: var(--font-head);
+  width: 100%;
+  max-width: 100%;
 
+  margin: 0;
+  padding: 0;
+
+  color: #F2F2F2;
+  text-align: center;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-style: normal;
   font-weight: 600;
+  line-height: 150%;
 
-  font-size: var(--fs-h2);
+  letter-spacing: normal;
 
-  line-height: var(--lh-tight);
+  white-space: nowrap;
+}
+
+.app_title .text-muted {
+  color: #555;
 }
 
 .app_desc {
@@ -802,181 +515,140 @@
 
 .app_media {
   position: relative;
-
   width: 100%;
-
-  margin-block:
-    clamp(
-      16px,
-      3vh,
-      var(--sp-6)
-    );
+  /* 설명 → 이미지/태그 구간을 크게 벌림 (스크린샷 실측 약 20%) */
+  margin-top: clamp(48px, 20vh, 220px);
+  margin-bottom: clamp(48px, 14vh, 160px);
 }
 
-.app_media > img {
+.app_media>img {
   width: auto;
-
   max-width: 420px;
-
+  /* 세로로 긴 폰 스크린샷이라 높이가 총 섹션 높이를 좌우함.
+     42vh로 캡을 걸어 제목/카피/버튼과 합쳐도 100vh를 넘지 않게 함 */
   max-height: 42vh;
-
   margin-inline: auto;
-
   display: block;
 }
 
 .app_tag {
   position: absolute;
-
   display: flex;
-
   flex-direction: column;
-
+  gap: 6px;
   font-family: var(--font-head);
-
   font-weight: 600;
-
   font-size: var(--fs-lead);
-
-  padding-bottom: var(--sp-2);
+  padding-bottom: var(--sp-3);
+  border-bottom: 2px solid transparent; /* hover 시 줄 생겨도 위치 안 밀리도록 미리 확보 */
+  transition: border-color 0.2s var(--ease);
 }
 
 .app_tag em {
   font-style: normal;
 }
 
-.app_tag.is_active {
-  border-bottom:
-    2px solid var(--color-accent);
+.app_tag:hover {
+  border-bottom-color: var(--color-accent);
 }
 
+/* 위쪽 태그는 이미지 상단에 거의 붙임 (스크린샷 실측: 거의 밀착) */
 .app_tag--tl {
   left: 0;
-  top: 8%;
+  top: 0%;
 }
 
 .app_tag--tr {
   right: 0;
-  top: 8%;
+  top: 0%;
 }
 
+/* 아래쪽 태그는 이미지 하단과 약간의 여백을 둠 */
 .app_tag--bl {
   left: 0;
-  bottom: 8%;
+  bottom: -4%;
 }
 
 .app_tag--br {
   right: 0;
-  bottom: 8%;
+  bottom: -4%;
 }
 
+/* CTA(CONTINUE IN BOSE APP)는 태그/이미지와 크게 벌어져야 하므로
+   flex gap과 별도로 자체 margin-top을 추가로 얹음 */
+.app_inner>.link_arrow {
+  margin-top: clamp(24px, 10vh, 120px);
+}
 
 /* =========================================================
-   FULL PAGE SNAP
+   풀페이지 스냅 — 섹션마다 화면 전체를 차지하고 겹쳐 쌓아둔 뒤
+   home.js(GSAP Observer)가 전환을 제어합니다.
+   각 섹션 안쪽 콘텐츠 높이(800/1200/1300/1820px 등)는 그대로 두고,
+   바깥 fp_section이 항상 100vh를 차지 + 세로 중앙정렬로 감싸는 구조.
    ========================================================= */
-
 .fp_wrapper {
   position: relative;
-
   height: 100vh;
-
   overflow: hidden;
 }
 
 .fp_wrapper:not(.is-fp-ready) {
   height: auto;
-
   overflow: visible;
 }
 
 .fp_section {
   position: absolute;
-
   inset: 0;
-
   height: 100vh;
   width: 100%;
-
   overflow: hidden;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   opacity: 0;
-
   pointer-events: none;
-
   visibility: visible;
-
-  transition:
-    opacity 0.45s var(--ease),
-    transform 0.45s var(--ease);
-
-  transform:
-    translateY(18px);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+  transform: translateY(18px);
 }
 
 .fp_wrapper:not(.is-fp-ready) .fp_section {
   position: relative;
-
   inset: auto;
-
   height: auto;
-
   min-height: 100vh;
-
   width: 100%;
-
   overflow: visible;
-
   opacity: 1;
-
   pointer-events: auto;
-
   transform: none;
 }
 
 .fp_section.is_active {
   opacity: 1;
-
   pointer-events: auto;
-
   z-index: 2;
-
-  transform:
-    translateY(0);
+  transform: translateY(0);
 }
 
-
-/* =========================================================
-   HERO FULL PAGE
-   ========================================================= */
-
+/* hero는 배경이라 flex 중앙정렬이 필요없어 덮어씀 */
 .hero.fp_section {
   display: block;
 }
 
-
-/* =========================================================
-   INTERNAL SCROLL
-   ========================================================= */
-
+/* 내부 자체 스크롤이 필요한 섹션(gallery): 콘텐츠를 위에서부터 쌓고
+   섹션 자체가 스크롤 컨테이너가 됨. 스크롤바는 시각적으로 숨김 처리하고,
+   한 장씩 자연스럽게 정지하도록 snap을 적용합니다. */
 .fp_section[data-fp-scroll] {
   align-items: center;
-
   overflow-y: auto;
-
   scroll-snap-type: y mandatory;
-
   scrollbar-width: none;
 }
 
-.fp_wrapper:not(.is-fp-ready)
-.fp_section[data-fp-scroll] {
+.fp_wrapper:not(.is-fp-ready) .fp_section[data-fp-scroll] {
   overflow-y: visible;
-
   scroll-snap-type: none;
 }
 
@@ -984,16 +656,12 @@
   display: none;
 }
 
-
 /* =========================================================
-   RESPONSIVE
+   반응형 — 데스크톱(1920) 기준 우선 구현.
    ========================================================= */
-
 @media (max-width: 1100px) {
-
   .category_list {
-    grid-template-columns:
-      repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .app_tag--tl,
@@ -1001,16 +669,12 @@
   .app_tag--bl,
   .app_tag--br {
     position: static;
-
-    margin-block:
-      var(--sp-2);
+    margin-block: var(--sp-2);
   }
 
   .app_media {
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
   }
 }
