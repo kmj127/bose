@@ -238,8 +238,34 @@ function initFullPageScroll(reduceMotion, keywordTl) {
     currentIndex = index;
   }
 
+  let scrollReleased = false; // true면 스냅 잠금 해제, 브라우저 기본 스크롤 사용 중
+
+  function releaseScrollLock() {
+    if (scrollReleased) return;
+    scrollReleased = true;
+    scrollObserver.disable(); // 휠/터치 가로채기 중단 → 이 순간부터 브라우저가 알아서 아래(푸터)로 스크롤함
+  }
+
+  function relockScroll() {
+    if (!scrollReleased) return;
+    scrollReleased = false;
+    scrollObserver.enable();
+  }
+
+  // 스크롤을 놓아준 상태에서 사용자가 다시 맨 위(fp_wrapper 상단)까지 올라오면
+  // 스냅 잠금을 복구해서 이전처럼 섹션 단위 전환이 이어지게 함
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (scrollReleased && window.scrollY <= 0) {
+        relockScroll();
+      }
+    },
+    { passive: true }
+  );
+
   function attemptMove(direction) {
-    if (isAnimating) return;
+    if (isAnimating || scrollReleased) return;
 
     const section = sections[currentIndex];
 
@@ -257,6 +283,13 @@ function initFullPageScroll(reduceMotion, keywordTl) {
       }
     }
 
+    // 마지막 섹션(app)에서 한 번 더 아래로 스크롤하면 스냅을 풀고
+    // 브라우저 기본 스크롤로 넘겨서 푸터까지 자연스럽게 이어지게 함
+    if (direction > 0 && currentIndex === sections.length - 1) {
+      releaseScrollLock();
+      return;
+    }
+
     showSection(currentIndex + direction);
   }
 
@@ -267,7 +300,7 @@ function initFullPageScroll(reduceMotion, keywordTl) {
        onUp   → 휠을 아래로 굴릴 때 → 다음 섹션(+1)
      (원래 코드가 맞는 조합이었습니다.)
      --------------------------------------------------------- */
-  Observer.create({
+  const scrollObserver = Observer.create({
     target: window,
     type: "wheel,touch",
     wheelSpeed: -1,
@@ -278,6 +311,7 @@ function initFullPageScroll(reduceMotion, keywordTl) {
   });
 
   window.addEventListener("keydown", (e) => {
+    if (scrollReleased) return; // 스크롤 해제 상태에서는 브라우저 기본 키보드 스크롤에 맡김
     if (e.key === "ArrowDown" || e.key === "PageDown") attemptMove(1);
     if (e.key === "ArrowUp" || e.key === "PageUp") attemptMove(-1);
   });
