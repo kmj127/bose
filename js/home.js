@@ -3,7 +3,8 @@
      1) product 섹션의 가로 슬라이더 (Swiper)
      2) keyword 섹션의 MORE 확대 모션 (섹션 진입 시 재생, GSAP timeline)
      3) menu_list 섹션의 호버 프리뷰 이미지 (커서 따라다니는 썸네일)
-     4) 풀페이지 스냅 스크롤 (GSAP Observer)
+     4) app 섹션의 제목/설명 슬라이드인 (섹션 진입 시 재생)
+     5) 풀페이지 스냅 스크롤 (GSAP Observer)
    ========================================================= */
 
 function initProductSlider(reduceMotion) {
@@ -162,6 +163,21 @@ function initMenuPreview(reduceMotion) {
   });
 }
 
+/* ---------- app : 섹션 진입 시 app_title/app_desc 왼쪽에서 슬라이드인 ---------- */
+function playAppReveal(section) {
+  const title = section.querySelector(".app_title");
+  const desc = section.querySelector(".app_desc");
+  if (title) title.classList.add("is-revealed");
+  if (desc) desc.classList.add("is-revealed");
+}
+
+function resetAppReveal(section) {
+  const title = section.querySelector(".app_title");
+  const desc = section.querySelector(".app_desc");
+  if (title) title.classList.remove("is-revealed");
+  if (desc) desc.classList.remove("is-revealed");
+}
+
 /* ---------- 풀페이지 스냅 스크롤 ---------- */
 function initFullPageScroll(reduceMotion, keywordTl) {
   if (typeof gsap === "undefined" || typeof Observer === "undefined") return;
@@ -211,6 +227,12 @@ function initFullPageScroll(reduceMotion, keywordTl) {
       } else if (prevSection.classList.contains("keyword")) {
         keywordTl.pause(0);
       }
+    }
+
+    if (nextSection.classList.contains("app")) {
+      playAppReveal(nextSection);
+    } else if (prevSection.classList.contains("app")) {
+      resetAppReveal(prevSection); // 다시 들어왔을 때 애니메이션 재생되도록 초기화
     }
 
     currentIndex = index;
@@ -268,4 +290,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initGalleryCarousel(reduceMotion);
   initMenuPreview(reduceMotion);
   initFullPageScroll(reduceMotion, keywordTl);
+
+  if (reduceMotion) {
+    const appSection = document.querySelector(".app");
+    if (appSection) playAppReveal(appSection);
+  }
 });
