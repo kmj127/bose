@@ -18,7 +18,7 @@
   <!-- Swiper: product 섹션의 가로 슬라이더에만 사용 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-  <!-- 공통 스타일 (순서 중요: reset → tokens → common → 페이지) -->
+  <!-- 공통 스타일 -->
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/common.css" />
@@ -26,14 +26,6 @@
 </head>
 
 <body data-page="home">
-  <!-- 헤더/푸터는 js/common.js 가 자동 삽입합니다 -->
-
-  <!-- ============ 풀페이지 스냅 wrapper ============
-       fp_wrapper 안의 각 섹션은 fp_section 클래스를 달고 있고,
-       휠/터치 입력은 GSAP Observer(home.js)가 가로채서
-       한 번에 한 섹션씩 전환합니다. 브라우저 기본 스크롤은 막혀 있음.
-       data-fp-scroll: 섹션 내부에 자체 세로 스크롤이 있는 경우
-       (지금은 gallery) 표시 — 내부 스크롤 끝까지 가야 다음 섹션으로 넘어감. -->
   <main class="page fp_wrapper" id="main">
 
     <!-- ============ Hero ============ -->
@@ -63,7 +55,7 @@
       </div>
     </section>
 
-    <!-- ============ Product 슬라이더 (Swiper) ============ -->
+    <!-- ============ Product 슬라이더 ============ -->
     <section class="product fp_section" data-fp>
       <div class="swiper product_slider">
         <div class="swiper-wrapper">
@@ -80,17 +72,13 @@
       </a>
     </section>
 
-    <!-- ============ HEAR MORE ============
-         MORE 확대 모션: 기존 scroll scrub 방식 대신,
-         이 섹션이 fp_section 중 활성(is_active)이 될 때
-         home.js의 playKeywordGrow()가 타임라인을 재생합니다. -->
+    <!-- ============ HEAR MORE ============ -->
     <section class="keyword fp_section" data-fp>
       <h2 class="keyword_title">
         <span class="keyword_word keyword_main" data-reveal>HEAR</span>
         <br />
         <span class="keyword_word accent keyword_grow">MORE</span>
       </h2>
-
       <div class="keyword_marquee" data-reveal data-reveal-delay="300">
         <div class="keyword_marquee_track">
           <p class="keyword_text">
@@ -105,10 +93,8 @@
       </div>
     </section>
 
-    <!-- ============ 라이프스타일 갤러리 ============
-         data-fp-scroll: 내부에서 세로로 이미지를 먼저 다 스크롤해야
-         다음 섹션(category)으로 휠 전환이 넘어감. -->
-    <section class="gallery fp_section" data-fp>
+    <!-- ============ 라이프스타일 갤러리 ============ -->
+    <section class="gallery fp_section" data-fp-scroll>
       <figure class="gallery_item" data-reveal><img src="images/home_img01.png" alt="Bose 이어버드를 착용한 사람" /></figure>
       <figure class="gallery_item" data-reveal><img src="images/home_img02.png" alt="Bose 헤드폰을 착용한 사람" /></figure>
       <figure class="gallery_item" data-reveal><img src="images/home_img03.png" alt="Bose 이어버드를 착용한 사람" /></figure>
@@ -150,10 +136,7 @@
       </div>
     </section>
 
-    <!-- ============ 페이지 이동 리스트 ============
-         data-preview: 각 행에 호버했을 때 커서 옆에 뜨는 이미지 경로.
-         home.js의 initMenuPreview()가 mousemove로 위치를 갱신하고
-         mouseenter/leave로 이미지 교체 + 노출을 제어합니다. -->
+    <!-- ============ 페이지 이동 리스트 ============ -->
     <section class="section menu_list fp_section" data-fp>
       <div class="container">
         <a class="menu_row" href="history.html" data-reveal data-preview="images/home_menu01.png">
@@ -187,9 +170,6 @@
           </span>
         </a>
       </div>
-
-      <!-- 호버 시 커서를 따라다니는 프리뷰 이미지. 기본은 숨김(opacity:0),
-           JS가 .is-active를 토글하고 img의 src를 교체합니다. -->
       <div class="menu_preview" aria-hidden="true">
         <img class="menu_preview_img" src="" alt="" />
       </div>
@@ -198,18 +178,51 @@
     <!-- ============ BOSE APP ============ -->
     <section class="section app fp_section" data-fp>
       <div class="container app_inner">
-        <h2 class="app_title" data-reveal lang="en">YOUR SOUND.<br /><span class="text-muted">PERFECTED.</span></h2>
-        <p class="app_desc" data-reveal data-reveal-delay="80">BOSE 앱으로 나만의 사운드를 완성해 보세요.</p>
+        <!-- GSAP 타이밍 조절을 위해 data-reveal 제거 -->
+        <h2 class="app_title" lang="en">YOUR SOUND.<br /><span class="text-muted">PERFECTED.</span></h2>
+        <p class="app_desc">BOSE 앱으로 나만의 사운드를 완성해 보세요.</p>
 
-        <div class="app_media" data-reveal data-reveal-delay="120">
-          <img src="images/home_app.png" alt="Bose 앱 실행 화면" />
-          <span class="app_tag app_tag--tl"><em>01.</em>PERSONALIZE</span>
-          <span class="app_tag app_tag--tr"><em>02.</em>QUIET</span>
-          <span class="app_tag app_tag--bl"><em>03.</em>IMMERSION</span>
-          <span class="app_tag app_tag--br"><em>04.</em>STATUS</span>
+<div class="app_media">
+          <img class="app_img" src="images/home_app.png" alt="Bose 앱 실행 화면" />
+          
+          <!-- 01. PERSONALIZE (이퀄라이저 바) -->
+          <span class="app_tag app_tag--tl wave_hover">
+            <em>01.</em>
+            <span class="tag_title">
+              PERSONALIZE
+              <span class="hover_effect eq_bars"><i></i><i></i><i></i><i></i></span>
+            </span>
+          </span>
+
+          <!-- 02. QUIET (노이즈 캔슬링 파동) -->
+          <span class="app_tag app_tag--tr wave_hover">
+            <em>02.</em>
+            <span class="tag_title">
+              QUIET
+              <span class="hover_effect ripple_effect"><span></span><span></span></span>
+            </span>
+          </span>
+
+          <!-- 03. IMMERSION (공간 음향 회전 입자) -->
+          <span class="app_tag app_tag--bl wave_hover">
+            <em>03.</em>
+            <span class="tag_title">
+              IMMERSION
+              <span class="hover_effect orbit_effect"><i></i></span>
+            </span>
+          </span>
+
+          <!-- 04. STATUS (배터리 툴팁 - 그대로 유지) -->
+          <span class="app_tag app_tag--br status_hover">
+            <em>04.</em>STATUS
+            <div class="status_tooltip">
+              <p>- 배터리 최대 24~30시간</p>
+              <p>- 약 2.5~3시간 만에 충전</p>
+            </div>
+          </span>
         </div>
 
-        <a class="link_arrow" href="shop.html" lang="en">
+        <a class="link_arrow app_link" href="shop.html" lang="en">
           CONTINUE IN BOSE APP
           <img src="images/icons/arrow_right.svg" alt="" aria-hidden="true" />
         </a>
@@ -220,7 +233,6 @@
 
   <script src="js/common.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <!-- GSAP core + Observer: 풀페이지 섹션 전환(휠/터치 가로채기)에 사용 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
   <script src="js/home.js"></script>
