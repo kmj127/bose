@@ -111,6 +111,8 @@
   gap: var(--sp-6);
 
   width: 100%;
+
+  overflow: hidden;
 }
 
 .product_slider {
@@ -119,7 +121,6 @@
 
   overflow: hidden;
 
-  /* 이미지가 로딩될 때 레이아웃이 흔들리는 것을 방지 */
   flex-shrink: 0;
 
   touch-action: pan-y;
@@ -127,7 +128,20 @@
 
 .product_slider .swiper-wrapper {
   align-items: center;
+
   will-change: transform;
+
+  /*
+    Swiper autoplay가 한 장씩 넘어갈 때
+    속도가 일정하게 보이도록 linear 적용.
+  */
+  transition-timing-function: linear !important;
+
+  cursor: grab;
+}
+
+.product_slider .swiper-wrapper:active {
+  cursor: grabbing;
 }
 
 .product_slider .swiper-slide {
@@ -149,10 +163,6 @@
   width: 100%;
   height: 100%;
 
-  /*
-    기존 cover 때문에 이미지 비율에 따라
-    제품 일부가 잘릴 수 있었음.
-  */
   object-fit: contain;
   object-position: center;
 
@@ -525,6 +535,8 @@
 
 .menu_list {
   position: relative;
+
+  overflow: visible;
 }
 
 .menu_list .container {
@@ -532,6 +544,8 @@
 }
 
 .menu_row {
+  position: relative;
+
   display: flex;
 
   align-items: center;
@@ -705,18 +719,6 @@
    MENU PREVIEW
    ========================================================= */
 
-/*
-  기존 absolute 방식 대신 fixed 방식 사용.
-
-  이유:
-  .fp_section에 overflow:hidden이 있기 때문에
-  마우스를 따라가는 이미지가 섹션 밖으로 나갈 경우
-  이미지가 잘릴 수 있었음.
-
-  fixed로 변경하면 viewport 기준으로 움직이기 때문에
-  full-page section의 overflow에 영향을 받지 않음.
-*/
-
 .menu_preview {
   position: fixed;
 
@@ -732,9 +734,10 @@
 
   pointer-events: none;
 
-  z-index: 999;
+  z-index: 99999;
 
   opacity: 0;
+  visibility: hidden;
 
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.4);
@@ -745,7 +748,8 @@
 
   transition:
     opacity 0.3s var(--ease),
-    transform 0.3s var(--ease);
+    transform 0.3s var(--ease),
+    visibility 0s linear 0.3s;
 
   will-change:
     left,
@@ -760,9 +764,16 @@
 .menu_preview.is-active {
   opacity: 1;
 
+  visibility: visible;
+
   transform:
     translate(-50%, -60%)
     scale(1);
+
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease),
+    visibility 0s linear 0s;
 }
 
 .menu_preview_img {
