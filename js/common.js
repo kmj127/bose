@@ -116,27 +116,37 @@ function renderFooter() {
   const footer = document.createElement("footer");
   footer.className = "site_footer";
   footer.id = "footer_contact";
+  
+  // 수정된 디자인의 푸터 HTML 주입
   footer.innerHTML = `
     <div class="site_footer__inner">
       <div class="site_footer__top">
-        <a class="footer_logo" href="home.html">BOSE</a>
+        <a class="footer_logo" href="home.html" lang="en">BOSE</a>
 
-        <ul class="footer_nav">
-          ${NAV_ITEMS.map((i) => `<li><a href="${i.href}">${i.label}</a></li>`).join("")}
-        </ul>
+        <nav class="footer_nav" lang="en">
+          ${NAV_ITEMS.filter(i => i.key !== 'home' && i.key !== 'about').map(i => `<a href="${i.href}">${i.label}</a>`).join("")}
+        </nav>
 
         <div class="footer_social">
-          <a href="#" aria-label="YouTube (표시 전용)"><span class="icon_mask icon_youtube" aria-hidden="true"></span></a>
-          <a href="#" aria-label="Instagram (표시 전용)"><span class="icon_mask icon_instagram" aria-hidden="true"></span></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <span class="icon_mask icon_youtube" aria-hidden="true"></span>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <span class="icon_mask icon_instagram" aria-hidden="true"></span>
+          </a>
         </div>
       </div>
 
       <div class="site_footer__bottom">
-        <p class="footer_contact">고객센터 070-8655-2661 / AS센터 02-3446-3514</p>
-        <p class="footer_address">더블정보기술(주) 서울특별시 용산구 한강대로52길 25-8 5F</p>
         <div class="footer_policy">
           <a href="#">이용약관</a>
           <a href="#">개인정보처리방침</a>
+        </div>
+        
+        <div class="footer_info">
+          <p>(주)세기HE | 대표자: 김형준 | 서울시 강남구 삼성로 730</p>
+          <p>사업자등록번호: 203-81-38195 | 고객센터: 1588-6577</p>
+          <p class="copyright">&copy; BOSE Corporation. All Rights Reserved.</p>
         </div>
       </div>
     </div>
