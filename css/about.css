@@ -1,7 +1,16 @@
 /* =========================================================
-   about.css
-   About Page
+   about.css — About Page
    ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+  padding-top: 0;
+}
+
 
 
 /* =========================================================
@@ -9,17 +18,10 @@
    ========================================================= */
 
 .hero {
-
   position: relative;
 
   width: 100%;
-
   height: 1000px;
-
-  /*
-    기존 음수 margin 제거
-    → header 영역을 침범하지 않음
-  */
 
   margin-top: 0;
 
@@ -28,29 +30,25 @@
 
 
 .hero_bg {
-
   display: block;
 
   width: 100%;
   height: 100%;
 
   object-fit: cover;
-
   object-position: center center;
 }
 
 
 
 /* =========================================================
-   TEXT / IMAGE REVEAL
+   SCROLL REVEAL
    ========================================================= */
 
 [data-reveal] {
-
   opacity: 0;
 
-  transform:
-    translateY(35px);
+  transform: translateY(35px);
 
   transition:
     opacity 0.9s ease,
@@ -68,29 +66,23 @@
 
 
 [data-reveal="left"] {
-
-  transform:
-    translateX(-45px);
+  transform: translateX(-45px);
 }
 
 
 [data-reveal="right"] {
-
-  transform:
-    translateX(45px);
+  transform: translateX(45px);
 }
 
 
 [data-reveal].is_in {
-
   opacity: 1;
 
-  transform:
-    translate3d(
-      0,
-      0,
-      0
-    );
+  transform: translate3d(
+    0,
+    0,
+    0
+  );
 }
 
 
@@ -99,9 +91,7 @@
    REDUCED MOTION
    ========================================================= */
 
-@media (
-  prefers-reduced-motion: reduce
-) {
+@media (prefers-reduced-motion: reduce) {
 
   [data-reveal],
   [data-reveal="left"],
@@ -123,19 +113,21 @@
    ========================================================= */
 
 .quote {
-
   position: relative;
 
   height: 500px;
 }
 
 
-.quote_main {
 
+/* =========================================================
+   QUOTE LEFT
+   ========================================================= */
+
+.quote_main {
   position: absolute;
 
   left: 8.07%;
-
   top: 111px;
 
   width: 32.7%;
@@ -145,39 +137,29 @@
 
 
 .quote_ko {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
+  line-height: var(--lh-base);
 
-  line-height:
-    var(--lh-base);
-
-  margin-bottom:
-    var(--sp-3);
+  margin-bottom: var(--sp-3);
 }
 
 
 .quote_en {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  line-height:
-    var(--lh-base);
+  line-height: var(--lh-base);
 }
 
 
 .quote_en cite {
-
   display: block;
 
-  margin-top:
-    var(--sp-2);
+  margin-top: var(--sp-2);
 
   font-style: normal;
 
-  color:
-    var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 
@@ -186,16 +168,25 @@
    QUOTE CENTER
    ========================================================= */
 
-.quote_center_wrap {
+/*
+  중요
 
+  wrapper
+  → 위치 담당
+
+  내부 text
+  → reveal 담당
+
+  따라서 transform 충돌이 발생하지 않는다.
+*/
+
+.quote_center_wrap {
   position: absolute;
 
   left: 50%;
-
   top: 402px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   width: 100%;
 
@@ -206,14 +197,13 @@
 
 
 .quote_center {
-
   width: 100%;
 
-  font-size:
-    var(--fs-body);
+  margin: 0;
 
-  line-height:
-    var(--lh-base);
+  font-size: var(--fs-body);
+
+  line-height: var(--lh-base);
 
   text-align: center;
 }
@@ -225,10 +215,10 @@
    ========================================================= */
 
 .journey {
-
   position: relative;
 
-  min-height: 300vh;
+  height: 1000px;
+  min-height: 1000px;
 
   padding: 0;
 
@@ -237,12 +227,12 @@
 
 
 .journey_stack {
-
   position: relative;
 
   width: 100%;
+  height: 1000px;
 
-  min-height: 300vh;
+  min-height: 1000px;
 }
 
 
@@ -251,25 +241,28 @@
    JOURNEY CARD
    ========================================================= */
 
+/*
+  Figma 기준
+
+  Journey section
+  1920 × 1000
+
+  이미지들은 각각
+  Figma에서 지정된 Y 위치에서 시작하고
+  스크롤 시 해당 이미지가 sticky로 유지되도록 한다.
+*/
+
 .journey_card {
+  position: absolute;
 
-  position: sticky;
+  width: auto;
 
-  top: 120px;
-
-  width: 100%;
-
-  height: 100vh;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
+  height: auto;
 
   margin: 0;
-
   padding: 0;
+
+  display: block;
 
   background: transparent;
 
@@ -278,19 +271,13 @@
 
 
 .journey_card_inner {
+  position: sticky;
 
-  position: relative;
-
-  width: 31vw;
-
-  max-width: 600px;
-
-  height: 400px;
+  top: 0;
 
   overflow: hidden;
 
-  border-radius:
-    var(--radius-card);
+  border-radius: var(--radius-card);
 
   box-shadow:
     0 24px 50px
@@ -304,7 +291,6 @@
 
 
 .journey_card_inner img {
-
   display: block;
 
   width: 100%;
@@ -318,11 +304,23 @@
 
 
 /* =========================================================
-   JOURNEY IMAGE 01
-   about_img03
+   IMAGE 03
+   about_img03.png
+
+   Figma:
+   X = 374px
+   Y = 500px
+   W = 500px
+   H = 400px
    ========================================================= */
 
 .journey_card--01 {
+
+  left: 374px;
+  top: 500px;
+
+  width: 500px;
+  height: 500px;
 
   z-index: 1;
 }
@@ -331,23 +329,32 @@
 .journey_card--01
 .journey_card_inner {
 
-  width: 26vw;
-
-  max-width: 500px;
-
+  width: 500px;
   height: 400px;
 
-  margin-left: -39vw;
+  margin: 0;
 }
 
 
 
 /* =========================================================
-   JOURNEY IMAGE 02
-   about_img02
+   IMAGE 02
+   about_img02.png
+
+   Figma:
+   X = 100px
+   Y = 300px
+   W = 600px
+   H = 400px
    ========================================================= */
 
 .journey_card--02 {
+
+  left: 100px;
+  top: 300px;
+
+  width: 600px;
+  height: 700px;
 
   z-index: 2;
 }
@@ -356,23 +363,32 @@
 .journey_card--02
 .journey_card_inner {
 
-  width: 31vw;
-
-  max-width: 600px;
-
+  width: 600px;
   height: 400px;
 
-  margin-left: -55vw;
+  margin: 0;
 }
 
 
 
 /* =========================================================
-   JOURNEY IMAGE 03
-   about_img01
+   IMAGE 01
+   about_img01.png
+
+   Figma:
+   X = 400px
+   Y = 76px
+   W = 400px
+   H = 400px
    ========================================================= */
 
 .journey_card--03 {
+
+  left: 400px;
+  top: 76px;
+
+  width: 400px;
+  height: 924px;
 
   z-index: 3;
 }
@@ -381,13 +397,10 @@
 .journey_card--03
 .journey_card_inner {
 
-  width: 21vw;
-
-  max-width: 400px;
-
+  width: 400px;
   height: 400px;
 
-  margin-left: -39vw;
+  margin: 0;
 }
 
 
@@ -400,13 +413,13 @@
 
   position: absolute;
 
-  right: 7.7%;
+  right: 148px;
 
-  bottom: 80px;
+  bottom: 63px;
 
-  width: 41.8%;
+  width: 802px;
 
-  min-width: 280px;
+  min-width: 0;
 
   text-align: right;
 
@@ -416,39 +429,67 @@
 
 .journey_heading {
 
-  margin-bottom:
-    var(--sp-4);
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 6px;
+
+  width: 193px;
+
+  margin-left: auto;
+
+  margin-bottom: 10px;
 }
 
 
 .journey_ko {
 
+  width: 100%;
+
+  margin: 0;
+
   color: #fff;
 
-  font-size:
-    var(--fs-body);
+  font-size: var(--fs-body);
+
+  line-height: 1.5;
+
+  text-align: right;
 }
 
 
 .journey_en {
 
-  font-family:
-    var(--font-head);
+  width: 100%;
+
+  margin: 0;
+
+  font-family: var(--font-head);
 
   font-weight: 500;
 
-  font-size:
-    var(--fs-body);
+  font-size: var(--fs-body);
+
+  line-height: 1.5;
+
+  text-align: left;
 }
 
 
 .journey_body {
 
-  font-size:
-    var(--fs-body);
+  width: 100%;
 
-  line-height:
-    var(--lh-base);
+  margin: 0;
+
+  font-size: var(--fs-body);
+
+  line-height: 1.5;
+
+  text-align: right;
 }
 
 
@@ -458,7 +499,6 @@
    ========================================================= */
 
 .power {
-
   position: relative;
 
   height: 1000px;
@@ -466,15 +506,13 @@
 
 
 .power_media {
-
   position: absolute;
 
   left: 53.1%;
 
   top: 50%;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
   width: 41.7%;
 
@@ -482,15 +520,13 @@
 
   height: 600px;
 
-  border-radius:
-    var(--radius-card);
+  border-radius: var(--radius-card);
 
   overflow: hidden;
 }
 
 
 .power_media img {
-
   display: block;
 
   width: 100%;
@@ -501,7 +537,6 @@
 
 
 .power_text {
-
   position: absolute;
 
   left: 10.4%;
@@ -513,22 +548,16 @@
 
 
 .power_ko {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  margin-bottom:
-    var(--sp-2);
+  margin-bottom: var(--sp-2);
 }
 
 
 .power_en {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  color:
-    var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 
@@ -538,7 +567,6 @@
    ========================================================= */
 
 .change {
-
   position: relative;
 
   height: 1000px;
@@ -546,7 +574,6 @@
 
 
 .change_media {
-
   position: absolute;
 
   left: 10.83%;
@@ -559,15 +586,13 @@
 
   height: 400px;
 
-  border-radius:
-    var(--radius-card);
+  border-radius: var(--radius-card);
 
   overflow: hidden;
 }
 
 
 .change_media img {
-
   display: block;
 
   width: 100%;
@@ -578,32 +603,25 @@
 
 
 .change_ko {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  margin-bottom:
-    var(--sp-2);
+  margin-bottom: var(--sp-2);
 }
 
 
 .change_en {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  color:
-    var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 
 
 /* =========================================================
-   CHANGE RIGHT
+   CHANGE RIGHT TEXT
    ========================================================= */
 
 .change_text--right {
-
   position: absolute;
 
   left: 57.3%;
@@ -616,22 +634,24 @@
 
 
 /* =========================================================
-   CHANGE CENTER
-
-   ★ 요청한 문구
-   완전 가운데 정렬
+   CHANGE CENTER TEXT
    ========================================================= */
 
-.change_text--center {
+/*
+  wrapper
+  → 가운데 위치
 
+  내부 text
+  → reveal 효과
+*/
+
+.change_text--center {
   position: absolute;
 
   left: 50%;
-
   top: 849px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   width: 100%;
 
@@ -641,27 +661,23 @@
 }
 
 
-.change_text--center
-.change_ko {
-
+.change_text--center .change_ko {
   width: 100%;
 
-  text-align: center;
+  margin: 0 0 var(--sp-2);
 
-  margin-bottom:
-    var(--sp-2);
+  text-align: center;
 }
 
 
-.change_text--center
-.change_en {
-
+.change_text--center .change_en {
   width: 100%;
+
+  margin: 0;
 
   text-align: center;
 
-  color:
-    var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 
@@ -671,7 +687,6 @@
    ========================================================= */
 
 .sustain {
-
   position: relative;
 
   height: 1000px;
@@ -679,16 +694,13 @@
 
 
 .sustain_media {
-
   position: absolute;
 
-  left:
-    calc(50% - 452px);
+  left: calc(50% - 452px);
 
   top: 250px;
 
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 
   width: 31.25%;
 
@@ -696,15 +708,13 @@
 
   height: 500px;
 
-  border-radius:
-    var(--radius-card);
+  border-radius: var(--radius-card);
 
   overflow: hidden;
 }
 
 
 .sustain_media img {
-
   display: block;
 
   width: 100%;
@@ -715,16 +725,13 @@
 
 
 .sustain_text_wrap {
-
   position: absolute;
 
   left: 65.5%;
 
-  top:
-    calc(50% + 147.5px);
+  top: calc(50% + 147.5px);
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
   width: 24.7%;
 
@@ -733,36 +740,26 @@
 
 
 .sustain_text {
-
   text-align: right;
 }
 
 
-.sustain_group
-+ .sustain_group {
-
-  margin-top:
-    var(--sp-5);
+.sustain_group + .sustain_group {
+  margin-top: var(--sp-5);
 }
 
 
 .sustain_ko {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  margin-bottom:
-    var(--sp-2);
+  margin-bottom: var(--sp-2);
 }
 
 
 .sustain_en {
+  font-size: var(--fs-body);
 
-  font-size:
-    var(--fs-body);
-
-  color:
-    var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 
 
@@ -773,7 +770,6 @@
 
 @media (max-width: 1100px) {
 
-
   .quote,
   .power,
   .change,
@@ -781,11 +777,14 @@
 
     height: auto;
 
-    padding-block:
-      var(--sp-8);
+    padding-block: var(--sp-8);
   }
 
 
+
+  /* =======================================================
+     HERO
+     ======================================================= */
 
   .hero {
 
@@ -798,9 +797,9 @@
 
 
 
-  /* ---------------------------------------------
-     Quote
-     --------------------------------------------- */
+  /* =======================================================
+     QUOTE
+     ======================================================= */
 
   .quote_main,
   .quote_center_wrap {
@@ -815,8 +814,7 @@
 
     margin-inline: auto;
 
-    margin-bottom:
-      var(--sp-6);
+    margin-bottom: var(--sp-6);
   }
 
 
@@ -827,16 +825,15 @@
 
 
 
-  /* ---------------------------------------------
-     Journey
-     --------------------------------------------- */
+  /* =======================================================
+     JOURNEY
+     ======================================================= */
 
   .journey {
 
     min-height: auto;
 
-    padding-bottom:
-      var(--sp-8);
+    padding-bottom: var(--sp-8);
   }
 
 
@@ -848,8 +845,7 @@
 
     flex-direction: column;
 
-    gap:
-      var(--sp-5);
+    gap: var(--sp-5);
   }
 
 
@@ -893,17 +889,16 @@
 
     margin-inline: auto;
 
-    margin-top:
-      var(--sp-6);
+    margin-top: var(--sp-6);
 
     text-align: left;
   }
 
 
 
-  /* ---------------------------------------------
-     Power
-     --------------------------------------------- */
+  /* =======================================================
+     POWER
+     ======================================================= */
 
   .power_media {
 
@@ -919,8 +914,7 @@
 
     margin-inline: auto;
 
-    margin-bottom:
-      var(--sp-6);
+    margin-bottom: var(--sp-6);
   }
 
 
@@ -935,9 +929,9 @@
 
 
 
-  /* ---------------------------------------------
-     Change
-     --------------------------------------------- */
+  /* =======================================================
+     CHANGE
+     ======================================================= */
 
   .change_media {
 
@@ -951,8 +945,7 @@
 
     margin-inline: auto;
 
-    margin-bottom:
-      var(--sp-6);
+    margin-bottom: var(--sp-6);
   }
 
 
@@ -969,25 +962,22 @@
 
     margin-inline: auto;
 
-    margin-bottom:
-      var(--sp-6);
+    margin-bottom: var(--sp-6);
   }
 
 
   .change_text--center,
-  .change_text--center
-  .change_ko,
-  .change_text--center
-  .change_en {
+  .change_text--center .change_ko,
+  .change_text--center .change_en {
 
     text-align: center;
   }
 
 
 
-  /* ---------------------------------------------
-     Sustain
-     --------------------------------------------- */
+  /* =======================================================
+     SUSTAIN
+     ======================================================= */
 
   .sustain_media {
 
@@ -1003,8 +993,7 @@
 
     margin-inline: auto;
 
-    margin-bottom:
-      var(--sp-6);
+    margin-bottom: var(--sp-6);
   }
 
 
@@ -1037,7 +1026,6 @@
 
 @media (max-width: 600px) {
 
-
   .hero {
 
     height: 100svh;
@@ -1046,45 +1034,54 @@
   }
 
 
+
+  /* =======================================================
+     REVEAL
+     ======================================================= */
+
   [data-reveal] {
 
-    transform:
-      translateY(20px);
+    transform: translateY(20px);
   }
 
 
   [data-reveal="left"] {
 
-    transform:
-      translateX(-24px);
+    transform: translateX(-24px);
   }
 
 
   [data-reveal="right"] {
 
-    transform:
-      translateX(24px);
+    transform: translateX(24px);
   }
 
 
   [data-reveal].is_in {
 
-    transform:
-      translate3d(
-        0,
-        0,
-        0
-      );
+    transform: translate3d(
+      0,
+      0,
+      0
+    );
   }
 
 
 
-  .journey_card_inner {
+  /* =======================================================
+     JOURNEY IMAGE
+     ======================================================= */
+
+  .journey_card {
 
     height: 280px;
   }
 
 
+
+  /* =======================================================
+     OTHER IMAGE
+     ======================================================= */
 
   .power_media,
   .change_media,
@@ -1094,11 +1091,14 @@
   }
 
 
+
+  /* =======================================================
+     CHANGE CENTER
+     ======================================================= */
+
   .change_text--center,
-  .change_text--center
-  .change_ko, 
-  .change_text--center
-  .change_en {
+  .change_text--center .change_ko,
+  .change_text--center .change_en {
 
     text-align: center;
   }
