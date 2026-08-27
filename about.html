@@ -1,522 +1,197 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>BOSE | About</title>
 
+  <meta
+    name="description"
+    content="Bose의 브랜드 철학과 이야기를 소개합니다."
+  />
 
-  <!-- =====================================================
-       FONT
-       ===================================================== -->
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-    crossorigin
-  >
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap"
     rel="stylesheet"
-  >
+  />
 
+  <!-- Pretendard -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
-  >
+  />
 
-
-  <!-- =====================================================
-       CSS
-       ===================================================== -->
-
-  <link
-    rel="stylesheet"
-    href="css/reset.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/tokens.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/common.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/about.css"
-  >
-
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/about.css" />
 </head>
-
 
 <body data-page="about">
 
+  <main class="page" id="main">
 
-  <!-- =====================================================
-       MAIN
-       ===================================================== -->
-
-  <main
-    class="page"
-    id="main"
-  >
-
-
-    <!-- ===================================================
+    <!-- =====================================================
          HERO
-         =================================================== -->
-
+         ===================================================== -->
     <section class="hero">
-
       <img
         class="hero_bg"
         src="images/about_hero.jpg"
-        alt="Bose founder Amar G. Bose"
-      >
-
+        alt="칠판 앞에서 돌아보는 Amar G. Bose"
+      />
     </section>
 
-
-
-    <!-- ===================================================
+    <!-- =====================================================
          QUOTE
-         =================================================== -->
-
+         ===================================================== -->
     <section class="quote">
-
-
-      <!-- =================================================
-           LEFT QUOTE
-           ================================================= -->
-
-      <div
-        class="quote_main"
-        data-reveal="left"
-      >
-
-        <p class="quote_ko">
-
-          “상상력을 잃지 마세요.
-          항상 더 나은 것을 꿈꾸고,<br>
+      <div class="quote_main">
+        <p class="quote_ko" data-reveal="left">
+          “상상력을 잃지 마세요. 항상 더 나은 것을 꿈꾸고,<br />
           그 목표에 도달할 방법을 생각해보세요.”
-
         </p>
 
-
-        <blockquote class="quote_en">
-
+        <blockquote
+          class="quote_en"
+          data-reveal="left"
+          data-reveal-delay="120"
+        >
           <p>
-
-            “Never lose your sense of wonder.
-            Always dream of something better,
-
+            “Never lose your sense of wonder. Always dream of something better,
           </p>
-
           <p>
-
             and think of ways to achieve it.”
-
           </p>
-
-          <cite>
-
-            - Amar G. Bose
-
-          </cite>
-
+          <cite>- Amar G. Bose</cite>
         </blockquote>
-
       </div>
-
-
-
-      <!-- =================================================
-           CENTER QUOTE
-
-           위치를 담당하는 wrapper와
-           Reveal을 담당하는 text를 분리
-           ================================================= -->
 
       <div class="quote_center_wrap">
-
-        <p
-          class="quote_center"
-          data-reveal
-        >
-
-          “좋은 소리와 완벽한 소리,
-          그 사이에서<br>
+        <p class="quote_center" data-reveal>
+          “좋은 소리와 완벽한 소리, 그 사이에서<br />
           60년을 보냈습니다”
-
         </p>
-
       </div>
-
-
     </section>
 
-
-
-    <!-- ===================================================
-         JOURNEY
-         =================================================== -->
-
+    <!-- =====================================================
+         SIX DECADES OF SOUND (스크롤 겹침 효과 적용)
+         ===================================================== -->
     <section class="journey">
-
-
-      <!-- =================================================
-           IMAGE STACK
-           ================================================= -->
-
-      <div class="journey_stack">
-
-
-        <!-- IMAGE 01 -->
-
-        <div class="journey_card journey_card--01">
-
-          <div class="journey_card_inner">
-
-            <img
-              src="images/about_img03.png"
-              alt=""
-            >
-
+      <div class="journey_track">
+        
+        <!-- 스크롤 1구간 : 첫 번째 이미지 등장 -->
+        <div class="journey_card">
+          <div class="journey_card_inner is-1">
+            <img src="images/about_img03.png" alt="" />
           </div>
-
         </div>
 
-
-
-        <!-- IMAGE 02 -->
-
-        <div class="journey_card journey_card--02">
-
-          <div class="journey_card_inner">
-
-            <img
-              src="images/about_img02.png"
-              alt=""
-            >
-
+        <!-- 스크롤 2구간 : 두 번째 이미지 등장하여 겹침 -->
+        <div class="journey_card">
+          <div class="journey_card_inner is-2">
+            <img src="images/about_img02.png" alt="" />
           </div>
-
         </div>
 
-
-
-        <!-- IMAGE 03 -->
-
-        <div class="journey_card journey_card--03">
-
-          <div class="journey_card_inner">
-
-            <img
-              src="images/about_img01.png"
-              alt=""
-            >
-
+        <!-- 스크롤 3구간 : 세 번째 이미지 등장하여 최종 겹침 -->
+        <div class="journey_card">
+          <div class="journey_card_inner is-3">
+            <img src="images/about_img01.png" alt="" />
           </div>
-
         </div>
 
+        <!-- 스크롤 4구간 : 마지막 텍스트 스르륵 등장 -->
+        <div class="journey_card">
+          <div class="journey_text" data-reveal="right">
+            <div class="journey_heading">
+              <p class="journey_ko">소리를 향한 60년의 여정</p>
+              <p class="journey_en">Six Decades of Sound</p>
+            </div>
+            <p class="journey_body">
+              Bose는 열정적인 엔지니어, 연구자, 음악 애호가들로 구성된 그룹으로,
+              더 나은 사운드를 위해 끊임없이 탐구합니다.
+            </p>
+          </div>
+        </div>
 
       </div>
-
-
-
-      <!-- =================================================
-           JOURNEY TEXT
-           ================================================= -->
-
-      <div
-        class="journey_text"
-        data-reveal="right"
-      >
-
-        <div class="journey_heading">
-
-          <p class="journey_ko">
-
-            소리를 향한 60년의 여정
-
-          </p>
-
-          <p class="journey_en">
-
-            Six Decades of Sound
-
-          </p>
-
-        </div>
-
-
-        <p class="journey_body">
-
-          Bose는 열정적인 엔지니어,
-          연구자, 음악 애호가들로 구성된 그룹으로,
-          <br>
-          더 나은 사운드를 위해 끊임없이 탐구합니다.
-
-        </p>
-
-      </div>
-
-
     </section>
 
-
-
-    <!-- ===================================================
+    <!-- =====================================================
          POWER
-         =================================================== -->
-
+         ===================================================== -->
     <section class="power">
-
-
-      <figure
-        class="power_media"
-        data-reveal
-      >
-
-        <img
-          src="images/about_img04.png"
-          alt="협곡 끝에 서 있는 사람"
-        >
-
+      <figure class="power_media">
+        <img src="images/about_img04.png" alt="협곡 끝에 선 사람" />
       </figure>
-
-
-      <div
-        class="power_text"
-        data-reveal="left"
-      >
-
-        <p class="power_ko">
-
-          ‘소리’는,
-          세상을 움직이는 진짜 힘입니다.
-
-        </p>
-
-
-        <p class="power_en">
-
-          Sound is the true force
-          that moves the world.
-
-        </p>
-
+      <div class="power_text" data-reveal="left">
+        <p class="power_ko">‘소리’는, 세상을 움직이는 진짜 힘입니다.</p>
+        <p class="power_en">Sound is the true force that moves the world.</p>
       </div>
-
-
     </section>
 
-
-
-    <!-- ===================================================
+    <!-- =====================================================
          CHANGE
-         =================================================== -->
-
+         ===================================================== -->
     <section class="change">
-
-
-      <!-- =================================================
-           IMAGE
-           ================================================= -->
-
-      <figure
-        class="change_media"
-        data-reveal
-      >
-
-        <img
-          src="images/about_img05.png"
-          alt="오로라가 펼쳐진 사막을 걷는 사람"
-        >
-
+      <figure class="change_media">
+        <img src="images/about_img05.png" alt="오로라가 펼쳐진 사막을 걷는 사람" />
       </figure>
 
-
-
-      <!-- =================================================
-           RIGHT TEXT
-           ================================================= -->
-
-      <div
-        class="change_text change_text--right"
-        data-reveal="right"
-      >
-
+      <div class="change_text change_text--right" data-reveal="right">
         <p class="change_ko">
-
-          소리는 우리를 변화시키고,
-          감동시키며,
-          삶에 생동감을 불어넣습니다.
-
+          소리는 우리를 변화시키고, 감동시키며, 삶에 생동감을 불어넣습니다.
         </p>
-
-
         <p class="change_en">
-
-          Sound transforms us,
-          moves us,
-          and breathes life into every moment.
-
+          Sound transforms us, moves us, and breathes life into every moment.
         </p>
-
       </div>
 
-
-
-      <!-- =================================================
-           CENTER TEXT
-
-           wrapper = 위치
-           p = Reveal
-           ================================================= -->
-
-      <div class="change_text change_text--center">
-
-
-        <p
-          class="change_ko"
-          data-reveal
-          data-reveal-delay="100"
-        >
-
-          우리는 언제나 ‘본래 의도된 소리’를
-          가장 순수하게 전달하고자 노력해왔습니다.
-
+      <!-- 중앙 정렬 -->
+      <div class="change_text change_text--center" data-reveal>
+        <p class="change_ko">
+          우리는 언제나 ‘본래 의도된 소리’를 가장 순수하게 전달하고자 노력해왔습니다.
         </p>
-
-
-        <p
-          class="change_en"
-          data-reveal
-          data-reveal-delay="180"
-        >
-
-          We’ve always strived to deliver sound exactly
-          as it was intended to be heard.
-
+        <p class="change_en">
+          We’ve always strived to deliver sound exactly as it was intended to be heard.
         </p>
-
-
       </div>
-
-
     </section>
 
-
-
-    <!-- ===================================================
+    <!-- =====================================================
          SUSTAINABLE FUTURE
-         =================================================== -->
-
+         ===================================================== -->
     <section class="sustain">
-
-
-      <figure
-        class="sustain_media"
-        data-reveal
-      >
-
-        <img
-          src="images/about_img06.png"
-          alt="Bose 직원들이 장비를 점검하는 모습"
-        >
-
+      <figure class="sustain_media">
+        <img src="images/about_img06.png" alt="장비를 함께 점검하는 Bose 직원들" />
       </figure>
-
 
       <div class="sustain_text_wrap">
-
-
-        <div
-          class="sustain_text"
-          data-reveal="right"
-        >
-
-
+        <div class="sustain_text" data-reveal="right">
           <div class="sustain_group">
-
-            <p class="sustain_ko">
-
-              지속 가능한 미래를 향해
-
-            </p>
-
-
-            <p class="sustain_en">
-
-              Toward a Sustainable Future
-
-            </p>
-
+            <p class="sustain_ko">지속 가능한 미래를 향해</p>
+            <p class="sustain_en">Toward a Sustainable Future</p>
           </div>
-
-
-
           <div class="sustain_group">
-
-            <p class="sustain_ko">
-
-              지속가능성은 Bose의 본질과
-              가치를 반영합니다.
-
-            </p>
-
-
-            <p class="sustain_en">
-
-              Sustainability reflects
-              the essence and values of Bose.
-
-            </p>
-
+            <p class="sustain_ko">지속가능성은 Bose의 본질과 가치를 반영합니다.</p>
+            <p class="sustain_en">Sustainability reflects the essence and values of Bose</p>
           </div>
-
-
         </div>
-
       </div>
-
-
     </section>
-
 
   </main>
 
-
-
-  <!-- =====================================================
-       COMMON JS
-
-       Header / Footer / Navigation /
-       Scroll Reveal
-       ===================================================== -->
-
+  <!-- 헤더, 푸터, 스크롤 애니메이션을 담당하는 공통 스크립트 복구 완료! -->
   <script src="js/common.js"></script>
 
-
 </body>
-
 </html>
