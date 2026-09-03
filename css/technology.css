@@ -43,6 +43,7 @@
   position: relative;
   width: min(60vw, 640px);
   aspect-ratio: 1 / 1;
+  perspective: 1200px;
 }
 .rotate_frame {
   position: absolute;
@@ -51,6 +52,7 @@
   height: 100%;
   object-fit: contain;
   opacity: 0;
+  backface-visibility: hidden;
 }
 .rotate_frame[data-frame="0"] {
   opacity: 1; /* 시작 프레임 */
@@ -77,7 +79,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: min(52vw, 1000px);
+  width: min(28vw, 430px);
   aspect-ratio: 1 / 1;
 }
 .feature_media img {
@@ -109,15 +111,16 @@
 
 /* CustomTune : 이미지 크게, 텍스트 우측 */
 .feature--custom .feature_media {
-  width: min(60vw, 1100px);
+  width: min(32vw, 480px);
 }
 .feature--custom .feature_copy {
-  left: calc(50% + 351px);
+  left: auto;
+  right: clamp(24px, 4vw, 80px);
 }
 
 /* Immersive Audio : 이미지 중앙, 텍스트 좌측 끝 */
 .feature--immersive .feature_copy {
-  left: calc(50% - 817px);
+  left: clamp(48px, 8vw, 160px);
 }
 
 /* Noise Cancelling : 이미지 중앙 상단, 텍스트 중앙 하단 */
@@ -136,46 +139,40 @@
   top: 40%;
 }
 .feature--active .feature_copy {
-  left: calc(50% + 439px);
+  left: auto;
+  right: clamp(24px, 4vw, 80px);
   top: 74%;
 }
 
-/* ---------- recap : 마무리 리캡 ---------- */
-.recap {
+/* ---------- reassemble : 설명 후 헤드폰 재조립 ---------- */
+.reassemble_section {
   position: relative;
-  height: 900px;
+  height: 350vh;
+}
+.reassemble_stage {
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.recap_media {
-  position: absolute;
-  border-radius: var(--radius-card);
   overflow: hidden;
 }
-.recap_media img {
+.reassemble_frames {
+  position: relative;
+  width: min(60vw, 640px);
+  aspect-ratio: 1 / 1;
+  perspective: 1200px;
+}
+.reassemble_frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  opacity: 0;
+  backface-visibility: hidden;
 }
-.recap_media--explode {
-  width: min(48vw, 700px);
-  height: min(48vw, 700px);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.recap_media--angle {
-  width: min(24vw, 380px);
-  height: min(24vw, 380px);
-  left: 8%;
-  top: 20%;
-}
-.recap_media--full {
-  width: min(24vw, 380px);
-  height: min(24vw, 380px);
-  right: 8%;
-  bottom: 15%;
+.reassemble_frame[data-frame="4"] {
+  opacity: 1;
 }
 
 /* ---------- shop_cta ---------- */
@@ -254,11 +251,13 @@
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {
   .rotate_section,
-  .feature {
+  .feature,
+  .reassemble_section {
     height: auto;
   }
   .rotate_stage,
-  .feature_stage {
+  .feature_stage,
+  .reassemble_stage {
     height: auto;
     position: static;
     padding-block: var(--sp-9);
@@ -270,6 +269,16 @@
   }
   .rotate_frame[data-frame="4"] {
     display: block;
+    width: min(60vw, 640px);
+    margin-inline: auto;
+  }
+  .reassemble_frame {
+    position: static;
+    display: none;
+  }
+  .reassemble_frame[data-frame="0"] {
+    display: block;
+    opacity: 1;
     width: min(60vw, 640px);
     margin-inline: auto;
   }
@@ -295,14 +304,15 @@
   .feature--noise .feature_copy,
   .feature--active .feature_copy {
     left: 50%;
+    right: auto;
     top: auto;
     bottom: 8%;
     transform: translateX(-50%);
     text-align: center;
     width: 90%;
   }
-  .recap {
-    height: 700px;
+  .reassemble_frames {
+    width: min(76vw, 640px);
   }
   .shop_cta_cards {
     grid-template-columns: 1fr;

@@ -21,18 +21,117 @@ function initRotateSequence() {
       trigger: section,
       start: "top top",
       end: "bottom bottom",
-      scrub: 1,
+      scrub: 1.2,
       pin: stage,
       anticipatePin: 1,
     },
   });
 
-  // 프레임을 순서대로 하나씩 크로스페이드 (마지막은 분해 이미지)
+  gsap.set(frames, {
+    opacity: 0,
+    rotationY: -6,
+    scale: 0.97,
+    transformOrigin: "center center",
+  });
+  gsap.set(frames[0], {
+    opacity: 1,
+    rotationY: 0,
+    scale: 1,
+  });
+
+  // 전환 구간을 겹쳐 프레임이 끊기지 않고 회전하는 것처럼 이어집니다.
   for (let i = 1; i < frames.length; i += 1) {
-    tl.to(frames[i - 1], { opacity: 0, duration: 1 }, i - 1).to(
+    const start = (i - 1) * 0.75;
+
+    tl.to(
+      frames[i - 1],
+      {
+        opacity: 0,
+        rotationY: 6,
+        scale: 1.03,
+        duration: 1.5,
+        ease: "power1.inOut",
+      },
+      start
+    ).fromTo(
       frames[i],
-      { opacity: 1, duration: 1 },
-      i - 1
+      {
+        opacity: 0,
+        rotationY: -6,
+        scale: 0.97,
+      },
+      {
+        opacity: 1,
+        rotationY: 0,
+        scale: 1,
+        duration: 1.5,
+        ease: "power1.inOut",
+      },
+      start
+    );
+  }
+}
+
+/* ---------- 3) 설명 후 헤드폰 재조립 ---------- */
+function initReassembleSequence() {
+  const section = document.getElementById("reassemble_section");
+  if (!section) return;
+
+  const stage = section.querySelector(".reassemble_stage");
+  const frames = gsap.utils.toArray(".reassemble_frame", section);
+  if (!stage || frames.length < 2) return;
+
+  gsap.set(frames, {
+    opacity: 0,
+    rotationY: 6,
+    scale: 1.03,
+    transformOrigin: "center center",
+  });
+  gsap.set(frames[0], {
+    opacity: 1,
+    rotationY: 0,
+    scale: 1,
+  });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1.2,
+      pin: stage,
+      anticipatePin: 1,
+    },
+  });
+
+  for (let i = 1; i < frames.length; i += 1) {
+    const start = (i - 1) * 0.75;
+
+    tl.to(
+      frames[i - 1],
+      {
+        opacity: 0,
+        rotationY: -6,
+        scale: 0.97,
+        duration: 1.5,
+        ease: "power1.inOut",
+      },
+      start
+    ).fromTo(
+      frames[i],
+      {
+        opacity: 0,
+        rotationY: 6,
+        scale: 1.03,
+      },
+      {
+        opacity: 1,
+        rotationY: 0,
+        scale: 1,
+        duration: 1.5,
+        ease: "power1.inOut",
+      },
+      start
     );
   }
 }
@@ -82,4 +181,5 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   initRotateSequence();
   initFeatureSections();
+  initReassembleSequence();
 });

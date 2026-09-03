@@ -63,7 +63,7 @@
   width: 100%;
   height: 1000px;
 
-  transform-origin: right bottom;
+  transform-origin: center top;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 
