@@ -63,6 +63,10 @@
   width: 100%;
   height: 1000px;
 
+  transform-origin: right bottom;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
   overflow: hidden;
 
   background: #0d0d0d;
@@ -177,11 +181,12 @@
 
 
 .history_image--early img {
-  width: 227.56%;
-  height: 105.71%;
+  width: 100%;
+  height: 100%;
 
-  left: -13.75%;
-  top: -2.76%;
+  inset: 0;
+
+  object-fit: cover;
 }
 
 
@@ -205,10 +210,10 @@
 
 .history_image--1960 {
   left: calc(50% - 640px);
-  top: 300px;
+  top: 297px;
 
-  width: 500px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
 }
 
 
@@ -226,7 +231,7 @@
   position: absolute;
 
   left: calc(50% + 180px);
-  top: 479px;
+  top: 528px;
 
   width: 650px;
 
@@ -245,7 +250,7 @@
   position: absolute;
 
   left: calc(50% - 640px);
-  top: 438px;
+  top: 528px;
 
   width: 700px;
 
@@ -256,20 +261,21 @@
 /* ---------- large image ---------- */
 
 .history_image--1970-main {
-  left: calc(50% + 410px);
-  top: 250px;
+  left: calc(50% + 180px);
+  top: 297px;
 
-  width: 460px;
+  width: 400px;
   height: 500px;
 }
 
 
 .history_image--1970-main img {
-  width: 350.06%;
+  width: 100%;
   height: 100%;
 
-  left: -235.18%;
-  top: -0.02%;
+  inset: 0;
+
+  object-fit: cover;
 }
 
 
@@ -310,19 +316,14 @@
 
 
 .history_image--1970-small-inner img {
-  position: absolute;
+  width: 100%;
+  height: 100%;
 
-  width: 203.25%;
-  height: 122.4%;
+  inset: 0;
 
-  left: -103.25%;
-  top: -21.87%;
+  object-fit: contain;
 
   max-width: none;
-
-  border: 8px solid #0d0d0d;
-
-  box-sizing: border-box;
 }
 
 
@@ -354,7 +355,7 @@
   color: #f2f2f2;
 
   font-family: "Montserrat", sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 400;
 
   line-height: 1.5;
@@ -372,20 +373,21 @@
    ========================================================= */
 
 .history_image--1980 {
-  left: calc(50% - 410px);
-  top: 250px;
+  left: calc(50% - 640px);
+  top: 297px;
 
-  width: 460px;
+  width: 400px;
   height: 500px;
 }
 
 
 .history_image--1980 img {
-  width: 164.18%;
+  width: 100%;
   height: 100%;
 
-  left: -19.17%;
-  top: 0.01%;
+  inset: 0;
+
+  object-fit: cover;
 }
 
 
@@ -393,7 +395,7 @@
   position: absolute;
 
   left: calc(50% + 180px);
-  top: 423px;
+  top: 528px;
 
   width: 650px;
 
@@ -408,10 +410,10 @@
    ========================================================= */
 
 .history_image--1990 {
-  left: calc(50% + 220px);
-  top: 250px;
+  left: calc(50% + 180px);
+  top: 297px;
 
-  width: 460px;
+  width: 400px;
   height: 500px;
 }
 
@@ -430,7 +432,7 @@
   position: absolute;
 
   left: calc(50% - 640px);
-  top: 421px;
+  top: 528px;
 
   width: 700px;
 
@@ -445,10 +447,10 @@
    ========================================================= */
 
 .history_image--2000 {
-  left: calc(50% - 410px);
-  top: 250px;
+  left: calc(50% - 640px);
+  top: 297px;
 
-  width: 460px;
+  width: 400px;
   height: 500px;
 }
 
@@ -467,7 +469,7 @@
   position: absolute;
 
   left: calc(50% + 180px);
-  top: 404px;
+  top: 528px;
 
   width: 650px;
 
@@ -482,10 +484,10 @@
    ========================================================= */
 
 .history_image--2010 {
-  left: calc(50% + 380px);
-  top: 250px;
+  left: calc(50% + 180px);
+  top: 297px;
 
-  width: 460px;
+  width: 400px;
   height: 500px;
 }
 
@@ -503,8 +505,8 @@
 .history_copy--2010 {
   position: absolute;
 
-  left: calc(50% - 699px);
-  top: 420px;
+  left: calc(50% - 640px);
+  top: 528px;
 
   width: 720px;
 
@@ -519,10 +521,10 @@
    ========================================================= */
 
 .history_image--2020 {
-  left: calc(50% - 410px);
-  top: 250px;
+  left: calc(50% - 640px);
+  top: 297px;
 
-  width: 460px;
+  width: 400px;
   height: 500px;
 }
 
@@ -541,7 +543,7 @@
   position: absolute;
 
   left: calc(50% + 180px);
-  top: 442px;
+  top: 528px;
 
   width: 700px;
 
@@ -917,12 +919,7 @@
   .history_image--2020 {
     width: min(460px, 80vw);
     height: auto;
-    aspect-ratio: 460 / 500;
-  }
-
-
-  .history_image--1960 {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 4 / 5;
   }
 
 
@@ -1029,12 +1026,7 @@
     width: min(420px, 88vw);
     height: auto;
 
-    aspect-ratio: 460 / 500;
-  }
-
-
-  .history_image--1960 {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 4 / 5;
   }
 
 

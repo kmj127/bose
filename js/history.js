@@ -2,9 +2,8 @@
    history.js
    BOSE History Page
 
-   1. 공통 footer를 Figma History 전용 footer로 교체
-   2. ScrollTrigger 기반 부드러운 fade-up reveal
-   3. 기존 rotateX 책장 넘김 효과 제거
+  1. 공통 footer와 header는 common.js에서 생성
+  2. ScrollTrigger 기반 책장 넘김 및 fade-up reveal
    ========================================================= */
 
 
@@ -40,18 +39,6 @@ function renderHistoryFooter() {
         class="history_footer_logo"
         aria-label="BOSE 홈으로"
       >
-        BOSE
-      </a>
-
-
-      <!-- SOCIAL -->
-
-      <div class="history_footer_social">
-
-        <a
-          href="https://youtube.com"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="YouTube"
         >
 
@@ -190,6 +177,47 @@ function initHistoryReveal() {
 
     return;
   }
+
+
+  /* =======================================================
+     PAGE TURN
+     ======================================================= */
+
+  gsap.utils
+    .toArray(".history_section")
+    .forEach((section) => {
+
+      gsap.fromTo(
+        section,
+
+        {
+          opacity: 1,
+          rotateX: 14,
+          y: 96,
+          scale: 0.96,
+          transformPerspective: 1800,
+          transformOrigin: "center top"
+        },
+
+        {
+          opacity: 1,
+          rotateX: 0,
+          y: 0,
+          scale: 1,
+          transformPerspective: 1800,
+          transformOrigin: "center top",
+          ease: "none",
+
+          scrollTrigger: {
+            trigger: section,
+            start: "top bottom",
+            end: "top 18%",
+            scrub: 1
+          }
+        }
+      );
+
+    });
 
 
   /* =======================================================
@@ -411,17 +439,6 @@ function initHistoryReveal() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-
-    /*
-     * common.js가 먼저 실행되어
-     * header/footer를 생성한다.
-     *
-     * 그 다음 History 전용 footer로
-     * 공통 footer를 교체한다.
-     */
-
-    renderHistoryFooter();
-
 
     initHistoryReveal();
 

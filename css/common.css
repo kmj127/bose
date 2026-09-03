@@ -282,6 +282,7 @@ body {
   font-size: var(--fs-nav);
   font-weight: 500;
   color: var(--color-text);
+  white-space: nowrap;
   transition: color 0.2s var(--ease);
 }
 
