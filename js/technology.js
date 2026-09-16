@@ -569,35 +569,56 @@
 
     if (
       !stage ||
-      frames.length < 2
+      !frames.length
     ) {
       return;
     }
 
 
     /* ---------------------------------------------------------
+       HEADPHONE ONLY
+       --------------------------------------------------------- */
+
+    const headphone =
+      frames[0];
+
+
+    /* ---------------------------------------------------------
+       SENSOR / PARTS HIDDEN
+       --------------------------------------------------------- */
+
+    gsap.set(
+      frames.slice(1),
+      {
+        display: "none"
+      }
+    );
+
+
+    /* ---------------------------------------------------------
        INITIAL STATE
        --------------------------------------------------------- */
 
-    gsap.set(frames, {
-      opacity: 0,
-      scale: 1.08,
-      rotationY: 8,
-      filter: "blur(4px)",
-      transformOrigin: "center center"
-    });
+    gsap.set(
+      headphone,
+      {
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        filter: "blur(0px)",
+        transformOrigin:
+          "center center",
+        transformPerspective: 1400
+      }
+    );
 
-    gsap.set(frames[0], {
-      opacity: 1,
-      scale: 1,
-      rotationY: 0,
-      filter: "blur(0px)"
-    });
-
-    gsap.set(copy, {
-      opacity: 0,
-      y: 35
-    });
+    gsap.set(
+      copy,
+      {
+        opacity: 0,
+        y: 35
+      }
+    );
 
 
     /* ---------------------------------------------------------
@@ -630,74 +651,21 @@
       });
 
 
-    frames.forEach(
-      (frame, index) => {
-
-        if (index === 0) return;
-
-        const previous =
-          frames[index - 1];
-
-        const start =
-          (index - 1) * 1.1;
-
-
-        timeline.to(
-          previous,
-          {
-            opacity: 0,
-            scale: 0.92,
-            rotationY: -8,
-            filter: "blur(4px)",
-
-            duration: 1.1,
-
-            ease: "power2.inOut"
-          },
-          start
-        );
-
-
-        timeline.fromTo(
-          frame,
-          {
-            opacity: 0,
-            scale: 1.08,
-            rotationY: 8,
-            filter: "blur(4px)"
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            rotationY: 0,
-            filter: "blur(0px)",
-
-            duration: 1.1,
-
-            ease: "power2.inOut"
-          },
-          start
-        );
-      }
-    );
-
-
     /* ---------------------------------------------------------
-       FINAL SCALE
+       HEADPHONE ROTATION
        --------------------------------------------------------- */
 
     timeline.to(
-      frames[
-        frames.length - 1
-      ],
+      headphone,
       {
+        rotationY: 360,
+
         scale: 1.06,
 
-        duration: 0.8,
+        duration: 3,
 
-        ease: "power2.out"
-      },
-      ">"
+        ease: "none"
+      }
     );
 
 
@@ -715,7 +683,7 @@
 
         ease: "power3.out"
       },
-      "-=0.35"
+      "-=0.4"
     );
   }
 
