@@ -1,322 +1,1463 @@
 /* =========================================================
-   technology.css — Technology 페이지 전용 스타일
-   (Figma 실측: node 1113:623, fileKey 2wHicEsAeYVlXcMARhlEHN)
-   ★ 회전/고정 인터랙션은 js/technology.js (GSAP ScrollTrigger)가 담당합니다.
+   technology.css
+   BOSE Technology Page
+
+   Concept
+   ---------------------------------------------------------
+   Intro
+      ↓
+   Headphone rotation
+      ↓
+   Exploded view
+      ↓
+   CustomTune
+      ↓
+   Immersive Audio
+      ↓
+   Noise Cancelling
+      ↓
+   ActiveSense
+      ↓
+   Reassemble
+      ↓
+   Product
    ========================================================= */
 
-/* ---------- intro ---------- */
-.intro {
-  height: 700px;
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+.technology_page {
+  background: #0a0a0a;
+  color: #f2f2f2;
+  overflow: clip;
+}
+
+.technology_page img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.tech_intro {
+  position: relative;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.tech_intro::before {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 55vw;
+  height: 55vw;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.055) 0%,
+      rgba(255,255,255,0.015) 38%,
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+.tech_intro_inner {
+  position: relative;
+  z-index: 1;
+
+  width: min(90%, 1000px);
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--sp-3);
-  text-align: center;
-}
-.intro_title {
-  font-family: var(--font-head);
-  font-weight: 500;
-  font-size: var(--fs-h3);
-}
-.intro_desc {
-  font-size: var(--fs-body);
-  color: var(--color-text-muted);
-}
 
-/* =========================================================
-   rotate_section : 헤드폰 4컷 크로스페이드 → 분해 이미지로 전환
-   스크롤에 그대로 붙어서(scrub) 재생되는 모션이라 GSAP 필요.
-   ========================================================= */
-.rotate_section {
-  position: relative;
-  height: 350vh; /* 스크롤 재생 구간 (js에서 pin 유지) */
-}
-.rotate_stage {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.rotate_frames {
-  position: relative;
-  width: min(60vw, 640px);
-  aspect-ratio: 1 / 1;
-  perspective: 1200px;
-}
-.rotate_frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  backface-visibility: hidden;
-}
-.rotate_frame[data-frame="0"] {
-  opacity: 1; /* 시작 프레임 */
-}
-.rotate_explode {
-  transform: scale(1.15);
-}
-
-/* =========================================================
-   feature : CustomTune / Immersive Audio / Noise Cancelling / ActiveSense
-   화면에 고정(pin)된 상태로 이미지·텍스트가 등장한 뒤 다음 섹션으로 넘어갑니다.
-   ========================================================= */
-.feature {
-  position: relative;
-  height: 220vh; /* 고정 상태로 머무는 스크롤 구간 */
-}
-.feature_stage {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-.feature_media {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(28vw, 430px);
-  aspect-ratio: 1 / 1;
-}
-.feature_media img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.feature_copy {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 420px;
-}
-.feature_title {
-  font-family: var(--font-head);
-  font-weight: 500;
-  font-size: var(--fs-lead);
-  margin-bottom: var(--sp-2);
-}
-.feature_subtitle {
-  font-size: var(--fs-lead);
-  margin-bottom: var(--sp-4);
-}
-.feature_desc {
-  font-size: var(--fs-body);
-  color: var(--color-text-muted);
-  line-height: var(--lh-base);
-}
-
-/* CustomTune : 이미지 크게, 텍스트 우측 */
-.feature--custom .feature_media {
-  width: min(32vw, 480px);
-}
-.feature--custom .feature_copy {
-  left: auto;
-  right: clamp(24px, 4vw, 80px);
-}
-
-/* Immersive Audio : 이미지 중앙, 텍스트 좌측 끝 */
-.feature--immersive .feature_copy {
-  left: clamp(48px, 8vw, 160px);
-}
-
-/* Noise Cancelling : 이미지 중앙 상단, 텍스트 중앙 하단 */
-.feature--noise .feature_media {
-  top: 40%;
-}
-.feature--noise .feature_copy {
-  left: 50%;
-  top: 74%;
-  transform: translate(-50%, -50%);
   text-align: center;
 }
 
-/* ActiveSense : 이미지 중앙 상단, 텍스트 우측 */
-.feature--active .feature_media {
-  top: 40%;
-}
-.feature--active .feature_copy {
-  left: auto;
-  right: clamp(24px, 4vw, 80px);
-  top: 74%;
+.tech_eyebrow {
+  margin-bottom: 28px;
+
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.24em;
+
+  color: #888;
 }
 
-/* ---------- reassemble : 설명 후 헤드폰 재조립 ---------- */
-.reassemble_section {
-  position: relative;
-  height: 350vh;
+.tech_intro_title {
+  margin: 0;
+
+  font-family: var(--font-head);
+  font-size: 60px;
+  font-weight: 500;
+
+  line-height: 1.1;
+  letter-spacing: -0.045em;
 }
-.reassemble_stage {
+
+.tech_intro_desc {
+  margin-top: 38px;
+
+  font-size: 20px;
+  line-height: 1.7;
+
+  color: #aaa;
+}
+
+.tech_scroll_hint {
+  margin-top: 90px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  font-family: var(--font-head);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+
+  color: #666;
+}
+
+.tech_scroll_line {
+  position: relative;
+
+  width: 1px;
+  height: 54px;
+
+  overflow: hidden;
+
+  background: #333;
+}
+
+.tech_scroll_line::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background: #fff;
+
+  animation: techScrollLine 2s ease-in-out infinite;
+}
+
+@keyframes techScrollLine {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(200%);
+  }
+
+}
+
+
+/* =========================================================
+   PRODUCT SEQUENCE
+   ========================================================= */
+
+.tech_sequence {
+  position: relative;
+
+  height: 420vh;
+}
+
+.tech_sequence_stage {
+  position: relative;
+
+  width: 100%;
   height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
 }
-.reassemble_frames {
-  position: relative;
-  width: min(60vw, 640px);
-  aspect-ratio: 1 / 1;
-  perspective: 1200px;
-}
-.reassemble_frame {
+
+
+/* ---------- background ---------- */
+
+.tech_sequence_stage::before {
+  content: "";
+
   position: absolute;
-  inset: 0;
+
+  left: 50%;
+  top: 50%;
+
+  width: 60vw;
+  height: 60vw;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.07) 0%,
+      rgba(255,255,255,0.025) 35%,
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+/* ---------- top ---------- */
+
+.sequence_top {
+  position: absolute;
+
+  left: clamp(28px, 5vw, 90px);
+  top: 42px;
+
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.sequence_number {
+  font-family: var(--font-head);
+  font-size: 11px;
+
+  color: #f2f2f2;
+}
+
+.sequence_label {
+  font-family: var(--font-head);
+  font-size: 12px;
+
+  letter-spacing: 0.1em;
+
+  color: #666;
+}
+
+
+/* ---------- product ---------- */
+
+.sequence_product {
+  position: relative;
+
+  z-index: 3;
+
+  width: min(65vw, 820px);
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sequence_frames {
+  position: relative;
+
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  opacity: 0;
-  backface-visibility: hidden;
+
+  perspective: 1400px;
 }
-.reassemble_frame[data-frame="4"] {
+
+.sequence_frame {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  opacity: 0;
+
+  transform-origin: center center;
+
+  backface-visibility: hidden;
+
+  will-change:
+    opacity,
+    transform,
+    filter;
+}
+
+.sequence_frame:first-child {
   opacity: 1;
 }
 
-/* ---------- shop_cta ---------- */
-.shop_cta_head {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--sp-2);
-  margin-bottom: var(--sp-8);
-}
-.shop_cta_title {
-  font-family: var(--font-head);
-  font-weight: 500;
-  font-size: var(--fs-lead);
-  line-height: var(--lh-tight);
-}
-.shop_cta_desc {
-  font-size: var(--fs-body);
-  color: var(--color-text-muted);
-  margin-bottom: var(--sp-3);
+.sequence_frame--explode {
+  transform: scale(1.05);
 }
 
-.shop_cta_cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-7);
+
+/* ---------- message ---------- */
+
+.sequence_message {
+  position: absolute;
+
+  left: 50%;
+  bottom: 9%;
+
+  z-index: 6;
+
+  width: 100%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+
+  pointer-events: none;
 }
-.tech_card a {
+
+.sequence_message_small {
+  margin-bottom: 12px;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+
+  letter-spacing: 0.25em;
+
+  color: #666;
+}
+
+.sequence_message h2 {
+  margin: 0;
+
+  font-family: var(--font-head);
+  font-size: clamp(22px, 2.4vw, 38px);
+  font-weight: 500;
+
+  letter-spacing: -0.025em;
+}
+
+.sequence_message p:last-child {
+  margin-top: 12px;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  color: #777;
+}
+
+
+/* ---------- progress ---------- */
+
+.sequence_progress {
+  position: absolute;
+
+  right: clamp(28px, 5vw, 90px);
+  bottom: 42px;
+
+  z-index: 10;
+
   display: flex;
-  flex-direction: column;
-  border-radius: var(--radius-card);
-  overflow: hidden;
+  align-items: center;
+
+  gap: 12px;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+
+  color: #666;
+}
+
+.sequence_progress_current {
+  color: #fff;
+}
+
+.sequence_progress_line {
+  position: relative;
+
+  width: 90px;
+  height: 1px;
+
+  background: #333;
+}
+
+.sequence_progress_line > span {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 0%;
+  height: 100%;
+
   background: #fff;
-  transition: transform 0.25s var(--ease);
 }
-.tech_card a:hover {
-  transform: translateY(-6px);
+
+
+/* =========================================================
+   FEATURE COMMON
+   ========================================================= */
+
+.tech_feature {
+  position: relative;
+
+  height: 240vh;
 }
-.tech_card_img {
+
+.tech_feature_stage {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+
+/* ---------- number ---------- */
+
+.feature_number {
+  position: absolute;
+
+  left: clamp(28px, 5vw, 90px);
+  top: 42px;
+
+  z-index: 5;
+
+  font-family: var(--font-head);
+  font-size: 11px;
+
+  color: #f2f2f2;
+}
+
+
+/* ---------- category ---------- */
+
+.feature_category {
+  position: absolute;
+
+  right: clamp(28px, 5vw, 90px);
+  top: 42px;
+
+  z-index: 5;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+
+  letter-spacing: 0.2em;
+
+  color: #666;
+}
+
+
+/* ---------- visual ---------- */
+
+.feature_visual {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  z-index: 2;
+
+  width: min(42vw, 680px);
+  aspect-ratio: 1 / 1;
+
+  margin: 0;
+
+  transform: translate(-50%, -50%);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
-  background: #f2f2f2;
+
+  will-change:
+    transform,
+    opacity;
 }
-.tech_card_img img {
-  max-width: 78%;
-  max-height: 78%;
+
+.feature_visual img {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
   object-fit: contain;
+
+  will-change: transform;
 }
-.tech_card_body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-  padding: var(--sp-5) var(--sp-5) var(--sp-6);
-  background: #f2f2f2;
+
+
+/* ---------- glow ---------- */
+
+.feature_visual_glow {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 70%;
+  height: 70%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.09),
+      transparent 70%
+    );
+
+  filter: blur(20px);
 }
-.tech_card_cat {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: var(--fs-sm);
-  color: #555;
+
+
+/* ---------- copy ---------- */
+
+.feature_copy {
+  position: absolute;
+
+  z-index: 4;
+
+  width: min(360px, 30vw);
 }
-.tech_card_name {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: var(--fs-sm);
-  color: #0d0d0d;
+
+.feature_kicker {
+  margin-bottom: 20px;
+
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.22em;
+
+  color: #888;
 }
+
+.feature_title {
+  margin: 0;
+
+  font-family: var(--font-head);
+  font-size: clamp(42px, 4.3vw, 72px);
+  font-weight: 500;
+
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.feature_subtitle {
+  margin-top: 30px;
+
+  font-size: 20px;
+  line-height: 1.5;
+
+  color: #eee;
+}
+
+.feature_desc {
+  margin-top: 28px;
+
+  font-size: 14px;
+  line-height: 1.85;
+
+  color: #777;
+}
+
+
+/* ---------- line ---------- */
+
+.feature_line {
+  position: absolute;
+
+  left: 50%;
+  bottom: 40px;
+
+  width: 0;
+  height: 1px;
+
+  background: #292929;
+
+  transform: translateX(-50%);
+}
+
 
 /* =========================================================
-   접근성: 모션 최소화 사용자는 고정(pin)·회전 없이
-   모든 내용을 정적으로 순서대로 표시합니다.
-   (실제 정적 레이아웃 전환은 js/technology.js 에서 처리)
+   CUSTOMTUNE
    ========================================================= */
-@media (prefers-reduced-motion: reduce) {
-  .rotate_section,
-  .feature,
-  .reassemble_section {
-    height: auto;
-  }
-  .rotate_stage,
-  .feature_stage,
-  .reassemble_stage {
-    height: auto;
-    position: static;
-    padding-block: var(--sp-9);
-  }
-  .rotate_frame {
-    position: static;
-    opacity: 1;
-    display: none;
-  }
-  .rotate_frame[data-frame="4"] {
-    display: block;
-    width: min(60vw, 640px);
-    margin-inline: auto;
-  }
-  .reassemble_frame {
-    position: static;
-    display: none;
-  }
-  .reassemble_frame[data-frame="0"] {
-    display: block;
-    opacity: 1;
-    width: min(60vw, 640px);
-    margin-inline: auto;
-  }
-  .feature_media,
-  .feature_copy {
-    position: static;
-    transform: none;
-    width: 100%;
-    max-width: 480px;
-    margin-inline: auto;
-    text-align: center;
-  }
-  .feature_copy {
-    margin-top: var(--sp-6);
-  }
+
+.tech_feature--custom {
+  background:
+    radial-gradient(
+      circle at 72% 50%,
+      rgba(255,255,255,0.035),
+      transparent 30%
+    );
 }
 
-/* ---------- 반응형 최소 대응 ---------- */
-@media (max-width: 1100px) {
-  .feature_copy,
-  .feature--custom .feature_copy,
-  .feature--immersive .feature_copy,
-  .feature--noise .feature_copy,
-  .feature--active .feature_copy {
-    left: 50%;
+.tech_feature--custom .feature_copy {
+  left: clamp(28px, 8vw, 150px);
+  top: 50%;
+
+  transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   IMMERSIVE
+   ========================================================= */
+
+.tech_feature--immersive {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255,255,255,0.025),
+      transparent 38%
+    );
+}
+
+.tech_feature--immersive .feature_copy {
+  right: clamp(28px, 8vw, 150px);
+  top: 50%;
+
+  transform: translateY(-50%);
+}
+
+
+/* ---------- sound rings ---------- */
+
+.sound_rings {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 95%;
+  height: 95%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+.sound_rings span {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 30%;
+  aspect-ratio: 1 / 1;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.sound_rings span:nth-child(2) {
+  width: 48%;
+}
+
+.sound_rings span:nth-child(3) {
+  width: 68%;
+}
+
+.sound_rings span:nth-child(4) {
+  width: 90%;
+}
+
+
+/* =========================================================
+   NOISE CANCELLING
+   ========================================================= */
+
+.tech_feature--noise {
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255,255,255,0.035),
+      transparent 32%
+    );
+}
+
+.tech_feature--noise .feature_visual {
+  width: min(46vw, 760px);
+  top: 43%;
+}
+
+.tech_feature--noise .feature_copy {
+  left: 50%;
+  bottom: 10%;
+
+  width: 700px;
+  max-width: 80%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+}
+
+.tech_feature--noise .feature_desc {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ---------- noise waves ---------- */
+
+.noise_wave {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 95%;
+  height: 95%;
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+.noise_wave--02 {
+  width: 75%;
+  height: 75%;
+}
+
+.noise_wave--03 {
+  width: 55%;
+  height: 55%;
+}
+
+
+/* =========================================================
+   ACTIVE SENSE
+   ========================================================= */
+
+.tech_feature--active {
+  background:
+    radial-gradient(
+      circle at 28% 50%,
+      rgba(255,255,255,0.035),
+      transparent 32%
+    );
+}
+
+.tech_feature--active .feature_copy {
+  right: clamp(28px, 8vw, 150px);
+  top: 50%;
+
+  transform: translateY(-50%);
+}
+
+
+/* ---------- sensors ---------- */
+
+.sensor_points {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+.sensor_points span {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,0.6);
+}
+
+.sensor_points span:nth-child(1) {
+  left: 31%;
+  top: 35%;
+}
+
+.sensor_points span:nth-child(2) {
+  left: 65%;
+  top: 33%;
+}
+
+.sensor_points span:nth-child(3) {
+  left: 33%;
+  top: 67%;
+}
+
+.sensor_points span:nth-child(4) {
+  left: 68%;
+  top: 65%;
+}
+
+
+/* =========================================================
+   REASSEMBLE
+   ========================================================= */
+
+.tech_reassemble {
+  position: relative;
+
+  height: 360vh;
+}
+
+.tech_reassemble_stage {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.tech_reassemble_stage::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 60vw;
+  height: 60vw;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.06),
+      transparent 68%
+    );
+}
+
+
+/* ---------- top ---------- */
+
+.reassemble_top {
+  position: absolute;
+
+  left: clamp(28px, 5vw, 90px);
+  top: 42px;
+
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+
+  letter-spacing: 0.18em;
+
+  color: #666;
+}
+
+.reassemble_top span:first-child {
+  font-size: 11px;
+  color: #fff;
+}
+
+
+/* ---------- product ---------- */
+
+.reassemble_product {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(65vw, 820px);
+  aspect-ratio: 1 / 1;
+}
+
+.reassemble_frames {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  perspective: 1400px;
+}
+
+.reassemble_frame {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  opacity: 0;
+
+  will-change:
+    opacity,
+    transform;
+}
+
+.reassemble_frame:first-child {
+  opacity: 1;
+}
+
+
+/* ---------- copy ---------- */
+
+.reassemble_copy {
+  position: absolute;
+
+  left: 50%;
+  bottom: 12%;
+
+  z-index: 5;
+
+  width: 100%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+}
+
+.reassemble_kicker {
+  margin-bottom: 14px;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+
+  letter-spacing: 0.22em;
+
+  color: #666;
+}
+
+.reassemble_copy h2 {
+  margin: 0;
+
+  font-family: var(--font-head);
+  font-size: clamp(38px, 4vw, 64px);
+  font-weight: 500;
+
+  letter-spacing: -0.04em;
+}
+
+.reassemble_copy p:last-child {
+  margin-top: 18px;
+
+  font-size: 14px;
+
+  color: #777;
+}
+
+
+/* ---------- progress ---------- */
+
+.reassemble_progress {
+  position: absolute;
+
+  right: clamp(28px, 5vw, 90px);
+  bottom: 42px;
+
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+
+  color: #666;
+}
+
+.reassemble_progress_line {
+  position: relative;
+
+  width: 90px;
+  height: 1px;
+
+  background: #333;
+}
+
+.reassemble_progress_line span {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 0;
+  height: 100%;
+
+  background: #fff;
+}
+
+
+/* =========================================================
+   SHOP
+   ========================================================= */
+
+.tech_shop {
+  padding-top: 180px;
+  padding-bottom: 180px;
+
+  background: #0a0a0a;
+}
+
+.tech_shop_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  margin-bottom: 100px;
+}
+
+.tech_shop_kicker {
+  margin-bottom: 20px;
+
+  font-family: var(--font-head);
+  font-size: 10px;
+
+  letter-spacing: 0.22em;
+
+  color: #666;
+}
+
+.tech_shop_title {
+  margin: 0;
+
+  font-family: var(--font-head);
+  font-size: clamp(40px, 4.5vw, 72px);
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing: -0.045em;
+}
+
+.tech_shop_desc {
+  margin-top: 28px;
+
+  font-size: 15px;
+
+  color: #777;
+}
+
+.tech_shop .btn {
+  margin-top: 35px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.tech_shop_cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 22px;
+
+  padding: 0;
+
+  margin: 0;
+
+  list-style: none;
+}
+
+.tech_card {
+  min-width: 0;
+}
+
+.tech_card a {
+  display: block;
+
+  overflow: hidden;
+
+  border-radius: 0;
+
+  background: #f2f2f2;
+
+  color: #111;
+
+  transition:
+    transform 0.5s ease,
+    background 0.5s ease;
+}
+
+.tech_card a:hover {
+  transform: translateY(-8px);
+}
+
+
+/* ---------- image ---------- */
+
+.tech_card_visual {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 360px;
+
+  overflow: hidden;
+
+  background: #ededed;
+}
+
+.tech_card_visual::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,0.45),
+      transparent 65%
+    );
+}
+
+.tech_card_visual img {
+  position: relative;
+
+  z-index: 1;
+
+  width: 80%;
+  height: 80%;
+
+  object-fit: contain;
+
+  transition:
+    transform 0.6s ease;
+}
+
+.tech_card a:hover .tech_card_visual img {
+  transform: scale(1.06);
+}
+
+
+/* ---------- body ---------- */
+
+.tech_card_body {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 150px;
+
+  padding: 26px 28px;
+}
+
+.tech_card_category {
+  margin-bottom: 14px;
+
+  font-family: var(--font-head);
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.16em;
+
+  color: #777;
+}
+
+.tech_card_name {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 600;
+
+  line-height: 1.4;
+}
+
+.tech_card_arrow {
+  position: absolute;
+
+  right: 28px;
+  bottom: 26px;
+
+  font-size: 20px;
+
+  transition:
+    transform 0.35s ease;
+}
+
+.tech_card a:hover .tech_card_arrow {
+  transform: translateX(6px);
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .tech_sequence,
+  .tech_feature,
+  .tech_reassemble {
+    height: auto;
+  }
+
+  .tech_sequence_stage,
+  .tech_feature_stage,
+  .tech_reassemble_stage {
+    height: auto;
+
+    min-height: 100vh;
+
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .sequence_frame,
+  .reassemble_frame {
+    position: static;
+
+    display: none;
+  }
+
+  .sequence_frame:first-child,
+  .reassemble_frame:last-child {
+    display: block;
+
+    opacity: 1;
+
+    width: min(80vw, 700px);
+    margin: auto;
+  }
+
+  .feature_visual,
+  .feature_copy {
+    position: relative;
+
+    left: auto;
     right: auto;
     top: auto;
-    bottom: 8%;
-    transform: translateX(-50%);
+    bottom: auto;
+
+    transform: none;
+
+    width: min(80vw, 600px);
+
+    margin: 0 auto;
+  }
+
+  .feature_copy {
+    margin-top: 60px;
+
     text-align: center;
-    width: 90%;
   }
-  .reassemble_frames {
-    width: min(76vw, 640px);
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .feature_copy {
+    width: min(360px, 34vw);
   }
-  .shop_cta_cards {
+
+  .feature_visual {
+    width: min(48vw, 620px);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  .tech_intro {
+    min-height: 90vh;
+  }
+
+  .tech_intro_title {
+    font-size: 52px;
+  }
+
+  .tech_intro_desc {
+    font-size: 16px;
+  }
+
+  .tech_scroll_hint {
+    margin-top: 60px;
+  }
+
+
+  .tech_sequence {
+    height: 320vh;
+  }
+
+  .sequence_product {
+    width: 88vw;
+  }
+
+  .sequence_message {
+    bottom: 10%;
+  }
+
+  .sequence_message h2 {
+    font-size: 25px;
+  }
+
+  .sequence_message p:last-child {
+    font-size: 12px;
+  }
+
+  .sequence_progress {
+    display: none;
+  }
+
+
+  .tech_feature {
+    height: 200vh;
+  }
+
+  .feature_visual {
+    width: 82vw;
+    top: 40%;
+  }
+
+  .feature_copy,
+  .tech_feature--custom .feature_copy,
+  .tech_feature--immersive .feature_copy,
+  .tech_feature--active .feature_copy,
+  .tech_feature--noise .feature_copy {
+
+    left: 50%;
+    right: auto;
+
+    top: auto;
+    bottom: 8%;
+
+    width: 84%;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+  }
+
+  .feature_title {
+    font-size: 42px;
+  }
+
+  .feature_subtitle {
+    font-size: 17px;
+  }
+
+  .feature_desc {
+    font-size: 12px;
+
+    line-height: 1.7;
+  }
+
+  .feature_category {
+    right: 28px;
+  }
+
+
+  .tech_feature--noise .feature_visual {
+    width: 88vw;
+    top: 39%;
+  }
+
+
+  .tech_reassemble {
+    height: 300vh;
+  }
+
+  .reassemble_product {
+    width: 88vw;
+  }
+
+  .reassemble_copy {
+    bottom: 10%;
+  }
+
+  .reassemble_copy h2 {
+    font-size: 40px;
+  }
+
+  .reassemble_progress {
+    display: none;
+  }
+
+
+  .tech_shop {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .tech_shop_title {
+    font-size: 42px;
+  }
+
+  .tech_shop_cards {
     grid-template-columns: 1fr;
-    max-width: 420px;
-    margin-inline: auto;
+
+    gap: 18px;
   }
+
+  .tech_card_visual {
+    height: 330px;
+  }
+
 }

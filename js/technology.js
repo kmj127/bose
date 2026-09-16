@@ -1,185 +1,1150 @@
 /* =========================================================
-   technology.js — Technology 페이지 전용 스크롤 인터랙션
-     1) 헤드폰 4컷이 스크롤에 그대로 붙어(scrub) 회전하듯 크로스페이드된 뒤
-        분해 이미지(센서 노출)로 전환
-     2) CustomTune / Immersive Audio / Noise Cancelling / ActiveSense
-        4개 섹션이 화면에 고정(pin)된 채로 이미지·텍스트가 등장
-   모두 스크롤 위치와 직접 연결된 모션이라 GSAP ScrollTrigger를 사용합니다.
+   technology.js
+
+   BOSE Technology Page
+
+   FLOW
+   ---------------------------------------------------------
+   01 Intro
+       ↓
+   02 Product rotation
+       ↓
+   03 Exploded view
+       ↓
+   04 CustomTune
+       ↓
+   05 Immersive Audio
+       ↓
+   06 Noise Cancelling
+       ↓
+   07 ActiveSense
+       ↓
+   08 Reassemble
+       ↓
+   09 Shop
    ========================================================= */
 
-/* ---------- 1) 회전 → 분해 크로스페이드 ---------- */
-function initRotateSequence() {
-  const section = document.getElementById("rotate_section");
-  if (!section) return;
 
-  const stage = section.querySelector(".rotate_stage");
-  const frames = gsap.utils.toArray(".rotate_frame", section);
-  if (!stage || frames.length < 2) return;
+(function () {
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1.2,
-      pin: stage,
-      anticipatePin: 1,
-    },
-  });
+  "use strict";
 
-  gsap.set(frames, {
-    opacity: 0,
-    rotationY: -6,
-    scale: 0.97,
-    transformOrigin: "center center",
-  });
-  gsap.set(frames[0], {
-    opacity: 1,
-    rotationY: 0,
-    scale: 1,
-  });
 
-  // 전환 구간을 겹쳐 프레임이 끊기지 않고 회전하는 것처럼 이어집니다.
-  for (let i = 1; i < frames.length; i += 1) {
-    const start = (i - 1) * 0.75;
+  /* =======================================================
+     GSAP CHECK
+     ======================================================= */
 
-    tl.to(
-      frames[i - 1],
-      {
-        opacity: 0,
-        rotationY: 6,
-        scale: 1.03,
-        duration: 1.5,
-        ease: "power1.inOut",
-      },
-      start
-    ).fromTo(
-      frames[i],
-      {
-        opacity: 0,
-        rotationY: -6,
-        scale: 0.97,
-      },
-      {
-        opacity: 1,
-        rotationY: 0,
-        scale: 1,
-        duration: 1.5,
-        ease: "power1.inOut",
-      },
-      start
-    );
-  }
-}
+  const reduceMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-/* ---------- 3) 설명 후 헤드폰 재조립 ---------- */
-function initReassembleSequence() {
-  const section = document.getElementById("reassemble_section");
-  if (!section) return;
 
-  const stage = section.querySelector(".reassemble_stage");
-  const frames = gsap.utils.toArray(".reassemble_frame", section);
-  if (!stage || frames.length < 2) return;
-
-  gsap.set(frames, {
-    opacity: 0,
-    rotationY: 6,
-    scale: 1.03,
-    transformOrigin: "center center",
-  });
-  gsap.set(frames[0], {
-    opacity: 1,
-    rotationY: 0,
-    scale: 1,
-  });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1.2,
-      pin: stage,
-      anticipatePin: 1,
-    },
-  });
-
-  for (let i = 1; i < frames.length; i += 1) {
-    const start = (i - 1) * 0.75;
-
-    tl.to(
-      frames[i - 1],
-      {
-        opacity: 0,
-        rotationY: -6,
-        scale: 0.97,
-        duration: 1.5,
-        ease: "power1.inOut",
-      },
-      start
-    ).fromTo(
-      frames[i],
-      {
-        opacity: 0,
-        rotationY: 6,
-        scale: 1.03,
-      },
-      {
-        opacity: 1,
-        rotationY: 0,
-        scale: 1,
-        duration: 1.5,
-        ease: "power1.inOut",
-      },
-      start
-    );
-  }
-}
-
-/* ---------- 2) 기능 섹션: 화면 고정 + 이미지·텍스트 등장 ---------- */
-function initFeatureSections() {
-  const sections = gsap.utils.toArray("[data-feature]");
-
-  sections.forEach((section) => {
-    const stage = section.querySelector(".feature_stage");
-    const media = section.querySelector(".feature_media");
-    const copyTargets = section.querySelectorAll(
-      ".feature_title, .feature_subtitle, .feature_desc"
-    );
-    if (!stage || !media) return;
-
-    gsap.set(media, { scale: 0.55, opacity: 0 });
-    gsap.set(copyTargets, { opacity: 0, y: 24 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-        pin: stage,
-        anticipatePin: 1,
-      },
-    });
-
-    tl.to(media, { scale: 1, opacity: 1, duration: 1, ease: "power2.out" }).to(
-      copyTargets,
-      { opacity: 1, y: 0, duration: 1, stagger: 0.3, ease: "power2.out" },
-      0.6
-    );
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // 모션 최소화 사용자: 회전·고정 없이 정적으로 표시 (CSS에서 이미 처리)
-  if (reduceMotion || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+  if (
+    reduceMotion ||
+    typeof gsap === "undefined" ||
+    typeof ScrollTrigger === "undefined"
+  ) {
     return;
   }
 
+
   gsap.registerPlugin(ScrollTrigger);
-  initRotateSequence();
-  initFeatureSections();
-  initReassembleSequence();
-});
+
+
+  /* =======================================================
+     IMAGE PRELOAD
+     -------------------------------------------------------
+     스크롤 중 이미지가 늦게 나타나는 것을 방지
+     ======================================================= */
+
+  function preloadImages() {
+
+    const images = document.querySelectorAll(
+      ".sequence_frame, .reassemble_frame, .feature_visual img"
+    );
+
+    images.forEach((img) => {
+
+      if (img.complete) {
+        return;
+      }
+
+      const preload = new Image();
+
+      preload.src = img.src;
+
+    });
+
+  }
+
+
+  /* =======================================================
+     INTRO REVEAL
+     ======================================================= */
+
+  function initIntro() {
+
+    const intro =
+      document.querySelector(".tech_intro_inner");
+
+    if (!intro) return;
+
+
+    const items =
+      intro.querySelectorAll(
+        ".tech_eyebrow, .tech_intro_title, .tech_intro_desc, .tech_scroll_hint"
+      );
+
+
+    gsap.set(items, {
+      opacity: 0,
+      y: 35
+    });
+
+
+    gsap.to(items, {
+
+      opacity: 1,
+      y: 0,
+
+      duration: 1.2,
+
+      stagger: 0.14,
+
+      ease: "power3.out",
+
+      delay: 0.2
+
+    });
+
+  }
+
+
+  /* =======================================================
+     PRODUCT ROTATION
+     -------------------------------------------------------
+     01 → 02 → 03 → 04 → 05
+
+     이미지가 단순히 교체되는 것이 아니라
+     scale + rotationY + blur + opacity를 함께 사용
+     ======================================================= */
+
+  function initProductSequence() {
+
+    const section =
+      document.querySelector("#tech_sequence");
+
+    if (!section) return;
+
+
+    const stage =
+      section.querySelector(".tech_sequence_stage");
+
+    const frames =
+      gsap.utils.toArray(
+        ".sequence_frame",
+        section
+      );
+
+
+    const message =
+      section.querySelector(".sequence_message");
+
+
+    const progress =
+      section.querySelector(
+        ".sequence_progress_line > span"
+      );
+
+
+    if (
+      !stage ||
+      frames.length < 2
+    ) {
+      return;
+    }
+
+
+    /* -----------------------------------------------
+       INITIAL
+       ----------------------------------------------- */
+
+    gsap.set(frames, {
+
+      opacity: 0,
+
+      scale: 0.92,
+
+      rotationY: -8,
+
+      filter: "blur(4px)",
+
+      transformOrigin: "center center"
+
+    });
+
+
+    gsap.set(frames[0], {
+
+      opacity: 1,
+
+      scale: 1,
+
+      rotationY: 0,
+
+      filter: "blur(0px)"
+
+    });
+
+
+    gsap.set(message, {
+      opacity: 0,
+      y: 30
+    });
+
+
+    /* -----------------------------------------------
+       TIMELINE
+       ----------------------------------------------- */
+
+    const timeline =
+      gsap.timeline({
+
+        scrollTrigger: {
+
+          trigger: section,
+
+          start: "top top",
+
+          end: "bottom bottom",
+
+          scrub: 1,
+
+          pin: stage,
+
+          anticipatePin: 1,
+
+          invalidateOnRefresh: true,
+
+          onUpdate: (self) => {
+
+            if (progress) {
+
+              progress.style.width =
+                `${self.progress * 100}%`;
+
+            }
+
+          }
+
+        }
+
+      });
+
+
+    /* -----------------------------------------------
+       FRAME TRANSITION
+       ----------------------------------------------- */
+
+    frames.forEach((frame, index) => {
+
+      if (index === 0) {
+        return;
+      }
+
+
+      const previous =
+        frames[index - 1];
+
+
+      const start =
+        (index - 1) * 1.15;
+
+
+      /* 이전 프레임 */
+
+      timeline.to(
+        previous,
+        {
+
+          opacity: 0,
+
+          scale: 1.08,
+
+          rotationY: 8,
+
+          filter: "blur(5px)",
+
+          duration: 1.15,
+
+          ease: "power2.inOut"
+
+        },
+        start
+      );
+
+
+      /* 다음 프레임 */
+
+      timeline.fromTo(
+        frame,
+
+        {
+
+          opacity: 0,
+
+          scale: 0.9,
+
+          rotationY: -8,
+
+          filter: "blur(5px)"
+
+        },
+
+        {
+
+          opacity: 1,
+
+          scale:
+            index === frames.length - 1
+              ? 1.08
+              : 1,
+
+          rotationY: 0,
+
+          filter: "blur(0px)",
+
+          duration: 1.15,
+
+          ease: "power2.inOut"
+
+        },
+
+        start
+      );
+
+
+    });
+
+
+    /* -----------------------------------------------
+       EXPLODED VIEW
+       ----------------------------------------------- */
+
+    const explodeFrame =
+      frames[frames.length - 1];
+
+
+    timeline.to(
+
+      explodeFrame,
+
+      {
+
+        scale: 1.18,
+
+        duration: 1,
+
+        ease: "power2.inOut"
+
+      },
+
+      ">"
+    );
+
+
+    /* -----------------------------------------------
+       MESSAGE
+       ----------------------------------------------- */
+
+    timeline.to(
+
+      message,
+
+      {
+
+        opacity: 1,
+
+        y: 0,
+
+        duration: 0.8,
+
+        ease: "power3.out"
+
+      },
+
+      "-=0.35"
+
+    );
+
+  }
+
+
+  /* =======================================================
+     FEATURE SECTIONS
+     -------------------------------------------------------
+     각 기술은 화면에 고정된 상태에서
+
+     1. 제품 등장
+     2. 확대
+     3. 텍스트 등장
+     4. 센서/웨이브 등장
+
+     순서로 진행
+     ======================================================= */
+
+  function initFeatureSections() {
+
+    const sections =
+      gsap.utils.toArray(
+        "[data-feature]"
+      );
+
+
+    sections.forEach((section) => {
+
+
+      const stage =
+        section.querySelector(
+          ".tech_feature_stage"
+        );
+
+
+      const media =
+        section.querySelector(
+          ".feature_visual"
+        );
+
+
+      const image =
+        section.querySelector(
+          ".feature_visual img"
+        );
+
+
+      const copy =
+        section.querySelector(
+          ".feature_copy"
+        );
+
+
+      const line =
+        section.querySelector(
+          ".feature_line"
+        );
+
+
+      const rings =
+        section.querySelectorAll(
+          ".sound_rings span"
+        );
+
+
+      const noiseWaves =
+        section.querySelectorAll(
+          ".noise_wave"
+        );
+
+
+      const sensorPoints =
+        section.querySelectorAll(
+          ".sensor_points span"
+        );
+
+
+      if (
+        !stage ||
+        !media ||
+        !copy
+      ) {
+        return;
+      }
+
+
+      const textElements =
+        copy.querySelectorAll(
+          ".feature_kicker, .feature_title, .feature_subtitle, .feature_desc"
+        );
+
+
+      /* -----------------------------------------------
+         INITIAL
+         ----------------------------------------------- */
+
+      gsap.set(media, {
+
+        opacity: 0,
+
+        scale: 0.72,
+
+        y: 35
+
+      });
+
+
+      gsap.set(image, {
+
+        scale: 0.88
+
+      });
+
+
+      gsap.set(textElements, {
+
+        opacity: 0,
+
+        y: 25
+
+      });
+
+
+      gsap.set(line, {
+
+        width: "0%"
+
+      });
+
+
+      gsap.set(
+        [
+          ...rings,
+          ...noiseWaves,
+          ...sensorPoints
+        ],
+        {
+
+          opacity: 0,
+          scale: 0.7
+
+        }
+      );
+
+
+      /* -----------------------------------------------
+         TIMELINE
+         ----------------------------------------------- */
+
+      const timeline =
+        gsap.timeline({
+
+          scrollTrigger: {
+
+            trigger: section,
+
+            start: "top top",
+
+            end: "bottom bottom",
+
+            scrub: 1,
+
+            pin: stage,
+
+            anticipatePin: 1,
+
+            invalidateOnRefresh: true
+
+          }
+
+        });
+
+
+      /* -----------------------------------------------
+         PRODUCT APPEAR
+         ----------------------------------------------- */
+
+      timeline.to(
+
+        media,
+
+        {
+
+          opacity: 1,
+
+          scale: 1,
+
+          y: 0,
+
+          duration: 1.3,
+
+          ease: "power3.out"
+
+        }
+
+      );
+
+
+      /* -----------------------------------------------
+         PRODUCT MICRO ZOOM
+         ----------------------------------------------- */
+
+      timeline.to(
+
+        image,
+
+        {
+
+          scale: 1.04,
+
+          duration: 1,
+
+          ease: "power2.out"
+
+        },
+
+        "-=0.5"
+
+      );
+
+
+      /* -----------------------------------------------
+         TEXT
+         ----------------------------------------------- */
+
+      timeline.to(
+
+        textElements,
+
+        {
+
+          opacity: 1,
+
+          y: 0,
+
+          duration: 1,
+
+          stagger: 0.16,
+
+          ease: "power3.out"
+
+        },
+
+        "-=0.5"
+
+      );
+
+
+      /* -----------------------------------------------
+         DECORATIVE LINE
+         ----------------------------------------------- */
+
+      timeline.to(
+
+        line,
+
+        {
+
+          width: "55%",
+
+          duration: 0.8,
+
+          ease: "power2.out"
+
+        },
+
+        "-=0.3"
+
+      );
+
+
+      /* -----------------------------------------------
+         IMMERSIVE AUDIO
+         ----------------------------------------------- */
+
+      if (rings.length) {
+
+        timeline.to(
+
+          rings,
+
+          {
+
+            opacity: 1,
+
+            scale: 1,
+
+            duration: 1,
+
+            stagger: 0.08,
+
+            ease: "power2.out"
+
+          },
+
+          "-=0.5"
+
+        );
+
+      }
+
+
+      /* -----------------------------------------------
+         NOISE CANCELLING
+         ----------------------------------------------- */
+
+      if (noiseWaves.length) {
+
+        timeline.to(
+
+          noiseWaves,
+
+          {
+
+            opacity: 1,
+
+            scale: 1,
+
+            duration: 1,
+
+            stagger: 0.12,
+
+            ease: "power2.out"
+
+          },
+
+          "-=0.5"
+
+        );
+
+      }
+
+
+      /* -----------------------------------------------
+         ACTIVE SENSE
+         ----------------------------------------------- */
+
+      if (sensorPoints.length) {
+
+        timeline.to(
+
+          sensorPoints,
+
+          {
+
+            opacity: 1,
+
+            scale: 1,
+
+            duration: 0.8,
+
+            stagger: 0.15,
+
+            ease: "back.out(1.7)"
+
+          },
+
+          "-=0.5"
+
+        );
+
+      }
+
+
+      /* -----------------------------------------------
+         FINAL HOLD
+         ----------------------------------------------- */
+
+      timeline.to(
+
+        {},
+
+        {
+
+          duration: 0.8
+
+        }
+
+      );
+
+    });
+
+  }
+
+
+  /* =======================================================
+     REASSEMBLE
+     -------------------------------------------------------
+     분해된 제품 → 다시 하나의 헤드폰
+     ======================================================= */
+
+  function initReassemble() {
+
+    const section =
+      document.querySelector(
+        "#tech_reassemble"
+      );
+
+
+    if (!section) return;
+
+
+    const stage =
+      section.querySelector(
+        ".tech_reassemble_stage"
+      );
+
+
+    const frames =
+      gsap.utils.toArray(
+        ".reassemble_frame",
+        section
+      );
+
+
+    const copy =
+      section.querySelector(
+        ".reassemble_copy"
+      );
+
+
+    const progress =
+      section.querySelector(
+        ".reassemble_progress_line span"
+      );
+
+
+    if (
+      !stage ||
+      frames.length < 2
+    ) {
+      return;
+    }
+
+
+    /* -----------------------------------------------
+       INITIAL
+       ----------------------------------------------- */
+
+    gsap.set(frames, {
+
+      opacity: 0,
+
+      scale: 1.08,
+
+      rotationY: 8,
+
+      filter: "blur(4px)",
+
+      transformOrigin: "center center"
+
+    });
+
+
+    gsap.set(frames[0], {
+
+      opacity: 1,
+
+      scale: 1,
+
+      rotationY: 0,
+
+      filter: "blur(0px)"
+
+    });
+
+
+    gsap.set(copy, {
+
+      opacity: 0,
+
+      y: 35
+
+    });
+
+
+    /* -----------------------------------------------
+       TIMELINE
+       ----------------------------------------------- */
+
+    const timeline =
+      gsap.timeline({
+
+        scrollTrigger: {
+
+          trigger: section,
+
+          start: "top top",
+
+          end: "bottom bottom",
+
+          scrub: 1,
+
+          pin: stage,
+
+          anticipatePin: 1,
+
+          invalidateOnRefresh: true,
+
+          onUpdate: (self) => {
+
+            if (progress) {
+
+              progress.style.width =
+                `${self.progress * 100}%`;
+
+            }
+
+          }
+
+        }
+
+      });
+
+
+    /* -----------------------------------------------
+       REASSEMBLE FRAMES
+       ----------------------------------------------- */
+
+    frames.forEach((frame, index) => {
+
+      if (index === 0) {
+        return;
+      }
+
+
+      const previous =
+        frames[index - 1];
+
+
+      const start =
+        (index - 1) * 1.1;
+
+
+      timeline.to(
+
+        previous,
+
+        {
+
+          opacity: 0,
+
+          scale: 0.92,
+
+          rotationY: -8,
+
+          filter: "blur(4px)",
+
+          duration: 1.1,
+
+          ease: "power2.inOut"
+
+        },
+
+        start
+
+      );
+
+
+      timeline.fromTo(
+
+        frame,
+
+        {
+
+          opacity: 0,
+
+          scale: 1.08,
+
+          rotationY: 8,
+
+          filter: "blur(4px)"
+
+        },
+
+        {
+
+          opacity: 1,
+
+          scale: 1,
+
+          rotationY: 0,
+
+          filter: "blur(0px)",
+
+          duration: 1.1,
+
+          ease: "power2.inOut"
+
+        },
+
+        start
+
+      );
+
+    });
+
+
+    /* -----------------------------------------------
+       FINAL PRODUCT
+       ----------------------------------------------- */
+
+    timeline.to(
+
+      frames[frames.length - 1],
+
+      {
+
+        scale: 1.06,
+
+        duration: 0.8,
+
+        ease: "power2.out"
+
+      },
+
+      ">"
+
+    );
+
+
+    /* -----------------------------------------------
+       FINAL COPY
+       ----------------------------------------------- */
+
+    timeline.to(
+
+      copy,
+
+      {
+
+        opacity: 1,
+
+        y: 0,
+
+        duration: 0.8,
+
+        ease: "power3.out"
+
+      },
+
+      "-=0.35"
+
+    );
+
+  }
+
+
+  /* =======================================================
+     SHOP CARD HOVER
+     ======================================================= */
+
+  function initShopCards() {
+
+    const cards =
+      document.querySelectorAll(
+        ".tech_card"
+      );
+
+
+    cards.forEach((card) => {
+
+      const image =
+        card.querySelector(
+          ".tech_card_visual img"
+        );
+
+
+      if (!image) return;
+
+
+      card.addEventListener(
+        "mouseenter",
+        () => {
+
+          gsap.to(image, {
+
+            scale: 1.06,
+
+            duration: 0.5,
+
+            ease: "power2.out"
+
+          });
+
+        }
+      );
+
+
+      card.addEventListener(
+        "mouseleave",
+        () => {
+
+          gsap.to(image, {
+
+            scale: 1,
+
+            duration: 0.5,
+
+            ease: "power2.out"
+
+          });
+
+        }
+      );
+
+    });
+
+  }
+
+
+  /* =======================================================
+     REFRESH
+     -------------------------------------------------------
+     이미지 로딩 후 ScrollTrigger 위치 재계산
+     ======================================================= */
+
+  function refreshScroll() {
+
+    window.setTimeout(() => {
+
+      ScrollTrigger.refresh();
+
+    }, 500);
+
+  }
+
+
+  /* =======================================================
+     INIT
+     ======================================================= */
+
+  function init() {
+
+    preloadImages();
+
+    initIntro();
+
+    initProductSequence();
+
+    initFeatureSections();
+
+    initReassemble();
+
+    initShopCards();
+
+    refreshScroll();
+
+  }
+
+
+  /* =======================================================
+     DOM READY
+     ======================================================= */
+
+  if (
+    document.readyState === "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
+  } else {
+
+    init();
+
+  }
+
+
+})();
