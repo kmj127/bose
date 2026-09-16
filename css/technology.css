@@ -883,7 +883,6 @@
 
 .reassemble_top {
   position: absolute;
-
   left: clamp(28px, 5vw, 90px);
   top: 42px;
 
@@ -895,11 +894,15 @@
   gap: 7px;
 
   font-family: var(--font-head);
-  font-size: 9px;
+  font-size: 12px;
 
   letter-spacing: 0.18em;
 
   color: #666;
+}
+
+.reassemble_top span {
+  color: #666 !important;
 }
 
 .reassemble_top span:first-child {
@@ -1094,8 +1097,14 @@
 
 .tech_shop .btn {
   margin-top: 35px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+.tech_shop .btn:hover {
+  background: #FF6B35;
+  color: #f2f2f2;
+  border-color: #FF6B35;
+}
 
 /* =========================================================
    CARDS
@@ -1103,15 +1112,13 @@
 
 .tech_shop_cards {
   display: grid;
-
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
-
   gap: 22px;
 
+  width: 90%;
   padding: 0;
-
-  margin: 0;
+  margin: 0 auto;
 
   list-style: none;
 }
@@ -1122,48 +1129,35 @@
 
 .tech_card a {
   display: block;
-
   overflow: hidden;
-
-  border-radius: 0;
-
+  border-radius: 10px;
   background: #f2f2f2;
-
   color: #111;
-
   transition:
     transform 0.5s ease,
-    background 0.5s ease;
+    background 0.3s ease;
 }
 
 .tech_card a:hover {
   transform: translateY(-8px);
 }
 
-
 /* ---------- image ---------- */
 
 .tech_card_visual {
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   height: 360px;
-
   overflow: hidden;
-
-  background: #ededed;
+  background: #f2f2f2;
 }
 
 .tech_card_visual::after {
   content: "";
-
   position: absolute;
-
   inset: 0;
-
   background:
     radial-gradient(
       circle at center,
@@ -1174,14 +1168,10 @@
 
 .tech_card_visual img {
   position: relative;
-
   z-index: 1;
-
   width: 80%;
-  height: 80%;
-
+  height: 90%;
   object-fit: contain;
-
   transition:
     transform 0.6s ease;
 }
@@ -1190,29 +1180,22 @@
   transform: scale(1.06);
 }
 
-
 /* ---------- body ---------- */
 
 .tech_card_body {
   position: relative;
-
   display: flex;
   flex-direction: column;
-
   min-height: 150px;
-
   padding: 26px 28px;
 }
 
 .tech_card_category {
   margin-bottom: 14px;
-
   font-family: var(--font-head);
   font-size: 9px;
   font-weight: 600;
-
   letter-spacing: 0.16em;
-
   color: #777;
 }
 
@@ -1220,18 +1203,14 @@
   font-family: var(--font-head);
   font-size: 15px;
   font-weight: 600;
-
   line-height: 1.4;
 }
 
 .tech_card_arrow {
   position: absolute;
-
   right: 28px;
   bottom: 26px;
-
   font-size: 20px;
-
   transition:
     transform 0.35s ease;
 }

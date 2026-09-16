@@ -1,10 +1,13 @@
 (function () {
+
   "use strict";
+
 
   const reduceMotion =
     window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
 
   if (
     reduceMotion ||
@@ -14,6 +17,7 @@
     return;
   }
 
+
   gsap.registerPlugin(ScrollTrigger);
 
 
@@ -22,16 +26,22 @@
      ========================================================= */
 
   function preloadImages() {
-    const images = document.querySelectorAll(
-      ".sequence_frame, .reassemble_frame, .feature_visual img"
-    );
+
+    const images =
+      document.querySelectorAll(
+        ".sequence_frame, .reassemble_frame, .feature_visual img"
+      );
 
     images.forEach((img) => {
+
       if (img.complete) return;
 
       const preload = new Image();
+
       preload.src = img.src;
+
     });
+
   }
 
 
@@ -40,29 +50,46 @@
      ========================================================= */
 
   function initIntro() {
+
     const intro =
-      document.querySelector(".tech_intro_inner");
+      document.querySelector(
+        ".tech_intro_inner"
+      );
 
     if (!intro) return;
+
 
     const items =
       intro.querySelectorAll(
         ".tech_eyebrow, .tech_intro_title, .tech_intro_desc, .tech_scroll_hint"
       );
 
+
     gsap.set(items, {
+
       opacity: 0,
+
       y: 35
+
     });
 
+
     gsap.to(items, {
+
       opacity: 1,
+
       y: 0,
+
       duration: 1.2,
+
       stagger: 0.14,
+
       ease: "power3.out",
+
       delay: 0.2
+
     });
+
   }
 
 
@@ -71,13 +98,20 @@
      ========================================================= */
 
   function initProductSequence() {
+
     const section =
-      document.querySelector("#tech_sequence");
+      document.querySelector(
+        "#tech_sequence"
+      );
 
     if (!section) return;
 
+
     const stage =
-      section.querySelector(".tech_sequence_stage");
+      section.querySelector(
+        ".tech_sequence_stage"
+      );
+
 
     const frames =
       gsap.utils.toArray(
@@ -85,15 +119,25 @@
         section
       );
 
+
     const message =
-      section.querySelector(".sequence_message");
+      section.querySelector(
+        ".sequence_message"
+      );
+
 
     const progress =
       section.querySelector(
         ".sequence_progress_line > span"
       );
 
-    if (!stage || frames.length < 2) return;
+
+    if (
+      !stage ||
+      frames.length < 2
+    ) {
+      return;
+    }
 
 
     /* ---------------------------------------------------------
@@ -101,23 +145,39 @@
        --------------------------------------------------------- */
 
     gsap.set(frames, {
+
       opacity: 0,
+
       scale: 0.92,
+
       rotationY: -8,
+
       filter: "blur(4px)",
+
       transformOrigin: "center center"
+
     });
+
 
     gsap.set(frames[0], {
+
       opacity: 1,
+
       scale: 1,
+
       rotationY: 0,
+
       filter: "blur(0px)"
+
     });
 
+
     gsap.set(message, {
+
       opacity: 0,
+
       y: 30
+
     });
 
 
@@ -127,10 +187,13 @@
 
     const timeline =
       gsap.timeline({
+
         scrollTrigger: {
+
           trigger: section,
 
           start: "top top",
+
           end: "bottom bottom",
 
           scrub: 1,
@@ -141,13 +204,20 @@
 
           invalidateOnRefresh: true,
 
+
           onUpdate: (self) => {
+
             if (progress) {
+
               progress.style.width =
                 `${self.progress * 100}%`;
+
             }
+
           }
+
         }
+
       });
 
 
@@ -156,46 +226,63 @@
        --------------------------------------------------------- */
 
     frames.forEach(
+
       (frame, index) => {
 
         if (index === 0) return;
 
+
         const previous =
           frames[index - 1];
+
 
         const start =
           (index - 1) * 1.15;
 
 
-        /* 이전 프레임 */
-
         timeline.to(
+
           previous,
+
           {
+
             opacity: 0,
+
             scale: 1.08,
+
             rotationY: 8,
+
             filter: "blur(5px)",
 
             duration: 1.15,
 
             ease: "power2.inOut"
+
           },
+
           start
+
         );
 
 
-        /* 다음 프레임 */
-
         timeline.fromTo(
+
           frame,
+
           {
+
             opacity: 0,
+
             scale: 0.9,
+
             rotationY: -8,
+
             filter: "blur(5px)"
+
           },
+
           {
+
             opacity: 1,
 
             scale:
@@ -210,10 +297,15 @@
             duration: 1.15,
 
             ease: "power2.inOut"
+
           },
+
           start
+
         );
+
       }
+
     );
 
 
@@ -224,16 +316,23 @@
     const explodeFrame =
       frames[frames.length - 1];
 
+
     timeline.to(
+
       explodeFrame,
+
       {
+
         scale: 1.18,
 
         duration: 1,
 
         ease: "power2.inOut"
+
       },
+
       ">"
+
     );
 
 
@@ -242,17 +341,25 @@
        --------------------------------------------------------- */
 
     timeline.to(
+
       message,
+
       {
+
         opacity: 1,
+
         y: 0,
 
         duration: 0.8,
 
         ease: "power3.out"
+
       },
+
       "-=0.35"
+
     );
+
   }
 
 
@@ -261,12 +368,15 @@
      ========================================================= */
 
   function initFeatureSections() {
+
     const sections =
       gsap.utils.toArray(
         "[data-feature]"
       );
 
+
     sections.forEach(
+
       (section) => {
 
         const stage =
@@ -274,35 +384,42 @@
             ".tech_feature_stage"
           );
 
+
         const media =
           section.querySelector(
             ".feature_visual"
           );
+
 
         const image =
           section.querySelector(
             ".feature_visual img"
           );
 
+
         const copy =
           section.querySelector(
             ".feature_copy"
           );
+
 
         const line =
           section.querySelector(
             ".feature_line"
           );
 
+
         const rings =
           section.querySelectorAll(
             ".sound_rings span"
           );
 
+
         const noiseWaves =
           section.querySelectorAll(
             ".noise_wave"
           );
+
 
         const sensorPoints =
           section.querySelectorAll(
@@ -325,52 +442,68 @@
           );
 
 
-        /* -----------------------------------------------------
-           INITIAL STATE
-           ----------------------------------------------------- */
-
         gsap.set(media, {
+
           opacity: 0,
+
           scale: 0.72,
+
           y: 35
+
         });
+
 
         gsap.set(image, {
+
           scale: 0.88
+
         });
+
 
         gsap.set(textElements, {
+
           opacity: 0,
+
           y: 25
+
         });
+
 
         gsap.set(line, {
+
           width: "0%"
+
         });
 
+
         gsap.set(
+
           [
             ...rings,
             ...noiseWaves,
             ...sensorPoints
           ],
+
           {
+
             opacity: 0,
+
             scale: 0.7
+
           }
+
         );
 
 
-        /* -----------------------------------------------------
-           FEATURE TIMELINE
-           ----------------------------------------------------- */
-
         const timeline =
           gsap.timeline({
+
             scrollTrigger: {
+
               trigger: section,
 
               start: "top top",
+
               end: "bottom bottom",
 
               scrub: 1,
@@ -380,53 +513,60 @@
               anticipatePin: 1,
 
               invalidateOnRefresh: true
+
             }
+
           });
 
 
-        /* -----------------------------------------------------
-           VISUAL
-           ----------------------------------------------------- */
-
         timeline.to(
+
           media,
+
           {
+
             opacity: 1,
+
             scale: 1,
+
             y: 0,
 
             duration: 1.3,
 
             ease: "power3.out"
+
           }
+
         );
 
 
-        /* -----------------------------------------------------
-           IMAGE
-           ----------------------------------------------------- */
-
         timeline.to(
+
           image,
+
           {
+
             scale: 1.04,
 
             duration: 1,
 
             ease: "power2.out"
+
           },
+
           "-=0.5"
+
         );
 
 
-        /* -----------------------------------------------------
-           TEXT
-           ----------------------------------------------------- */
-
         timeline.to(
+
           textElements,
+
           {
+
             opacity: 1,
+
             y: 0,
 
             duration: 1,
@@ -434,37 +574,43 @@
             stagger: 0.16,
 
             ease: "power3.out"
+
           },
+
           "-=0.5"
+
         );
 
 
-        /* -----------------------------------------------------
-           LINE
-           ----------------------------------------------------- */
-
         timeline.to(
+
           line,
+
           {
+
             width: "55%",
 
             duration: 0.8,
 
             ease: "power2.out"
+
           },
+
           "-=0.3"
+
         );
 
 
-        /* -----------------------------------------------------
-           SOUND RINGS
-           ----------------------------------------------------- */
-
         if (rings.length) {
+
           timeline.to(
+
             rings,
+
             {
+
               opacity: 1,
+
               scale: 1,
 
               duration: 1,
@@ -472,21 +618,26 @@
               stagger: 0.08,
 
               ease: "power2.out"
+
             },
+
             "-=0.5"
+
           );
+
         }
 
 
-        /* -----------------------------------------------------
-           NOISE WAVES
-           ----------------------------------------------------- */
-
         if (noiseWaves.length) {
+
           timeline.to(
+
             noiseWaves,
+
             {
+
               opacity: 1,
+
               scale: 1,
 
               duration: 1,
@@ -494,21 +645,26 @@
               stagger: 0.12,
 
               ease: "power2.out"
+
             },
+
             "-=0.5"
+
           );
+
         }
 
 
-        /* -----------------------------------------------------
-           SENSOR POINTS
-           ----------------------------------------------------- */
-
         if (sensorPoints.length) {
+
           timeline.to(
+
             sensorPoints,
+
             {
+
               opacity: 1,
+
               scale: 1,
 
               duration: 0.8,
@@ -516,20 +672,32 @@
               stagger: 0.15,
 
               ease: "back.out(1.7)"
+
             },
+
             "-=0.5"
+
           );
+
         }
 
 
         timeline.to(
+
           {},
+
           {
+
             duration: 0.8
+
           }
+
         );
+
       }
+
     );
+
   }
 
 
@@ -538,6 +706,7 @@
      ========================================================= */
 
   function initReassemble() {
+
     const section =
       document.querySelector(
         "#tech_reassemble"
@@ -545,10 +714,12 @@
 
     if (!section) return;
 
+
     const stage =
       section.querySelector(
         ".tech_reassemble_stage"
       );
+
 
     const frames =
       gsap.utils.toArray(
@@ -556,10 +727,12 @@
         section
       );
 
+
     const copy =
       section.querySelector(
         ".reassemble_copy"
       );
+
 
     const progress =
       section.querySelector(
@@ -569,68 +742,66 @@
 
     if (
       !stage ||
-      !frames.length
+      frames.length < 2
     ) {
       return;
     }
 
 
     /* ---------------------------------------------------------
-       HEADPHONE ONLY
+       FRAME INITIAL STATE
        --------------------------------------------------------- */
 
-    const headphone =
-      frames[0];
+    gsap.set(frames, {
+
+      opacity: 0,
+
+      scale: 1.08,
+
+      rotationY: 8,
+
+      filter: "blur(4px)",
+
+      transformOrigin: "center center"
+
+    });
+
+
+    gsap.set(frames[0], {
+
+      opacity: 1,
+
+      scale: 1,
+
+      rotationY: 0,
+
+      filter: "blur(0px)"
+
+    });
+
+
+    gsap.set(copy, {
+
+      opacity: 0,
+
+      y: 35
+
+    });
 
 
     /* ---------------------------------------------------------
-       SENSOR / PARTS HIDDEN
-       --------------------------------------------------------- */
-
-    gsap.set(
-      frames.slice(1),
-      {
-        display: "none"
-      }
-    );
-
-
-    /* ---------------------------------------------------------
-       INITIAL STATE
-       --------------------------------------------------------- */
-
-    gsap.set(
-      headphone,
-      {
-        opacity: 1,
-        scale: 1,
-        rotationY: 0,
-        filter: "blur(0px)",
-        transformOrigin:
-          "center center",
-        transformPerspective: 1400
-      }
-    );
-
-    gsap.set(
-      copy,
-      {
-        opacity: 0,
-        y: 35
-      }
-    );
-
-
-    /* ---------------------------------------------------------
-       TIMELINE
+       MAIN TIMELINE
        --------------------------------------------------------- */
 
     const timeline =
       gsap.timeline({
+
         scrollTrigger: {
+
           trigger: section,
 
           start: "top top",
+
           end: "bottom bottom",
 
           scrub: 1,
@@ -641,31 +812,133 @@
 
           invalidateOnRefresh: true,
 
+
           onUpdate: (self) => {
+
             if (progress) {
+
               progress.style.width =
                 `${self.progress * 100}%`;
+
             }
+
           }
+
         }
+
       });
 
 
     /* ---------------------------------------------------------
-       HEADPHONE ROTATION
+       FRAME TRANSITION
+       04 → 03 → 02 → 01
        --------------------------------------------------------- */
 
+    frames.forEach(
+
+      (frame, index) => {
+
+        if (index === 0) return;
+
+
+        const previous =
+          frames[index - 1];
+
+
+        const start =
+          (index - 1) * 1.1;
+
+
+        timeline.to(
+
+          previous,
+
+          {
+
+            opacity: 0,
+
+            scale: 0.92,
+
+            rotationY: -8,
+
+            filter: "blur(4px)",
+
+            duration: 1.1,
+
+            ease: "power2.inOut"
+
+          },
+
+          start
+
+        );
+
+
+        timeline.fromTo(
+
+          frame,
+
+          {
+
+            opacity: 0,
+
+            scale: 1.08,
+
+            rotationY: 8,
+
+            filter: "blur(4px)"
+
+          },
+
+          {
+
+            opacity: 1,
+
+            scale: 1,
+
+            rotationY: 0,
+
+            filter: "blur(0px)",
+
+            duration: 1.1,
+
+            ease: "power2.inOut"
+
+          },
+
+          start
+
+        );
+
+      }
+
+    );
+
+
+    /* ---------------------------------------------------------
+       FINAL SCALE
+       --------------------------------------------------------- */
+
+    const finalFrame =
+      frames[frames.length - 1];
+
+
     timeline.to(
-      headphone,
+
+      finalFrame,
+
       {
-        rotationY: 360,
 
         scale: 1.06,
 
-        duration: 3,
+        duration: 0.8,
 
-        ease: "none"
-      }
+        ease: "power2.out"
+
+      },
+
+      ">"
+
     );
 
 
@@ -674,17 +947,25 @@
        --------------------------------------------------------- */
 
     timeline.to(
+
       copy,
+
       {
+
         opacity: 1,
+
         y: 0,
 
         duration: 0.8,
 
         ease: "power3.out"
+
       },
-      "-=0.4"
+
+      "-=0.35"
+
     );
+
   }
 
 
@@ -693,12 +974,15 @@
      ========================================================= */
 
   function initShopCards() {
+
     const cards =
       document.querySelectorAll(
         ".tech_card"
       );
 
+
     cards.forEach(
+
       (card) => {
 
         const image =
@@ -706,45 +990,67 @@
             ".tech_card_visual img"
           );
 
+
         if (!image) return;
 
 
         card.addEventListener(
+
           "mouseenter",
+
           () => {
 
             gsap.to(
+
               image,
+
               {
+
                 scale: 1.06,
 
                 duration: 0.5,
 
                 ease: "power2.out"
+
               }
+
             );
+
           }
+
         );
 
 
         card.addEventListener(
+
           "mouseleave",
+
           () => {
 
             gsap.to(
+
               image,
+
               {
+
                 scale: 1,
 
                 duration: 0.5,
 
                 ease: "power2.out"
+
               }
+
             );
+
           }
+
         );
+
       }
+
     );
+
   }
 
 
@@ -753,12 +1059,19 @@
      ========================================================= */
 
   function refreshScroll() {
+
     window.setTimeout(
+
       () => {
+
         ScrollTrigger.refresh();
+
       },
+
       500
+
     );
+
   }
 
 
@@ -767,6 +1080,7 @@
      ========================================================= */
 
   function init() {
+
     preloadImages();
 
     initIntro();
@@ -780,6 +1094,7 @@
     initShopCards();
 
     refreshScroll();
+
   }
 
 
@@ -787,12 +1102,19 @@
     document.readyState ===
     "loading"
   ) {
+
     document.addEventListener(
+
       "DOMContentLoaded",
+
       init
+
     );
+
   } else {
+
     init();
+
   }
 
 })();
