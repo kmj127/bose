@@ -3,70 +3,46 @@
 
 <head>
 
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
 
   <title>BOSE | Technology</title>
-
-  <meta
-    name="description"
-    content="보이지 않는 기술이, 들리는 경험을 완성합니다."
-  />
 
 
   <!-- =====================================================
        FONT
        ===================================================== -->
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
     rel="stylesheet"
-  />
-
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
-  />
+  >
 
 
   <!-- =====================================================
-       COMMON CSS
+       CSS
        ===================================================== -->
 
-  <link
-    rel="stylesheet"
-    href="css/reset.css"
-  />
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/technology.css">
 
-  <link
-    rel="stylesheet"
-    href="css/tokens.css"
-  />
 
-  <link
-    rel="stylesheet"
-    href="css/common.css"
-  />
+  <!-- =====================================================
+       GSAP
+       ===================================================== -->
 
-  <link
-    rel="stylesheet"
-    href="css/technology.css"
-  />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 </head>
 
@@ -74,801 +50,730 @@
 <body data-page="technology">
 
 
-<main
-  class="page technology_page"
-  id="main"
->
-
-
   <!-- =====================================================
-       INTRO
+       MAIN
        ===================================================== -->
 
-  <section
-    class="tech_intro"
-    id="tech_intro"
+  <main
+    class="page technology_page"
+    id="main"
   >
 
-    <div class="tech_intro_inner">
 
-      <p
-        class="tech_eyebrow"
-        data-reveal
-      >
-        BOSE TECHNOLOGY
-      </p>
+    <!-- ===================================================
+         INTRO
+         ※ 기존 구조 유지
+         =================================================== -->
 
-      <h1
-        class="tech_intro_title"
-        data-reveal
-      >
-        Engineered to<br />
-        Hear More
-      </h1>
+    <section
+      class="tech_intro"
+      id="tech_intro"
+    >
 
-      <p
-        class="tech_intro_desc"
-        data-reveal
-        data-reveal-delay="120"
-      >
-        보이지 않는 기술이 완벽한 오디오 경험을 완성합니다.
-      </p>
+      <div class="tech_intro_inner">
 
-      <div
-        class="tech_scroll_hint"
-        data-reveal
-        data-reveal-delay="220"
-      >
+        <p
+          class="tech_eyebrow"
+          data-reveal
+        >
+          BOSE TECHNOLOGY
+        </p>
 
-        <span class="tech_scroll_line"></span>
 
-        <span>
-          SCROLL TO EXPLORE
-        </span>
+        <h1
+          class="tech_intro_title"
+          data-reveal
+        >
+          Engineered to<br />
+          Hear More
+        </h1>
+
+
+        <p
+          class="tech_intro_desc"
+          data-reveal
+          data-reveal-delay="120"
+        >
+          보이지 않는 기술이 완벽한 오디오 경험을 완성합니다.
+        </p>
+
+
+        <div
+          class="tech_scroll_hint"
+          data-reveal
+          data-reveal-delay="220"
+        >
+
+          <span class="tech_scroll_line"></span>
+
+          <span>
+            SCROLL TO EXPLORE
+          </span>
+
+        </div>
 
       </div>
 
-    </div>
-
-  </section>
+    </section>
 
 
 
-  <!-- =====================================================
-       HERO PRODUCT
-       회전 → 확대 → 분해
-       ===================================================== -->
+    <!-- ===================================================
+         PRODUCT ROTATION
+         =================================================== -->
 
-  <section
-    class="tech_sequence"
-    id="tech_sequence"
-  >
+    <section
+      class="tech_sequence"
+      id="tech_sequence"
+    >
 
-    <div class="tech_sequence_stage">
+      <div class="tech_sequence_stage">
 
 
-      <!-- 상단 정보 -->
+        <!-- TOP LABEL -->
 
-      <div class="sequence_top">
+        <div class="sequence_top">
 
-        <span class="sequence_number">
-          01
-        </span>
+          <span class="sequence_number">
+            01
+          </span>
 
-        <span class="sequence_label">
-          ENGINEERED FOR SOUND
-        </span>
+          <span class="sequence_label">
+            ENGINEERED FOR SOUND
+          </span>
+
+        </div>
+
+
+
+        <!-- PRODUCT -->
+
+        <div
+          class="sequence_product"
+          aria-hidden="true"
+        >
+
+          <div class="sequence_frames">
+
+            <img
+              class="sequence_frame"
+              src="images/tech_img01.png"
+              alt=""
+            >
+
+            <img
+              class="sequence_frame"
+              src="images/tech_img02.png"
+              alt=""
+            >
+
+            <img
+              class="sequence_frame"
+              src="images/tech_img03.png"
+              alt=""
+            >
+
+            <img
+              class="sequence_frame"
+              src="images/tech_img04.png"
+              alt=""
+            >
+
+            <img
+              class="sequence_frame"
+              src="images/tech_img05.png"
+              alt=""
+            >
+
+          </div>
+
+        </div>
+
+
+
+        <!-- MESSAGE -->
+
+        <div class="sequence_message">
+
+          <p class="sequence_message_small">
+            LOOK CLOSER
+          </p>
+
+
+          <h2>
+            What makes sound, sound?
+          </h2>
+
+
+          <p>
+            들리는 순간 뒤에는,<br />
+            수많은 기술이 움직입니다.
+          </p>
+
+        </div>
+
+
+
+        <!-- PROGRESS -->
+
+        <div class="sequence_progress">
+
+          <span>01</span>
+          <span>02</span>
+          <span>03</span>
+          <span>04</span>
+          <span>05</span>
+
+        </div>
 
       </div>
 
+    </section>
 
-      <!-- 제품 -->
 
-      <div
-        class="sequence_product"
-        aria-hidden="true"
-      >
 
-        <div class="sequence_frames">
+    <!-- ===================================================
+         CUSTOMTUNE
+         =================================================== -->
 
-          <img
-            class="sequence_frame"
-            data-frame="0"
-            src="images/tech_img01.png"
-            alt=""
-          />
+    <section
+      class="tech_feature tech_feature--custom"
+      data-feature
+    >
 
-          <img
-            class="sequence_frame"
-            data-frame="1"
-            src="images/tech_img02.png"
-            alt=""
-          />
+      <div class="tech_feature_stage">
 
-          <img
-            class="sequence_frame"
-            data-frame="2"
-            src="images/tech_img03.png"
-            alt=""
-          />
+
+        <div class="feature_category">
+          MADE FOR YOUR EARS
+        </div>
+
+
+
+        <figure class="feature_visual">
+
+          <div class="feature_visual_glow"></div>
 
           <img
-            class="sequence_frame"
-            data-frame="3"
-            src="images/tech_img04.png"
-            alt=""
-          />
+            src="images/tech_img06.png"
+            alt="CustomTune technology"
+          >
+
+        </figure>
+
+
+
+        <div class="feature_copy">
+
+          <p class="feature_kicker">
+            CUSTOMTUNE
+          </p>
+
+
+          <h2 class="feature_title">
+            Your ears.<br />
+            Your sound.
+          </h2>
+
+
+          <p class="feature_subtitle">
+            귀에 맞춰 완성되는<br />
+            개인 맞춤 사운드
+          </p>
+
+
+          <p class="feature_desc">
+            귀의 구조를 분석해 사용자에게 맞는 사운드를 정밀하게 조정합니다.
+            <br /><br />
+            측정 데이터를 바탕으로 오디오와 노이즈 캔슬링을 최적화하여
+            더욱 자연스럽고 균형 잡힌 사운드를 구현합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         IMMERSIVE AUDIO
+         =================================================== -->
+
+    <section
+      class="tech_feature tech_feature--immersive"
+      data-feature
+    >
+
+      <div class="tech_feature_stage">
+
+
+        <div class="feature_category">
+          BEYOND STEREO
+        </div>
+
+
+
+        <figure class="feature_visual">
+
+          <div class="feature_visual_glow"></div>
 
           <img
-            class="sequence_frame sequence_frame--explode"
-            data-frame="4"
+            src="images/tech_img07.png"
+            alt="Immersive Audio technology"
+          >
+
+        </figure>
+
+
+
+        <div class="feature_copy">
+
+          <p class="feature_kicker">
+            IMMERSIVE AUDIO
+          </p>
+
+
+          <h2 class="feature_title">
+            Sound<br />
+            surrounds you.
+          </h2>
+
+
+          <p class="feature_subtitle">
+            공간을 채우는<br />
+            새로운 사운드 경험
+          </p>
+
+
+          <p class="feature_desc">
+            오디오 신호를 공간감 있는 사운드로 정교하게 처리합니다.
+            <br /><br />
+            드라이버와 오디오 프로세서가 입체적인 음향을 구현하여
+            더욱 현실감 있는 청취 경험을 제공합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         NOISE CANCELLING
+         =================================================== -->
+
+    <section
+      class="tech_feature tech_feature--noise"
+      data-feature
+    >
+
+      <div class="tech_feature_stage">
+
+
+        <div class="feature_category">
+          QUIET IS POWERFUL
+        </div>
+
+
+
+        <figure class="feature_visual">
+
+          <div class="feature_visual_glow"></div>
+
+          <img
+            src="images/tec_noise.png"
+            alt="Noise Cancelling technology"
+          >
+
+        </figure>
+
+
+
+        <div class="feature_copy">
+
+          <p class="feature_kicker">
+            NOISE CANCELLING
+          </p>
+
+
+          <h2 class="feature_title">
+            Silence<br />
+            the noise.
+          </h2>
+
+
+          <p class="feature_subtitle">
+            소음을 줄이고,<br />
+            소리에 집중합니다.
+          </p>
+
+
+          <p class="feature_desc">
+            외부와 내부의 소음을 실시간으로 감지합니다.
+            <br /><br />
+            반대 위상의 신호를 생성하여 원치 않는 소음을 효과적으로 줄이고
+            더욱 조용하고 몰입감 있는 청취 환경을 제공합니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ACTIVESENSE
+         =================================================== -->
+
+    <section
+      class="tech_feature tech_feature--active"
+      data-feature
+    >
+
+      <div class="tech_feature_stage">
+
+
+        <div class="feature_category">
+          ADAPT TO THE MOMENT
+        </div>
+
+
+
+        <figure class="feature_visual">
+
+          <div class="feature_visual_glow"></div>
+
+          <img
+            src="images/tech_img08.png"
+            alt="ActiveSense technology"
+          >
+
+        </figure>
+
+
+
+        <div class="feature_copy">
+
+          <p class="feature_kicker">
+            ACTIVESENSE
+          </p>
+
+
+          <h2 class="feature_title">
+            Sound<br />
+            that adapts.
+          </h2>
+
+
+          <p class="feature_subtitle">
+            순간에 맞춰,<br />
+            소리도 변합니다.
+          </p>
+
+
+          <p class="feature_desc">
+            주변 환경은 계속해서 변합니다.
+            <br /><br />
+            주변 소리를 실시간으로 감지하고 상황에 맞춰
+            노이즈 캔슬링을 조절합니다.
+            <br /><br />
+            필요한 순간에는 주변의 소리까지 자연스럽게 들려줍니다.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         REASSEMBLE
+         =================================================== -->
+
+    <section
+      class="tech_reassemble"
+      id="tech_reassemble"
+    >
+
+      <div class="tech_reassemble_stage">
+
+
+        <!-- TOP -->
+
+        <div class="reassemble_top">
+
+          <span>
+            06
+          </span>
+
+          <span>
+            ONE LISTENING EXPERIENCE
+          </span>
+
+        </div>
+
+
+
+        <!-- PRODUCT -->
+
+        <div
+          class="reassemble_product"
+          aria-hidden="true"
+        >
+
+          <img
+            class="reassemble_frame"
             src="images/tech_img05.png"
             alt=""
-          />
-
-        </div>
-
-      </div>
-
-
-      <!-- 중앙 문구 -->
-
-      <div class="sequence_message">
-
-        <p class="sequence_message_small">
-          EVERY DETAIL
-        </p>
-
-        <h2>
-          Designed to disappear.
-        </h2>
-
-        <p>
-          기술은 보이지 않아도<br />
-          경험은 분명하게 느껴집니다.
-        </p>
-
-      </div>
-
-
-      <!-- 하단 진행 표시 -->
-
-      <div class="sequence_progress">
-
-        <span class="sequence_progress_current">
-          01
-        </span>
-
-        <span class="sequence_progress_line">
-          <span></span>
-        </span>
-
-        <span>
-          05
-        </span>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       FEATURE 01
-       CUSTOMTUNE
-       ===================================================== -->
-
-  <section
-    class="tech_feature tech_feature--custom"
-    data-feature
-  >
-
-    <div class="tech_feature_stage">
-
-
-      <div class="feature_number">
-        02
-      </div>
-
-
-      <div class="feature_category">
-        PERSONALIZED SOUND
-      </div>
-
-
-      <figure class="feature_visual">
-
-        <div class="feature_visual_glow"></div>
-
-        <img
-          src="images/tech_img06.png"
-          alt="CustomTune 기술을 보여주는 Bose 헤드폰 내부 구조"
-        />
-
-      </figure>
-
-
-      <div class="feature_copy">
-
-        <p class="feature_kicker">
-          CUSTOMTUNE
-        </p>
-
-        <h2 class="feature_title">
-          Your ears.<br />
-          Your sound.
-        </h2>
-
-        <p class="feature_subtitle">
-          귀에 맞춰 완성되는<br />
-          개인 맞춤 사운드
-        </p>
-
-        <p class="feature_desc">
-          귀의 구조를 분석해 사용자에게 맞는
-          사운드를 정밀하게 조정합니다.
-          <br /><br />
-          측정 데이터를 바탕으로 오디오와
-          노이즈 캔슬링을 최적화하여
-          더욱 자연스럽고 균형 잡힌
-          사운드를 구현합니다.
-        </p>
-
-      </div>
-
-
-      <div class="feature_line"></div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       FEATURE 02
-       IMMERSIVE AUDIO
-       ===================================================== -->
-
-  <section
-    class="tech_feature tech_feature--immersive"
-    data-feature
-  >
-
-    <div class="tech_feature_stage">
-
-
-      <div class="feature_number">
-        03
-      </div>
-
-
-      <div class="feature_category">
-        IMMERSIVE EXPERIENCE
-      </div>
-
-
-      <figure class="feature_visual">
-
-        <div class="sound_rings">
-
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-
-        </div>
-
-        <img
-          src="images/tech_img07.png"
-          alt="Immersive Audio 기술을 보여주는 Bose 헤드폰"
-        />
-
-      </figure>
-
-
-      <div class="feature_copy">
-
-        <p class="feature_kicker">
-          IMMERSIVE AUDIO
-        </p>
-
-        <h2 class="feature_title">
-          Sound<br />
-          surrounds you.
-        </h2>
-
-        <p class="feature_subtitle">
-          공간을 채우는<br />
-          새로운 사운드 경험
-        </p>
-
-        <p class="feature_desc">
-          오디오 신호를 공간감 있는 사운드로
-          정교하게 처리합니다.
-          <br /><br />
-          드라이버와 오디오 프로세서가
-          입체적인 음향을 구현하여
-          더욱 현실감 있는 청취 경험을 제공합니다.
-        </p>
-
-      </div>
-
-
-      <div class="feature_line"></div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       FEATURE 03
-       NOISE CANCELLING
-       ===================================================== -->
-
-  <section
-    class="tech_feature tech_feature--noise"
-    data-feature
-  >
-
-    <div class="tech_feature_stage">
-
-
-      <div class="feature_number">
-        04
-      </div>
-
-
-      <div class="feature_category">
-        QUIETCOMFORT
-      </div>
-
-
-      <figure class="feature_visual">
-
-        <div class="noise_wave noise_wave--01"></div>
-        <div class="noise_wave noise_wave--02"></div>
-        <div class="noise_wave noise_wave--03"></div>
-
-        <img
-          src="images/tec_noise.png"
-          alt="Bose 노이즈 캔슬링 음파 시각화"
-        />
-
-      </figure>
-
-
-      <div class="feature_copy">
-
-        <p class="feature_kicker">
-          NOISE CANCELLING
-        </p>
-
-        <h2 class="feature_title">
-          Silence<br />
-          on your terms.
-        </h2>
-
-        <p class="feature_subtitle">
-          소음을 줄이고<br />
-          소리에 집중합니다.
-        </p>
-
-        <p class="feature_desc">
-          외부와 내부의 소음을 실시간으로 감지합니다.
-          <br /><br />
-          반대 위상의 신호를 생성하여
-          원치 않는 소음을 효과적으로 줄이고
-          더욱 조용하고 몰입감 있는
-          청취 환경을 제공합니다.
-        </p>
-
-      </div>
-
-
-      <div class="feature_line"></div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       FEATURE 04
-       ACTIVESENSE
-       ===================================================== -->
-
-  <section
-    class="tech_feature tech_feature--active"
-    data-feature
-  >
-
-    <div class="tech_feature_stage">
-
-
-      <div class="feature_number">
-        05
-      </div>
-
-
-      <div class="feature_category">
-        ADAPTIVE CONTROL
-      </div>
-
-
-      <figure class="feature_visual">
-
-        <div class="sensor_points">
-
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-
-        </div>
-
-        <img
-          src="images/tech_img08.png"
-          alt="Bose ActiveSense 센서 구조"
-        />
-
-      </figure>
-
-
-      <div class="feature_copy">
-
-        <p class="feature_kicker">
-          ACTIVESENSE
-        </p>
-
-        <h2 class="feature_title">
-          Hear what<br />
-          matters.
-        </h2>
-
-        <p class="feature_subtitle">
-          상황에 맞춰 변화하는<br />
-          청취 환경
-        </p>
-
-        <p class="feature_desc">
-          주변 소음을 실시간으로 분석하고
-          환경 변화에 맞춰 노이즈 캔슬링을
-          자동으로 조절합니다.
-          <br /><br />
-          필요한 순간에는 주변 소리를 자연스럽게
-          받아들여 편안한 청취 환경을 유지합니다.
-        </p>
-
-      </div>
-
-
-      <div class="feature_line"></div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       REASSEMBLE
-       다시 하나의 헤드폰으로
-       ===================================================== -->
-
-  <section
-    class="tech_reassemble"
-    id="tech_reassemble"
-  >
-
-    <div class="tech_reassemble_stage">
-
-
-      <div class="reassemble_top">
-
-        <span>
-          06
-        </span>
-
-        <span>
-          ONE LISTENING EXPERIENCE
-        </span>
-
-      </div>
-
-
-      <div
-        class="reassemble_product"
-        aria-hidden="true"
-      >
-
-        <div class="reassemble_frames">
+          >
 
           <img
             class="reassemble_frame"
-            data-frame="4"
-            src="images/tech_img05.png"
-            alt=""
-          />
-
-          <img
-            class="reassemble_frame"
-            data-frame="3"
             src="images/tech_img04.png"
             alt=""
-          />
+          >
 
           <img
             class="reassemble_frame"
-            data-frame="2"
             src="images/tech_img03.png"
             alt=""
-          />
+          >
 
           <img
             class="reassemble_frame"
-            data-frame="1"
             src="images/tech_img02.png"
             alt=""
-          />
+          >
 
           <img
             class="reassemble_frame"
-            data-frame="0"
             src="images/tech_img01.png"
             alt=""
-          />
+          >
+
+        </div>
+
+
+
+        <!-- COPY -->
+
+        <div class="reassemble_copy">
+
+          <p class="reassemble_kicker">
+            IT ALL COMES TOGETHER
+          </p>
+
+
+          <h2>
+            Countless details.<br />
+            One experience.
+          </h2>
+
+
+          <p>
+            수많은 기술이 하나의 경험으로 연결됩니다.
+          </p>
+
+        </div>
+
+
+
+        <!-- PROGRESS -->
+
+        <div class="reassemble_progress">
+
+          <span>06</span>
+          <span>07</span>
+          <span>08</span>
+          <span>09</span>
+          <span>10</span>
 
         </div>
 
       </div>
 
+    </section>
 
-      <div class="reassemble_copy">
 
-        <p class="reassemble_kicker">
-          FROM TECHNOLOGY
-        </p>
 
-        <h2>
-          To experience.
-        </h2>
+    <!-- ===================================================
+         SHOP
+         =================================================== -->
 
-        <p>
-          수많은 기술이 하나의 경험으로 완성됩니다.
-        </p>
+    <section class="section tech_shop">
+
+      <div class="container">
+
+
+        <div
+          class="tech_shop_head"
+          data-reveal
+        >
+
+          <p class="tech_shop_kicker">
+            EXPERIENCE BOSE
+          </p>
+
+
+          <h2 class="tech_shop_title">
+            Hear what technology<br />
+            can do.
+          </h2>
+
+
+          <p class="tech_shop_desc">
+            모든 기술은 하나의 경험을 위해 설계되었습니다.
+          </p>
+
+
+          <a
+            class="btn btn--ghost"
+            href="shop.html"
+          >
+            View Product
+          </a>
+
+        </div>
+
+
+
+        <!-- PRODUCT CARDS -->
+
+        <ul class="tech_shop_cards">
+
+
+          <!-- CARD 01 -->
+
+          <li class="tech_card">
+
+            <a href="shop.html">
+
+              <figure class="tech_card_visual">
+
+                <img
+                  src="images/tec_card01.png"
+                  alt="Bose QuietComfort Ultra Headphones"
+                >
+
+              </figure>
+
+
+              <div class="tech_card_body">
+
+                <p class="tech_card_category">
+                  HEADPHONES
+                </p>
+
+
+                <h3 class="tech_card_name">
+                  QuietComfort Ultra Headphones
+                </h3>
+
+              </div>
+
+            </a>
+
+          </li>
+
+
+
+          <!-- CARD 02 -->
+
+          <li class="tech_card">
+
+            <a href="shop.html">
+
+              <figure class="tech_card_visual">
+
+                <img
+                  src="images/tec_card02.png"
+                  alt="Bose QuietComfort Headphones"
+                >
+
+              </figure>
+
+
+              <div class="tech_card_body">
+
+                <p class="tech_card_category">
+                  HEADPHONES
+                </p>
+
+
+                <h3 class="tech_card_name">
+                  QuietComfort Headphones
+                </h3>
+
+              </div>
+
+            </a>
+
+          </li>
+
+
+
+          <!-- CARD 03 -->
+
+          <li class="tech_card">
+
+            <a href="shop.html">
+
+              <figure class="tech_card_visual">
+
+                <img
+                  src="images/tec_card03.png"
+                  alt="Bose QuietComfort Ultra Earbuds"
+                >
+
+              </figure>
+
+
+              <div class="tech_card_body">
+
+                <p class="tech_card_category">
+                  EARBUDS
+                </p>
+
+
+                <h3 class="tech_card_name">
+                  QuietComfort Ultra Earbuds
+                </h3>
+
+              </div>
+
+            </a>
+
+          </li>
+
+
+        </ul>
 
       </div>
 
+    </section>
 
-      <div class="reassemble_progress">
 
-        <span>
-          06
-        </span>
-
-        <span class="reassemble_progress_line">
-          <span></span>
-        </span>
-
-        <span>
-          10
-        </span>
-
-      </div>
-
-    </div>
-
-  </section>
+  </main>
 
 
 
   <!-- =====================================================
-       SHOP CTA
+       JS
        ===================================================== -->
 
-  <section class="section tech_shop">
+  <script src="js/common.js"></script>
 
-    <div class="container">
-
-
-      <div
-        class="tech_shop_head"
-        data-reveal
-      >
-
-        <p class="tech_shop_kicker">
-          EXPERIENCE BOSE
-        </p>
-
-        <h2 class="tech_shop_title">
-          Every Technology.<br />
-          One Listening Experience.
-        </h2>
-
-        <p class="tech_shop_desc">
-          모든 기술은 하나의 경험을 위해 설계되었습니다.
-        </p>
-
-        <a
-          class="btn btn--ghost"
-          href="shop.html"
-        >
-          View Product
-        </a>
-
-      </div>
-
-
-      <ul class="tech_shop_cards">
-
-
-        <!-- CARD 01 -->
-
-        <li
-          class="tech_card"
-          data-reveal
-        >
-
-          <a href="shop.html">
-
-            <span class="tech_card_visual">
-
-              <img
-                src="images/tec_card01.png"
-                alt="QC Ultra Headphone 2nd Gen"
-              />
-
-            </span>
-
-            <span class="tech_card_body">
-
-              <span class="tech_card_category">
-                HEADPHONE
-              </span>
-
-              <span class="tech_card_name">
-                QC ULTRA HEADPHONE<br />
-                (2ND GEN)
-              </span>
-
-              <span class="tech_card_arrow">
-                →
-              </span>
-
-            </span>
-
-          </a>
-
-        </li>
-
-
-
-        <!-- CARD 02 -->
-
-        <li
-          class="tech_card"
-          data-reveal
-          data-reveal-delay="100"
-        >
-
-          <a href="shop.html">
-
-            <span class="tech_card_visual">
-
-              <img
-                src="images/tec_card02.png"
-                alt="QC Ultra Headphone"
-              />
-
-            </span>
-
-            <span class="tech_card_body">
-
-              <span class="tech_card_category">
-                HEADPHONE
-              </span>
-
-              <span class="tech_card_name">
-                QC ULTRA<br />
-                HEADPHONE
-              </span>
-
-              <span class="tech_card_arrow">
-                →
-              </span>
-
-            </span>
-
-          </a>
-
-        </li>
-
-
-
-        <!-- CARD 03 -->
-
-        <li
-          class="tech_card"
-          data-reveal
-          data-reveal-delay="200"
-        >
-
-          <a href="shop.html">
-
-            <span class="tech_card_visual">
-
-              <img
-                src="images/tec_card03.png"
-                alt="QC Ultra Earbuds 2nd Gen"
-              />
-
-            </span>
-
-            <span class="tech_card_body">
-
-              <span class="tech_card_category">
-                EARBUDS
-              </span>
-
-              <span class="tech_card_name">
-                QC ULTRA EARBUDS<br />
-                (2ND GEN)
-              </span>
-
-              <span class="tech_card_arrow">
-                →
-              </span>
-
-            </span>
-
-          </a>
-
-        </li>
-
-
-      </ul>
-
-    </div>
-
-  </section>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     COMMON JS
-     ===================================================== -->
-
-<script src="js/common.js"></script>
-
-
-<!-- =====================================================
-     GSAP
-     ===================================================== -->
-
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-></script>
-
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-></script>
-
-
-<!-- =====================================================
-     TECHNOLOGY JS
-     ===================================================== -->
-
-<script src="js/technology.js"></script>
+  <script src="js/technology.js"></script>
 
 
 </body>
+
 </html>
