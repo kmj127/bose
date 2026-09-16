@@ -371,6 +371,8 @@
 
 /* ---------- progress ---------- */
 
+/* ---------- progress ---------- */
+
 .sequence_progress {
   position: absolute;
 
@@ -399,6 +401,8 @@
 
   width: 90px;
   height: 1px;
+
+  overflow: hidden;
 
   background: #333;
 }
@@ -464,9 +468,9 @@
   z-index: 5;
 
   font-family: var(--font-head);
-  font-size: 9px;
+  font-size: 12px;
 
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
 
   color: #666;
 }
