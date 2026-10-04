@@ -1,36 +1,14 @@
 /* =========================================================
    technology.css
-   BOSE Technology Page
-
-   Concept
-   ---------------------------------------------------------
-   Intro
-      ↓
-   Headphone rotation
-      ↓
-   Exploded view
-      ↓
-   CustomTune
-      ↓
-   Immersive Audio
-      ↓
-   Noise Cancelling
-      ↓
-   ActiveSense
-      ↓
-   Reassemble
-      ↓
-   Product
+   목차: 기본 / 인트로 / 분해도 / 기능 섹션 / 노이즈 캔슬링 / 제품 이동 / 반응형
    ========================================================= */
 
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
+/* ── 기본 ── */
 
 .technology_page {
-  background: #0a0a0a;
-  color: #f2f2f2;
+  background: var(--color-bg);
+  color: var(--color-text);
   overflow: clip;
 }
 
@@ -40,1407 +18,493 @@
 }
 
 
-/* =========================================================
-   INTRO
-   ========================================================= */
+/* ── 인트로 ── */
 
 .tech_intro {
-  position: relative;
   min-height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-.tech_intro::before {
-  content: "";
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-
-  width: 55vw;
-  height: 55vw;
-
-  transform: translate(-50%, -50%);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.055) 0%,
-      rgba(255,255,255,0.015) 38%,
-      transparent 70%
-    );
-
-  pointer-events: none;
-}
-
-.tech_intro_inner {
-  position: relative;
-  z-index: 1;
-
-  width: min(90%, 1000px);
+  padding: var(--header-h) var(--gutter) 0;
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-
   text-align: center;
 }
 
-.tech_eyebrow {
-  margin-bottom: 28px;
-
-  font-family: var(--font-head);
-  font-size: 12px;
-  font-weight: 600;
-
-  letter-spacing: 0.24em;
-
-  color: #888;
-}
-
 .tech_intro_title {
-  margin: 0;
-
   font-family: var(--font-head);
-  font-size: 60px;
+  font-size: clamp(44px, 7vw, 110px);
   font-weight: 500;
-
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.045em;
 }
 
 .tech_intro_desc {
-  margin-top: 38px;
+  margin-top: 32px;
 
-  font-size: 20px;
+  font-size: clamp(16px, 1.5vw, 20px);
   line-height: 1.7;
-
-  color: #aaa;
+  color: var(--color-text-muted);
 }
 
-.tech_scroll_hint {
-  margin-top: 90px;
 
-  display: flex;
-  align-items: center;
-  gap: 16px;
+/* ── 분해도: 스크롤 길이 + 고정 화면 ── */
 
-  font-family: var(--font-head);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-
-  color: #666;
-}
-
-.tech_scroll_line {
+.tech_seq {
   position: relative;
-
-  width: 1px;
-  height: 54px;
-
-  overflow: hidden;
-
-  background: #333;
+  height: 480vh;                /* 늘리면 모션이 더 천천히 진행 */
 }
 
-.tech_scroll_line::after {
-  content: "";
+.seq_stage {
+  position: sticky;
+  top: 0;
 
-  position: absolute;
-  left: 0;
-  top: -100%;
-
-  width: 100%;
-  height: 100%;
-
-  background: #fff;
-
-  animation: techScrollLine 2s ease-in-out infinite;
-}
-
-@keyframes techScrollLine {
-
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(100%);
-  }
-
-  100% {
-    transform: translateY(200%);
-  }
-
-}
-
-
-/* =========================================================
-   PRODUCT SEQUENCE
-   ========================================================= */
-
-.tech_sequence {
-  position: relative;
-
-  height: 420vh;
-}
-
-.tech_sequence_stage {
-  position: relative;
-
-  width: 100%;
   height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   overflow: hidden;
 }
 
 
-/* ---------- background ---------- */
+/* ── 분해도: 부품 이미지 (위치·높이는 JS가 넣음) ── */
 
-.tech_sequence_stage::before {
-  content: "";
-
+.seq_parts {
   position: absolute;
+  inset: 0;
+}
 
+.seq_part {
+  position: absolute;
   left: 50%;
-  top: 50%;
+  top: 44%;
 
-  width: 60vw;
-  height: 60vw;
+  width: auto;
+  max-width: none;
 
-  transform: translate(-50%, -50%);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.07) 0%,
-      rgba(255,255,255,0.025) 35%,
-      transparent 70%
-    );
-
+  transition: opacity 0.35s, filter 0.35s;
+  will-change: transform;
   pointer-events: none;
 }
 
+.seq_part.is_dim {
+  opacity: 0.28;
+}
 
-/* ---------- top ---------- */
+.seq_part.is_on {
+  filter: drop-shadow(0 0 24px rgba(255, 107, 53, 0.35));
+}
 
-.sequence_top {
+
+/* ── 분해도: 지시선 ── */
+
+.seq_svg {
   position: absolute;
-
-  left: clamp(28px, 5vw, 90px);
-  top: 42px;
-
-  z-index: 10;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 7px;
-}
-
-.sequence_number {
-  font-family: var(--font-head);
-  font-size: 11px;
-
-  color: #f2f2f2;
-}
-
-.sequence_label {
-  font-family: var(--font-head);
-  font-size: 12px;
-
-  letter-spacing: 0.1em;
-
-  color: #666;
-}
-
-
-/* ---------- product ---------- */
-
-.sequence_product {
-  position: relative;
-
-  z-index: 3;
-
-  width: min(65vw, 820px);
-  aspect-ratio: 1 / 1;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sequence_frames {
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  perspective: 1400px;
-}
-
-.sequence_frame {
-  position: absolute;
-
   inset: 0;
 
   width: 100%;
   height: 100%;
 
-  object-fit: contain;
-
-  opacity: 0;
-
-  transform-origin: center center;
-
-  backface-visibility: hidden;
-
-  will-change:
-    opacity,
-    transform,
-    filter;
-}
-
-.sequence_frame:first-child {
-  opacity: 1;
-}
-
-.sequence_frame--explode {
-  transform: scale(1.05);
-}
-
-
-/* ---------- message ---------- */
-
-.sequence_message {
-  position: absolute;
-
-  left: 50%;
-  bottom: 9%;
-
-  z-index: 6;
-
-  width: 100%;
-
-  transform: translateX(-50%);
-
-  text-align: center;
-
   pointer-events: none;
 }
 
-.sequence_message_small {
-  margin-bottom: 12px;
+.seq_lead {
+  stroke: var(--color-accent);
+  stroke-width: 1;
 
-  font-family: var(--font-head);
-  font-size: 9px;
-
-  letter-spacing: 0.25em;
-
-  color: #666;
+  opacity: 0;
+  transition: opacity 0.35s;
 }
 
-.sequence_message h2 {
-  margin: 0;
+.seq_dot {
+  fill: var(--color-accent);
 
-  font-family: var(--font-head);
-  font-size: clamp(22px, 2.4vw, 38px);
-  font-weight: 500;
-
-  letter-spacing: -0.025em;
+  opacity: 0;
+  transition: opacity 0.35s;
 }
 
-.sequence_message p:last-child {
-  margin-top: 12px;
-
-  font-size: 14px;
-  line-height: 1.7;
-
-  color: #777;
+.seq_lead.is_on,
+.seq_dot.is_on {
+  opacity: 1;
 }
 
 
-/* ---------- progress ---------- */
+/* ── 분해도: 설명 / 진행선 ── */
 
-/* ---------- progress ---------- */
-
-.sequence_progress {
+.seq_info {
   position: absolute;
+  left: var(--gutter);
+  bottom: clamp(36px, 9vh, 90px);
 
-  right: clamp(28px, 5vw, 90px);
-  bottom: 42px;
+  max-width: 380px;
+}
 
-  z-index: 10;
-
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-
+.seq_info h2 {
   font-family: var(--font-head);
-  font-size: 9px;
-
-  color: #666;
+  font-size: clamp(26px, 3vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
 }
 
-.sequence_progress_current {
-  color: #fff;
+.seq_info p {
+  min-height: 5.2em;
+  margin-top: 14px;
+
+  font-size: var(--fs-sm);
+  line-height: 1.75;
+  color: var(--color-text-muted);
 }
 
-.sequence_progress_line {
-  position: relative;
+.seq_info #seq_text {
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.seq_info #seq_text.is_out {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.seq_bar {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(36px, 9vh, 90px);
 
   width: 90px;
   height: 1px;
 
-  overflow: hidden;
-
-  background: #333;
+  background: var(--color-line);
 }
 
-.sequence_progress_line > span {
-  position: absolute;
+.seq_bar i {
+  display: block;
 
-  left: 0;
-  top: 0;
-
-  width: 0%;
+  width: 0;
   height: 100%;
 
-  background: #fff;
+  background: var(--color-accent);
 }
 
 
-/* =========================================================
-   FEATURE COMMON
-   ========================================================= */
+/* ── 기능 섹션 (이미지 + 글, 좌우 교차) ── */
 
 .tech_feature {
-  position: relative;
+  min-height: 110vh;
+  padding: 0 var(--gutter);
 
-  height: 240vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 120px);
 }
 
-.tech_feature_stage {
-  position: relative;
-
-  width: 100%;
-  height: 100vh;
-
-  overflow: hidden;
+.tech_feature--flip .feature_visual {
+  order: 2;                     /* 이미지를 오른쪽으로 */
 }
-
-
-/* ---------- number ---------- */
-
-.feature_number {
-  position: absolute;
-
-  left: clamp(28px, 5vw, 90px);
-  top: 42px;
-
-  z-index: 5;
-
-  font-family: var(--font-head);
-  font-size: 11px;
-
-  color: #f2f2f2;
-}
-
-
-/* ---------- category ---------- */
-
-.feature_category {
-  position: absolute;
-
-  right: clamp(28px, 5vw, 90px);
-  top: 42px;
-
-  z-index: 5;
-
-  font-family: var(--font-head);
-  font-size: 12px;
-
-  letter-spacing: 0.1em;
-
-  color: #666;
-}
-
-
-/* ---------- visual ---------- */
 
 .feature_visual {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  z-index: 2;
-
-  width: min(42vw, 680px);
-  aspect-ratio: 1 / 1;
-
   margin: 0;
 
-  transform: translate(-50%, -50%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  will-change:
-    transform,
-    opacity;
-}
-
-.feature_visual img {
-  position: relative;
-
-  z-index: 2;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: contain;
-
+  /* --shift 는 JS가 스크롤에 맞춰 넣음 (살짝 느리게 따라오는 효과) */
+  transform: translateY(var(--shift, 0px));
   will-change: transform;
 }
 
-
-/* ---------- glow ---------- */
-
-.feature_visual_glow {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 70%;
-  height: 70%;
-
-  transform: translate(-50%, -50%);
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.09),
-      transparent 70%
-    );
-
-  filter: blur(20px);
-}
-
-
-/* ---------- copy ---------- */
-
-.feature_copy {
-  position: absolute;
-
-  z-index: 4;
-
-  width: min(360px, 30vw);
-}
-
-.feature_kicker {
-  margin-bottom: 20px;
-
-  font-family: var(--font-head);
-  font-size: 10px;
-  font-weight: 600;
-
-  letter-spacing: 0.22em;
-
-  color: #888;
-}
-
-.feature_title {
-  margin: 0;
-
-  font-family: var(--font-head);
-  font-size: clamp(42px, 4.3vw, 72px);
-  font-weight: 500;
-
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-.feature_subtitle {
-  margin-top: 30px;
-
-  font-size: 20px;
-  line-height: 1.5;
-
-  color: #eee;
-}
-
-.feature_desc {
-  margin-top: 28px;
-
-  font-size: 14px;
-  line-height: 1.85;
-
-  color: #777;
-}
-
-
-/* ---------- line ---------- */
-
-.feature_line {
-  position: absolute;
-
-  left: 50%;
-  bottom: 40px;
-
-  width: 0;
-  height: 1px;
-
-  background: #292929;
-
-  transform: translateX(-50%);
-}
-
-
-/* =========================================================
-   CUSTOMTUNE
-   ========================================================= */
-
-.tech_feature--custom {
-  background:
-    radial-gradient(
-      circle at 72% 50%,
-      rgba(255,255,255,0.035),
-      transparent 30%
-    );
-}
-
-.tech_feature--custom .feature_copy {
-  left: clamp(28px, 8vw, 150px);
-  top: 50%;
-
-  transform: translateY(-50%);
-}
-
-
-/* =========================================================
-   IMMERSIVE
-   ========================================================= */
-
-.tech_feature--immersive {
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(255,255,255,0.025),
-      transparent 38%
-    );
-}
-
-.tech_feature--immersive .feature_copy {
-  right: clamp(28px, 8vw, 150px);
-  top: 50%;
-
-  transform: translateY(-50%);
-}
-
-
-/* ---------- sound rings ---------- */
-
-.sound_rings {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 95%;
-  height: 95%;
-
-  transform: translate(-50%, -50%);
-
-  pointer-events: none;
-}
-
-.sound_rings span {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 30%;
-  aspect-ratio: 1 / 1;
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  border-radius: 50%;
-
-  transform: translate(-50%, -50%);
-}
-
-.sound_rings span:nth-child(2) {
-  width: 48%;
-}
-
-.sound_rings span:nth-child(3) {
-  width: 68%;
-}
-
-.sound_rings span:nth-child(4) {
-  width: 90%;
-}
-
-
-/* =========================================================
-   NOISE CANCELLING
-   ========================================================= */
-
-.tech_feature--noise {
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(255,255,255,0.035),
-      transparent 32%
-    );
-}
-
-.tech_feature--noise .feature_visual {
-  width: min(46vw, 760px);
-  top: 43%;
-}
-
-.tech_feature--noise .feature_copy {
-  left: 50%;
-  bottom: 10%;
-
-  width: 700px;
-  max-width: 80%;
-
-  transform: translateX(-50%);
-
-  text-align: center;
-}
-
-.tech_feature--noise .feature_desc {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-/* ---------- noise waves ---------- */
-
-.noise_wave {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 95%;
-  height: 95%;
-
-  border: 1px solid rgba(255,255,255,0.06);
-
-  border-radius: 50%;
-
-  transform: translate(-50%, -50%);
-
-  pointer-events: none;
-}
-
-.noise_wave--02 {
-  width: 75%;
-  height: 75%;
-}
-
-.noise_wave--03 {
-  width: 55%;
-  height: 55%;
-}
-
-
-/* =========================================================
-   ACTIVE SENSE
-   ========================================================= */
-
-.tech_feature--active {
-  background:
-    radial-gradient(
-      circle at 28% 50%,
-      rgba(255,255,255,0.035),
-      transparent 32%
-    );
-}
-
-.tech_feature--active .feature_copy {
-  right: clamp(28px, 8vw, 150px);
-  top: 50%;
-
-  transform: translateY(-50%);
-}
-
-
-/* ---------- sensors ---------- */
-
-.sensor_points {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 3;
-
-  pointer-events: none;
-}
-
-.sensor_points span {
-  position: absolute;
-
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: #fff;
-
-  box-shadow:
-    0 0 15px rgba(255,255,255,0.6);
-}
-
-.sensor_points span:nth-child(1) {
-  left: 31%;
-  top: 35%;
-}
-
-.sensor_points span:nth-child(2) {
-  left: 65%;
-  top: 33%;
-}
-
-.sensor_points span:nth-child(3) {
-  left: 33%;
-  top: 67%;
-}
-
-.sensor_points span:nth-child(4) {
-  left: 68%;
-  top: 65%;
-}
-
-
-/* =========================================================
-   REASSEMBLE
-   ========================================================= */
-
-.tech_reassemble {
-  position: relative;
-
-  height: 360vh;
-}
-
-.tech_reassemble_stage {
-  position: relative;
-
+.feature_visual img {
   width: 100%;
-  height: 100vh;
+  max-width: 640px;
+  margin: 0 auto;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-.tech_reassemble_stage::before {
-  content: "";
-
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 60vw;
-  height: 60vw;
-
-  transform: translate(-50%, -50%);
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,0.06),
-      transparent 68%
-    );
-}
-
-
-/* ---------- top ---------- */
-
-.reassemble_top {
-  position: absolute;
-  left: clamp(28px, 5vw, 90px);
-  top: 42px;
-
-  z-index: 5;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 7px;
-
-  font-family: var(--font-head);
-  font-size: 12px;
-
-  letter-spacing: 0.18em;
-
-  color: #666;
-}
-
-.reassemble_top span {
-  color: #666 !important;
-}
-
-.reassemble_top span:first-child {
-  font-size: 11px;
-  color: #fff;
-}
-
-
-/* ---------- product ---------- */
-
-.reassemble_product {
-  position: relative;
-
-  z-index: 2;
-
-  width: min(65vw, 820px);
-  aspect-ratio: 1 / 1;
-}
-
-.reassemble_frames {
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  perspective: 1400px;
-}
-
-.reassemble_frame {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
+  display: block;
   object-fit: contain;
-
-  opacity: 0;
-
-  will-change:
-    opacity,
-    transform;
 }
 
-.reassemble_frame:first-child {
-  opacity: 1;
-}
-
-
-/* ---------- copy ---------- */
-
-.reassemble_copy {
-  position: absolute;
-
-  left: 50%;
-  bottom: 12%;
-
-  z-index: 5;
-
-  width: 100%;
-
-  transform: translateX(-50%);
-
-  text-align: center;
-}
-
-.reassemble_kicker {
-  margin-bottom: 14px;
-
+.feature_name {
   font-family: var(--font-head);
-  font-size: 9px;
-
-  letter-spacing: 0.22em;
-
-  color: #666;
-}
-
-.reassemble_copy h2 {
-  margin: 0;
-
-  font-family: var(--font-head);
-  font-size: clamp(38px, 4vw, 64px);
+  font-size: clamp(32px, 3.6vw, 56px);
   font-weight: 500;
-
   letter-spacing: -0.04em;
 }
 
-.reassemble_copy p:last-child {
+.feature_sub {
+  margin-top: 24px;
+
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.5;
+}
+
+.feature_desc {
+  max-width: 30em;
+  margin-top: 20px;
+
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+  color: var(--color-text-muted);
+}
+
+
+/* ── 노이즈 캔슬링 (글 + 파형 + 스위치) ── */
+
+.tech_feature--noise {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.anc_wave {
+  height: min(36vh, 300px);
+  margin-top: 48px;
+}
+
+.anc_wave canvas {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+.anc_legend {
   margin-top: 18px;
 
-  font-size: 14px;
-
-  color: #777;
-}
-
-
-/* ---------- progress ---------- */
-
-.reassemble_progress {
-  position: absolute;
-
-  right: clamp(28px, 5vw, 90px);
-  bottom: 42px;
-
-  z-index: 5;
-
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
 
-  gap: 12px;
-
-  font-family: var(--font-head);
-  font-size: 9px;
-
-  color: #666;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
 }
 
-.reassemble_progress_line {
+.anc_legend span::before {
+  content: "";
+
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  margin-right: 8px;
+
+  vertical-align: middle;
+  background: var(--c);
+}
+
+.anc_switch {
+  margin-top: 32px;
+  padding: 12px 22px 12px 14px;
+
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 14px;
+
+  background: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+
+  color: var(--color-text);
+  font: 500 15px var(--font-head);
+
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.anc_switch:hover {
+  border-color: var(--color-accent);
+}
+
+.anc_switch:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.anc_switch b {
   position: relative;
 
-  width: 90px;
-  height: 1px;
+  width: 36px;
+  height: 20px;
 
-  background: #333;
+  background: var(--color-line);
+  border-radius: var(--radius-pill);
+
+  transition: background 0.3s;
 }
 
-.reassemble_progress_line span {
+.anc_switch b::after {
+  content: "";
+
   position: absolute;
+  left: 3px;
+  top: 3px;
 
-  left: 0;
-  top: 0;
+  width: 14px;
+  height: 14px;
 
-  width: 0;
-  height: 100%;
+  background: var(--color-text);
+  border-radius: 50%;
 
-  background: #fff;
+  transition: transform 0.3s;
+}
+
+.anc_switch[aria-pressed="true"] b {
+  background: var(--color-accent);
+}
+
+.anc_switch[aria-pressed="true"] b::after {
+  transform: translateX(16px);
 }
 
 
-/* =========================================================
-   SHOP
-   ========================================================= */
+/* ── 제품 이동 ── */
 
 .tech_shop {
-  padding-top: 180px;
-  padding-bottom: 180px;
-
-  background: #0a0a0a;
+  padding: 160px 0;
 }
 
 .tech_shop_head {
+  margin-bottom: 100px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-
   text-align: center;
-
-  margin-bottom: 100px;
-}
-
-.tech_shop_kicker {
-  margin-bottom: 20px;
-
-  font-family: var(--font-head);
-  font-size: 10px;
-
-  letter-spacing: 0.22em;
-
-  color: #666;
 }
 
 .tech_shop_title {
-  margin: 0;
-
   font-family: var(--font-head);
-  font-size: clamp(40px, 4.5vw, 72px);
+  font-size: clamp(36px, 4.5vw, 72px);
   font-weight: 500;
-
-  line-height: 1;
-
+  line-height: 1.05;
   letter-spacing: -0.045em;
 }
 
 .tech_shop_desc {
   margin-top: 28px;
 
-  font-size: 15px;
-
-  color: #777;
+  font-size: var(--fs-body);
+  color: var(--color-text-muted);
 }
 
 .tech_shop .btn {
   margin-top: 35px;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .tech_shop .btn:hover {
-  background: #FF6B35;
-  color: #f2f2f2;
-  border-color: #FF6B35;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text);
 }
 
-/* =========================================================
-   CARDS
-   ========================================================= */
+
+/* ── 제품 카드 ── */
 
 .tech_shop_cards {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+
   display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
 
-  width: 90%;
-  padding: 0;
-  margin: 0 auto;
-
   list-style: none;
-}
-
-.tech_card {
-  min-width: 0;
 }
 
 .tech_card a {
   display: block;
   overflow: hidden;
-  border-radius: 10px;
-  background: #f2f2f2;
+
+  background: var(--color-text);
+  border-radius: var(--radius-card);
   color: #111;
-  transition:
-    transform 0.5s ease,
-    background 0.3s ease;
+
+  transition: transform 0.5s var(--ease);
 }
 
 .tech_card a:hover {
   transform: translateY(-8px);
 }
 
-/* ---------- image ---------- */
-
 .tech_card_visual {
-  position: relative;
+  height: 360px;
+  margin: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 360px;
-  overflow: hidden;
-  background: #f2f2f2;
-}
-
-.tech_card_visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(255,255,255,0.45),
-      transparent 65%
-    );
 }
 
 .tech_card_visual img {
-  position: relative;
-  z-index: 1;
   width: 80%;
   height: 90%;
   object-fit: contain;
-  transition:
-    transform 0.6s ease;
+
+  transition: transform 0.6s var(--ease);
 }
 
-.tech_card a:hover .tech_card_visual img {
+.tech_card a:hover img {
   transform: scale(1.06);
 }
 
-/* ---------- body ---------- */
-
 .tech_card_body {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 150px;
   padding: 26px 28px;
 }
 
 .tech_card_category {
   margin-bottom: 14px;
+
   font-family: var(--font-head);
-  font-size: 9px;
+  font-size: var(--fs-xs);
   font-weight: 600;
-  letter-spacing: 0.16em;
-  color: #777;
+  letter-spacing: 0.1em;
+  color: #666;
 }
 
 .tech_card_name {
   font-family: var(--font-head);
-  font-size: 15px;
+  font-size: var(--fs-body);
   font-weight: 600;
   line-height: 1.4;
 }
 
-.tech_card_arrow {
-  position: absolute;
-  right: 28px;
-  bottom: 26px;
-  font-size: 20px;
-  transition:
-    transform 0.35s ease;
-}
 
-.tech_card a:hover .tech_card_arrow {
-  transform: translateX(6px);
-}
+/* ── 반응형 ── */
 
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .tech_sequence,
-  .tech_feature,
-  .tech_reassemble {
-    height: auto;
-  }
-
-  .tech_sequence_stage,
-  .tech_feature_stage,
-  .tech_reassemble_stage {
-    height: auto;
-
-    min-height: 100vh;
-
-    padding-top: 120px;
-    padding-bottom: 120px;
-  }
-
-  .sequence_frame,
-  .reassemble_frame {
-    position: static;
-
-    display: none;
-  }
-
-  .sequence_frame:first-child,
-  .reassemble_frame:last-child {
-    display: block;
-
-    opacity: 1;
-
-    width: min(80vw, 700px);
-    margin: auto;
-  }
-
-  .feature_visual,
-  .feature_copy {
-    position: relative;
-
-    left: auto;
-    right: auto;
-    top: auto;
-    bottom: auto;
-
-    transform: none;
-
-    width: min(80vw, 600px);
-
-    margin: 0 auto;
-  }
-
-  .feature_copy {
-    margin-top: 60px;
-
-    text-align: center;
-  }
-
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
-  .feature_copy {
-    width: min(360px, 34vw);
-  }
-
-  .feature_visual {
-    width: min(48vw, 620px);
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 767px) {
-
-  .tech_intro {
-    min-height: 90vh;
-  }
-
-  .tech_intro_title {
-    font-size: 52px;
-  }
-
-  .tech_intro_desc {
-    font-size: 16px;
-  }
-
-  .tech_scroll_hint {
-    margin-top: 60px;
-  }
-
-
-  .tech_sequence {
-    height: 320vh;
-  }
-
-  .sequence_product {
-    width: 88vw;
-  }
-
-  .sequence_message {
-    bottom: 10%;
-  }
-
-  .sequence_message h2 {
-    font-size: 25px;
-  }
-
-  .sequence_message p:last-child {
-    font-size: 12px;
-  }
-
-  .sequence_progress {
-    display: none;
-  }
-
+@media (max-width: 900px) {
 
   .tech_feature {
-    height: 200vh;
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    grid-template-columns: 1fr;
   }
 
-  .feature_visual {
-    width: 82vw;
-    top: 40%;
+  .tech_feature--flip .feature_visual {
+    order: 0;
   }
 
-  .feature_copy,
-  .tech_feature--custom .feature_copy,
-  .tech_feature--immersive .feature_copy,
-  .tech_feature--active .feature_copy,
-  .tech_feature--noise .feature_copy {
-
-    left: 50%;
-    right: auto;
-
-    top: auto;
-    bottom: 8%;
-
-    width: 84%;
-
-    transform: translateX(-50%);
-
-    text-align: center;
-  }
-
-  .feature_title {
-    font-size: 42px;
-  }
-
-  .feature_subtitle {
-    font-size: 17px;
-  }
-
-  .feature_desc {
-    font-size: 12px;
-
-    line-height: 1.7;
-  }
-
-  .feature_category {
-    right: 28px;
-  }
-
-
-  .tech_feature--noise .feature_visual {
-    width: 88vw;
-    top: 39%;
-  }
-
-
-  .tech_reassemble {
-    height: 300vh;
-  }
-
-  .reassemble_product {
-    width: 88vw;
-  }
-
-  .reassemble_copy {
-    bottom: 10%;
-  }
-
-  .reassemble_copy h2 {
-    font-size: 40px;
-  }
-
-  .reassemble_progress {
+  .seq_bar {
     display: none;
-  }
-
-
-  .tech_shop {
-    padding-top: 120px;
-    padding-bottom: 120px;
-  }
-
-  .tech_shop_title {
-    font-size: 42px;
   }
 
   .tech_shop_cards {
     grid-template-columns: 1fr;
-
-    gap: 18px;
   }
 
   .tech_card_visual {
-    height: 330px;
+    height: 320px;
+  }
+
+}
+
+
+/* ── 모션 줄이기 ── */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .seq_part,
+  .seq_lead,
+  .seq_dot,
+  .seq_info #seq_text {
+    transition: none;
+  }
+
+  .feature_visual {
+    transform: none;
   }
 
 }
