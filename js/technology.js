@@ -265,6 +265,345 @@
   }
 
 
+  /* ── 노이즈 캔슬링: 실제 소리 (Web Audio, 파일 없이 합성) ── */
+
+  const soundBtn = document.getElementById("anc_sound");
+  const soundLabel = document.getElementById("anc_sound_label");
+
+  let audio = null;              // '소리 듣기'를 처음 누를 때 만들어짐
+  let soundOn = false;           // 소리 재생 여부
+  let player = null;             // 음악을 이어서 연주하는 타이머
+
+  const NOISE_OFF = 0.5;         // 캔슬링 꺼짐: 소음 크기
+  const NOISE_ON = 0.03;         // 캔슬링 켜짐: 소음 크기 (거의 안 들림)
+  const FILTER_OFF = 2500;       // 꺼짐: 소음에 고음까지 남음
+  const FILTER_ON = 400;         // 켜짐: 고음이 깎여 먹먹해짐
+  const VOLUME = 0.5;            // 전체 볼륨
+
+
+  /* ── 음악 데이터: 잔잔한 팝 밴드 (C → G → Am → F) ── */
+
+  // bass = 베이스 음, piano = 피아노 화음, guitar = 기타 아르페지오 음 4개, melody = 피아노 멜로디 2음
+  const BAND_CHORDS = [
+    { bass: 130.81, piano: [261.63, 329.63, 392.00], guitar: [130.81, 196.00, 261.63, 329.63], melody: [659.25, 783.99] },   // C
+    { bass: 98.00,  piano: [246.94, 293.66, 392.00], guitar: [196.00, 246.94, 293.66, 392.00], melody: [587.33, 783.99] },   // G
+    { bass: 110.00, piano: [261.63, 329.63, 440.00], guitar: [110.00, 220.00, 261.63, 329.63], melody: [659.25, 880.00] },   // Am
+    { bass: 87.31,  piano: [261.63, 349.23, 440.00], guitar: [174.61, 220.00, 261.63, 349.23], melody: [698.46, 880.00] }    // F
+  ];
+  const GUITAR_PATTERN = [0, 2, 3, 2, 1, 2, 3, 2];     // 기타 손가락 연주 순서 (8박)
+
+
+  /* ── 연주 (tick: 한 박마다 호출되어 악기를 울림) ── */
+
+  // 피아노로 시작해 기타·베이스 → 드럼 → 풀 연주 순으로 쌓임
+  const BAND = {
+    beat: 0.33,                                      // 8분음표 길이(초), 약 91 BPM
+
+    tick: function (step, time, inst) {
+      const bar = Math.floor(step / 8) % 16;         // 16마디를 반복
+      const chord = BAND_CHORDS[bar % 4];
+      const layer = Math.floor(bar / 4);             // 0: 피아노, 1: +기타·베이스, 2: +킥·하이햇, 3: +스네어
+      const beat = step % 8;
+
+      // 피아노: 1박과 5박에 화음 (항상)
+      if (beat === 0 || beat === 4) {
+        chord.piano.forEach(function (f) { inst.piano(f, time); });
+      }
+
+      // 기타·베이스 (두 번째 단계부터)
+      if (layer >= 1) {
+        inst.guitar(chord.guitar[GUITAR_PATTERN[beat]], time);
+        if (beat === 0 || beat === 4) inst.bass(chord.bass, time);
+        if (beat === 2) inst.piano(chord.melody[0], time);       // 피아노 멜로디
+        if (beat === 6) inst.piano(chord.melody[1], time);
+      }
+
+      // 킥 + 하이햇 (세 번째 단계부터)
+      if (layer >= 2) {
+        if (beat === 0 || beat === 3 || beat === 4) inst.kick(time);
+        inst.hat(time);
+      }
+
+      // 스네어 (네 번째 단계: 2·4박)
+      if (layer >= 3 && (beat === 2 || beat === 6)) inst.snare(time);
+    }
+  };
+
+
+  /* ── 오디오 만들기 ── */
+
+  function createAudio() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ac = new AC();
+
+    // 전체 볼륨 (처음엔 0, 재생할 때 서서히 올림)
+    const master = ac.createGain();
+    master.gain.value = 0;
+
+    // 소리가 겹쳐 커져도 깨지지 않게 눌러 주는 장치
+    const limiter = ac.createDynamicsCompressor();
+    master.connect(limiter);
+    limiter.connect(ac.destination);
+
+    // 소음: 낮은 웅웅 소리 + 치익 소리를 섞은 2초짜리 반복
+    const length = ac.sampleRate * 2;
+    const buffer = ac.createBuffer(1, length, ac.sampleRate);
+    const data = buffer.getChannelData(0);
+    let last = 0;
+
+    for (let i = 0; i < length; i++) {
+      const white = Math.random() * 2 - 1;
+      last = (last + 0.02 * white) / 1.02;
+      data[i] = last * 2.1 + white * 0.25;
+    }
+
+    const noiseSource = ac.createBufferSource();
+    noiseSource.buffer = buffer;
+    noiseSource.loop = true;
+
+    const noiseFilter = ac.createBiquadFilter();
+    noiseFilter.type = "lowpass";
+    noiseFilter.frequency.value = isOn ? FILTER_ON : FILTER_OFF;
+
+    const noiseGain = ac.createGain();
+    noiseGain.gain.value = isOn ? NOISE_ON : NOISE_OFF;
+
+    noiseSource.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(master);
+    noiseSource.start();
+
+    // 음악 출력 + 울림(리버브): 2.8초 동안 사라지는 잡음으로 넓은 홀 느낌
+    const musicGain = ac.createGain();
+    musicGain.gain.value = 0.6;
+
+    const irLength = Math.floor(ac.sampleRate * 2.8);
+    const ir = ac.createBuffer(2, irLength, ac.sampleRate);
+
+    for (let c = 0; c < 2; c++) {
+      const ch = ir.getChannelData(c);
+      for (let i = 0; i < irLength; i++) {
+        ch[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / irLength, 2.5);
+      }
+    }
+
+    const reverb = ac.createConvolver();
+    reverb.buffer = ir;
+
+    const wet = ac.createGain();
+    wet.gain.value = 0.5;
+
+    musicGain.connect(master);
+    musicGain.connect(reverb);
+    reverb.connect(wet);
+    wet.connect(master);
+
+
+    /* ── 악기 모음 ── */
+
+    // 음 하나를 울리는 공통 도구: 파형, 높이, 시작, 길이, 크기
+    function tone(type, freq, time, attack, length, peak) {
+      const osc = ac.createOscillator();
+      const env = ac.createGain();
+
+      osc.type = type;
+      osc.frequency.value = freq;
+
+      env.gain.setValueAtTime(0.0001, time);
+      env.gain.linearRampToValueAtTime(peak, time + attack);
+      env.gain.exponentialRampToValueAtTime(0.0001, time + length);
+
+      osc.connect(env);
+      env.connect(musicGain);
+      osc.start(time);
+      osc.stop(time + length + 0.05);
+    }
+
+    // 기타 소리 만들기: 줄을 튕긴 뒤 점점 사라지는 소리를 계산해서 만듦 (Karplus-Strong)
+    const guitarCache = {};
+
+    function guitarBuffer(freq) {
+      if (guitarCache[freq]) return guitarCache[freq];
+
+      const n = Math.floor(ac.sampleRate * 1.8);
+      const buf = ac.createBuffer(1, n, ac.sampleRate);
+      const d = buf.getChannelData(0);
+      const period = Math.round(ac.sampleRate / freq);
+
+      for (let i = 0; i < period + 1; i++) d[i] = Math.random() * 2 - 1;      // 처음 튕김
+      for (let i = period + 1; i < n; i++) {
+        d[i] = 0.4985 * (d[i - period] + d[i - period - 1]);                  // 평균내며 사라짐
+      }
+
+      guitarCache[freq] = buf;
+      return buf;
+    }
+
+    const inst = {
+
+      // 피아노: 삼각파 + 한 옥타브 위 사인파, 빠르게 사라짐
+      piano: function (freq, time) {
+        tone("triangle", freq, time, 0.005, 1.4, 0.2);
+        tone("sine", freq * 2, time, 0.005, 0.7, 0.06);
+      },
+
+      // 어쿠스틱 기타: 줄 튕기는 소리를 살짝 부드럽게
+      guitar: function (freq, time) {
+        const src = ac.createBufferSource();
+        const filter = ac.createBiquadFilter();
+        const env = ac.createGain();
+
+        src.buffer = guitarBuffer(freq);
+        filter.type = "lowpass";
+        filter.frequency.value = 3200;
+
+        env.gain.setValueAtTime(0.5, time);
+        env.gain.exponentialRampToValueAtTime(0.0001, time + 1.7);
+
+        src.connect(filter);
+        filter.connect(env);
+        env.connect(musicGain);
+        src.start(time);
+      },
+
+      // 베이스
+      bass: function (freq, time) {
+        tone("sine", freq, time, 0.015, 1.2, 0.5);
+      },
+
+      // 킥: 낮은 북소리
+      kick: function (time) {
+        const osc = ac.createOscillator();
+        const env = ac.createGain();
+
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(120, time);
+        osc.frequency.exponentialRampToValueAtTime(45, time + 0.15);
+
+        env.gain.setValueAtTime(0.7, time);
+        env.gain.exponentialRampToValueAtTime(0.0001, time + 0.35);
+
+        osc.connect(env);
+        env.connect(musicGain);
+        osc.start(time);
+        osc.stop(time + 0.4);
+      },
+
+      // 스네어: 잡음 + 짧은 북소리
+      snare: function (time) {
+        const src = ac.createBufferSource();
+        const filter = ac.createBiquadFilter();
+        const env = ac.createGain();
+
+        src.buffer = buffer;
+        filter.type = "bandpass";
+        filter.frequency.value = 1800;
+
+        env.gain.setValueAtTime(0.35, time);
+        env.gain.exponentialRampToValueAtTime(0.0001, time + 0.18);
+
+        src.connect(filter);
+        filter.connect(env);
+        env.connect(musicGain);
+        src.start(time, Math.random() * 1.5, 0.2);
+
+        tone("sine", 190, time, 0.002, 0.12, 0.25);
+      },
+
+      // 하이햇: 잡음을 아주 짧게 (고음만 남김)
+      hat: function (time) {
+        const src = ac.createBufferSource();
+        const filter = ac.createBiquadFilter();
+        const env = ac.createGain();
+
+        src.buffer = buffer;
+        filter.type = "highpass";
+        filter.frequency.value = 6000;
+
+        env.gain.setValueAtTime(0.1, time);
+        env.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
+
+        src.connect(filter);
+        filter.connect(env);
+        env.connect(musicGain);
+        src.start(time, Math.random() * 1.5, 0.08);
+      }
+
+    };
+
+    return { ac: ac, master: master, noiseGain: noiseGain, noiseFilter: noiseFilter, inst: inst };
+  }
+
+
+  /* ── 음악 연주 시작 / 멈춤 ── */
+
+  function startTrack() {
+    stopTrack();
+
+    const ac = audio.ac;
+    let step = 0;
+    let nextTime = ac.currentTime + 0.1;
+
+    // 0.1초마다 확인해서 다음 0.3초 안에 울릴 음을 미리 예약
+    function schedule() {
+      while (nextTime < ac.currentTime + 0.3) {
+        BAND.tick(step, nextTime, audio.inst);
+        step++;
+        nextTime += BAND.beat;
+      }
+    }
+
+    schedule();
+    player = setInterval(schedule, 100);
+  }
+
+  function stopTrack() {
+    clearInterval(player);
+    player = null;
+  }
+
+
+  /* ── 스위치 상태에 맞춰 소음 조절 ── */
+
+  function setAncSound(on) {
+    if (!audio) return;
+
+    const t = audio.ac.currentTime;
+    audio.noiseGain.gain.setTargetAtTime(on ? NOISE_ON : NOISE_OFF, t, 0.25);
+    audio.noiseFilter.frequency.setTargetAtTime(on ? FILTER_ON : FILTER_OFF, t, 0.25);
+  }
+
+
+  /* ── '소리 듣기' / '소리 끄기' ── */
+
+  function toggleSound() {
+    if (!audio) audio = createAudio();
+
+    const t = audio.ac.currentTime;
+    soundOn = !soundOn;
+
+    if (soundOn) {
+      audio.ac.resume();
+      audio.master.gain.setTargetAtTime(VOLUME, t, 0.3);
+      startTrack();
+    } else {
+      audio.master.gain.setTargetAtTime(0, t, 0.15);
+      stopTrack();
+
+      setTimeout(function () {
+        if (!soundOn) audio.ac.suspend();
+      }, 700);
+    }
+
+    soundBtn.setAttribute("aria-pressed", soundOn);
+    soundLabel.textContent = soundOn ? "소리 끄기" : "소리 듣기";
+  }
+
+  function stopSound() {
+    if (soundOn) toggleSound();
+  }
+
+
   /* ── 노이즈 캔슬링: 스위치 ── */
 
   function initAnc() {
@@ -276,10 +615,18 @@
     // 화면에 보일 때만 그림 (성능)
     new IntersectionObserver(function (entries) {
       visible = entries[0].isIntersecting;
+      if (!visible) stopSound();                 // 섹션을 벗어나면 소리 끔
     }).observe(canvas);
+
+    // 소리 버튼 / 다른 탭으로 이동하면 소리 끔
+    soundBtn.addEventListener("click", toggleSound);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stopSound();
+    });
 
     btn.addEventListener("click", function () {
       isOn = !isOn;
+      setAncSound(isOn);                         // 소리도 함께 바뀜
       btn.setAttribute("aria-pressed", isOn);
       label.textContent = isOn ? "노이즈 캔슬링 켜짐" : "노이즈 캔슬링 꺼짐";
 

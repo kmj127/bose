@@ -283,7 +283,6 @@
 }
 
 .anc_switch {
-  margin-top: 32px;
   padding: 12px 22px 12px 14px;
 
   display: inline-flex;
@@ -345,6 +344,55 @@
 
 .anc_switch[aria-pressed="true"] b::after {
   transform: translateX(16px);
+}
+
+
+/* ── 노이즈 캔슬링: 버튼 묶음 / 소리 버튼 / 안내 ── */
+
+.anc_controls {
+  margin-top: 32px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.anc_sound {
+  padding: 12px 22px;
+
+  background: none;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+
+  color: var(--color-text);
+  font: 500 15px var(--font-head);
+
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.anc_sound:hover {
+  border-color: var(--color-accent);
+}
+
+.anc_sound:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.anc_sound[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: rgba(255, 107, 53, 0.12);
+}
+
+.anc_note {
+  max-width: 34em;
+  margin-top: 16px;
+
+  font-size: var(--fs-xs);
+  line-height: 1.7;
+  color: var(--color-text-muted);
 }
 
 
