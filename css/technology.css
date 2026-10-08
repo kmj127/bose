@@ -194,10 +194,6 @@
   gap: clamp(32px, 6vw, 120px);
 }
 
-.tech_feature--flip .feature_visual {
-  order: 2;                     /* 이미지를 오른쪽으로 */
-}
-
 .feature_visual {
   margin: 0;
 
@@ -208,6 +204,7 @@
 
 .feature_visual img {
   width: 100%;
+  height: auto;             /* HTML의 height 속성 때문에 늘어나는 것 방지 */
   max-width: 640px;
   margin: 0 auto;
 
@@ -236,6 +233,99 @@
   font-size: var(--fs-sm);
   line-height: 1.85;
   color: var(--color-text-muted);
+}
+
+
+/* ── 기능 섹션: Figma 비율 (섹션 1920×1200, 이미지 800px = 너비의 41.67%) ── */
+
+.tech_feature--art {
+  position: relative;
+  display: block;
+  min-height: 0;
+  padding: 0;
+
+  aspect-ratio: 1920 / 1200;
+}
+
+.tech_feature--art .feature_visual {
+  position: absolute;
+  left: 50%;
+  top: var(--img-top, 0%);
+
+  /* 이미지 크기: 화면 너비의 41.67%(Figma 800px)를 넘지 않되, 화면 높이의 64%도 넘지 않게
+     → 이미지를 더 줄이고 싶으면 --art-size 숫자만 바꾸세요 (예: min(34%, 55vh)) */
+  width: var(--art-size, min(41.667%, 64vh));
+
+  /* 가운데 정렬 + 스크롤 패럴랙스(--shift) */
+  transform: translate(-50%, var(--shift, 0px));
+}
+
+.tech_feature--art .feature_visual img {
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 1 / 1;
+}
+
+.tech_feature--art .feature_copy {
+  position: absolute;
+  left: var(--copy-left);
+  top: var(--copy-top);
+  z-index: 2;
+
+  width: var(--copy-w);
+  min-width: 260px;
+}
+
+.tech_feature--art .feature_name {
+  font-size: clamp(26px, 2.1vw, 40px);
+}
+
+.tech_feature--art .feature_sub {
+  margin-top: 14px;
+  font-size: clamp(15px, 1vw, 19px);
+}
+
+.tech_feature--art .feature_desc {
+  margin-top: 14px;
+  font-size: clamp(13px, 0.85vw, 16px);
+  line-height: 1.8;
+}
+
+
+/* ── 기능 섹션별 위치 (Figma 좌표 ÷ 1920 / 1200) ── */
+
+.tech_feature--custom {
+  --img-top: 0%;
+  --copy-left: 68.28%;      /* x 1311 */
+  --copy-top: 75.42%;       /* y 905 */
+  --copy-w: 26.15%;         /* 502px */
+}
+
+.tech_feature--immer {
+  --art-size: calc(min(41.667%, 64vh) * 0.9);   /* 이미지 크기 90% (더 줄이려면 0.9 → 0.85) */
+  --img-top: 8.92%;         /* y 107 */
+  --copy-left: 7.45%;       /* x 143 */
+  --copy-top: 71.08%;       /* y 853 */
+  --copy-w: 21.72%;         /* 417px */
+}
+
+.tech_feature--active {
+  --img-top: 0%;
+  --copy-left: 72.86%;      /* x 1399 */
+  --copy-top: 69.83%;       /* y 838 */
+  --copy-w: 20.31%;         /* 390px */
+}
+
+
+/* ── 섹션 등장 (공통 data-reveal 위에, 이미지는 조금 더 크게 올라오며 나타남) ── */
+
+.feature_visual img[data-reveal] {
+  transform: translateY(48px) scale(0.94);
+  transition: opacity 1s var(--ease), transform 1.1s var(--ease);
+}
+
+.feature_visual img[data-reveal].is_in {
+  transform: none;
 }
 
 
@@ -521,8 +611,24 @@
     grid-template-columns: 1fr;
   }
 
-  .tech_feature--flip .feature_visual {
-    order: 0;
+  .tech_feature--art {
+    aspect-ratio: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+    display: grid;
+  }
+
+  .tech_feature--art .feature_visual {
+    position: static;
+    width: 100%;
+    transform: translateY(var(--shift, 0px));
+  }
+
+  .tech_feature--art .feature_copy {
+    position: static;
+    width: auto;
+    min-width: 0;
   }
 
   .seq_bar {
@@ -553,6 +659,14 @@
 
   .feature_visual {
     transform: none;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 901px) {
+
+  .tech_feature--art .feature_visual {
+    transform: translate(-50%, 0);
   }
 
 }
