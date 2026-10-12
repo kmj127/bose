@@ -505,7 +505,7 @@
   font-family: var(--font-head);
   font-size: clamp(36px, 4.5vw, 72px);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1.2;
   letter-spacing: -0.045em;
 }
 
