@@ -18,7 +18,12 @@
 }
 
 
-/* ── 인트로 ── */
+/* ── 인트로 (Figma: 제목·설명 모두 32px, 가운데 정렬, 두 줄 간격 20px) ──
+   --u = Figma 1px 에 해당하는 길이. 화면 너비/높이 중 작은 쪽에 맞춰 줄어듦 */
+
+.technology_page {
+  --u: min(0.052083vw, 0.094697vh);   /* 1920×1056 기준 */
+}
 
 .tech_intro {
   min-height: 100vh;
@@ -31,20 +36,17 @@
   text-align: center;
 }
 
-.tech_intro_title {
+.tech_intro_title,
+.tech_intro_desc {
   font-family: var(--font-head);
-  font-size: clamp(44px, 7vw, 110px);
+  font-size: max(18px, calc(32 * var(--u)));
   font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 .tech_intro_desc {
-  margin-top: 32px;
-
-  font-size: clamp(16px, 1.5vw, 20px);
-  line-height: 1.7;
-  color: var(--color-text-muted);
+  margin-top: calc(20 * var(--u));
 }
 
 
@@ -236,7 +238,11 @@
 }
 
 
-/* ── 기능 섹션: Figma 비율 (섹션 1920×1200, 이미지 800px = 너비의 41.67%) ── */
+/* ── 기능 섹션: Figma 시안 (섹션 1920×1056, 이미지 500×500, 글자 20px) ──
+   모든 위치는 Figma 좌표(px)를 그대로 쓰고 --u 로 화면에 맞게 줄입니다.
+   섹션마다 아래 4개 숫자만 바꾸면 됩니다:
+     --img-x  : 이미지 가운데 x      --img-y  : 이미지 위쪽 y
+     --copy-x : 글 왼쪽 x            --copy-y : 글 위쪽 y (제목 기준)   */
 
 .tech_feature--art {
   position: relative;
@@ -244,17 +250,15 @@
   min-height: 0;
   padding: 0;
 
-  aspect-ratio: 1920 / 1200;
+  aspect-ratio: 1920 / 1056;
 }
 
 .tech_feature--art .feature_visual {
   position: absolute;
-  left: 50%;
-  top: var(--img-top, 0%);
+  left: calc(50% + (var(--img-x) - 960) * var(--u));
+  top: calc(50% + (var(--img-y) - 528) * var(--u));
 
-  /* 이미지 크기: 화면 너비의 41.67%(Figma 800px)를 넘지 않되, 화면 높이의 64%도 넘지 않게
-     → 이미지를 더 줄이고 싶으면 --art-size 숫자만 바꾸세요 (예: min(34%, 55vh)) */
-  width: var(--art-size, min(41.667%, 64vh));
+  width: calc(500 * var(--u));
 
   /* 가운데 정렬 + 스크롤 패럴랙스(--shift) */
   transform: translate(-50%, var(--shift, 0px));
@@ -268,52 +272,60 @@
 
 .tech_feature--art .feature_copy {
   position: absolute;
-  left: var(--copy-left);
-  top: var(--copy-top);
+  left: calc(50% + (var(--copy-x) - 960) * var(--u));
+  top: calc(50% + (var(--copy-y) - 528) * var(--u));
   z-index: 2;
 
-  width: var(--copy-w);
-  min-width: 260px;
+  white-space: nowrap;
 }
 
 .tech_feature--art .feature_name {
-  font-size: clamp(26px, 2.1vw, 40px);
+  font-size: 36px;                             /* 제목 */
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 .tech_feature--art .feature_sub {
-  margin-top: 14px;
-  font-size: clamp(15px, 1vw, 19px);
+  margin-top: 15px;
+  font-family: var(--font-body);
+  font-size: 18px;                             /* 소제목 */
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 .tech_feature--art .feature_desc {
-  margin-top: 14px;
-  font-size: clamp(13px, 0.85vw, 16px);
-  line-height: 1.8;
+  max-width: none;
+  margin-top: var(--desc-gap, 35px);            /* 소제목 아래 간격 */
+  font-size: 14px;                             /* 설명 */
+  line-height: 1.5;
+  color: rgba(242, 242, 242, 0.5);
 }
 
 
-/* ── 기능 섹션별 위치 (Figma 좌표 ÷ 1920 / 1200) ── */
+/* ── 기능 섹션별 위치 (Figma 좌표) ── */
 
-.tech_feature--custom {
-  --img-top: 0%;
-  --copy-left: 68.28%;      /* x 1311 */
-  --copy-top: 75.42%;       /* y 905 */
-  --copy-w: 26.15%;         /* 502px */
+.tech_feature--custom {           /* 이미지 왼쪽 / 글 오른쪽 */
+  --img-x: 480;                   /* 이미지 x 230~730 */
+  --img-y: 249;
+  --copy-x: 1220;
+  --copy-y: 399;
 }
 
-.tech_feature--immer {
-  --art-size: calc(min(41.667%, 64vh) * 0.9);   /* 이미지 크기 90% (더 줄이려면 0.9 → 0.85) */
-  --img-top: 8.92%;         /* y 107 */
-  --copy-left: 7.45%;       /* x 143 */
-  --copy-top: 71.08%;       /* y 853 */
-  --copy-w: 21.72%;         /* 417px */
+.tech_feature--immer {            /* 글 왼쪽 / 이미지 오른쪽 */
+  --img-x: 1450;                  /* 이미지 x 1200~1700 */
+  --img-y: 259;
+  --copy-x: 230;
+  --copy-y: 399;
 }
 
-.tech_feature--active {
-  --img-top: 0%;
-  --copy-left: 72.86%;      /* x 1399 */
-  --copy-top: 69.83%;       /* y 838 */
-  --copy-w: 20.31%;         /* 390px */
+.tech_feature--active {           /* 글 왼쪽 / 이미지 오른쪽 (소제목이 두 줄이라 설명 간격이 좁음) */
+  --img-x: 1450;
+  --img-y: 254;
+  --copy-x: 230;
+  --copy-y: 399;
+  --desc-gap: 24px;
 }
 
 
@@ -337,7 +349,27 @@
   justify-content: center;
 }
 
+.tech_feature--noise .feature_name {
+  font-size: 36px;                 /* 제목 */
+  letter-spacing: 0;
+}
+
+.tech_feature--noise .feature_sub {
+  margin-top: 15px;
+  font-size: 18px;                 /* 소제목 */
+}
+
+.tech_feature--noise .feature_desc {
+  margin-top: 20px;
+  font-size: 14px;                 /* 설명 */
+  line-height: 1.5;
+}
+
 .anc_wave {
+  width: 100%;                  /* 파형이 섹션 폭을 따라 넓게 (기존에는 가운데 정렬 때문에 600px로 줄어 있었음) */
+  max-width: 1100px;
+  align-self: center;
+
   height: min(36vh, 300px);
   margin-top: 48px;
 }
@@ -486,15 +518,21 @@
 }
 
 
-/* ── 제품 이동 ── */
+/* ── 제품 이동 (Figma: 섹션 1100px, 위 100 / 아래 244, 카드 400×500, 간격 100) ──
+   --s = Figma 1px (화면 너비에 맞춰 줄어들고 1920 이상에선 1px 고정) */
 
 .tech_shop {
-  padding: 160px 0;
+  --s: min(1px, 0.052083vw);
+  padding: calc(100 * var(--s)) 0 calc(244 * var(--s));
+}
+
+.tech_shop .container {
+  max-width: none;
+  padding: 0;
 }
 
 .tech_shop_head {
-  margin-bottom: 100px;
-
+  margin-bottom: calc(100 * var(--s));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -503,21 +541,33 @@
 
 .tech_shop_title {
   font-family: var(--font-head);
-  font-size: clamp(36px, 4.5vw, 72px);
+  font-size: 36px;                 /* 제목 */
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.045em;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--color-text);
 }
 
 .tech_shop_desc {
-  margin-top: 28px;
-
-  font-size: var(--fs-body);
-  color: var(--color-text-muted);
+  margin-top: calc(20 * var(--s));
+  font-size: 18px;                 /* 설명 */
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 .tech_shop .btn {
-  margin-top: 35px;
+  width: calc(161 * var(--s));
+  min-width: 140px;
+  height: calc(45 * var(--s));
+  min-height: 40px;
+  margin-top: 32px;
+  padding: 0;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  border: 1px solid var(--color-text);
+  border-radius: 25px;
 }
 
 .tech_shop .btn:hover {
@@ -530,14 +580,13 @@
 /* ── 제품 카드 ── */
 
 .tech_shop_cards {
-  width: 90%;
-  max-width: 1400px;
+  width: calc(1400 * var(--s));
   margin: 0 auto;
   padding: 0;
 
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: calc(100 * var(--s));
 
   list-style: none;
 }
@@ -546,9 +595,9 @@
   display: block;
   overflow: hidden;
 
-  background: var(--color-text);
-  border-radius: var(--radius-card);
-  color: #111;
+  background: #f2f2f2;
+  border-radius: 10px;
+  color: #000;
 
   transition: transform 0.5s var(--ease);
 }
@@ -558,17 +607,14 @@
 }
 
 .tech_card_visual {
-  height: 360px;
+  aspect-ratio: 400 / 380;
   margin: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #f2f2f2;
 }
 
 .tech_card_visual img {
-  width: 80%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 
   transition: transform 0.6s var(--ease);
@@ -579,24 +625,34 @@
 }
 
 .tech_card_body {
-  padding: 26px 28px;
+  height: calc(120 * var(--s));
+  min-height: 84px;
+  padding: 0 calc(30 * var(--s));
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(10 * var(--s));
+  background: #f2f2f2;
 }
 
 .tech_card_category {
-  margin-bottom: 14px;
+  margin: 0;
 
-  font-family: var(--font-head);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #666;
+  font-family: var(--font-body, "Pretendard", sans-serif);
+  font-size: max(13px, calc(18 * var(--s)));
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: #555;
 }
 
 .tech_card_name {
-  font-family: var(--font-head);
-  font-size: var(--fs-body);
-  font-weight: 600;
-  line-height: 1.4;
+  font-family: var(--font-body, "Pretendard", sans-serif);
+  font-size: max(13px, calc(18 * var(--s)));
+  font-weight: 700;
+  line-height: 1.5;
+  color: #000;
 }
 
 
@@ -627,22 +683,105 @@
 
   .tech_feature--art .feature_copy {
     position: static;
-    width: auto;
-    min-width: 0;
+    margin-top: 32px;
+    padding: 0 var(--gutter);
+    font-size: 16px;
+    white-space: normal;
   }
 
   .seq_bar {
     display: none;
   }
 
+  .tech_shop {
+    --s: 1px;
+    padding: 80px 0 100px;
+  }
+
   .tech_shop_cards {
+    width: 90%;
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  .tech_card_visual {
-    height: 320px;
+  .tech_card_body {
+    height: auto;
+    padding: 24px 30px;
   }
 
+  .tech_card_body {
+    gap: 10px;
+  }
+
+  .tech_card_category,
+  .tech_card_name {
+    font-size: 16px;
+  }
+
+  /* 모바일에서는 36px 제목이 너무 커서 줄임 */
+  .tech_feature--art .feature_name,
+  .tech_feature--noise .feature_name,
+  .tech_shop_title {
+    font-size: 28px;
+  }
+
+}
+
+
+/* ── 섹션 전환 모드 ① fade: Home처럼 한 화면 안에서 섹션이 겹쳐 바뀜 ──
+   (JS의 SCROLL_MODE = "fade"일 때만 .is_fade 클래스가 붙어서 적용됨) */
+
+/* 공통 .page의 위쪽 여백(헤더 높이)을 없애서, 섹션이 화면 맨 위부터 꽉 차게 (헤더는 그 위에 겹쳐 보임) */
+.technology_page.is_fade {
+  padding-top: 0;
+}
+
+.fade_wrap {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.is_fade .tech_intro,
+.is_fade .tech_seq,
+.is_fade .tech_feature {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+
+  aspect-ratio: auto;
+  overflow: hidden;
+}
+
+.is_fade .tech_intro {
+  padding-top: 0;
+}
+
+.is_fade .seq_stage {
+  position: relative;
+  height: 100%;
+}
+
+.is_fade .tech_feature--art {
+  padding: 0;
+}
+
+/* 노이즈 캔슬링: 한 화면에 다 들어오도록 간격을 조금 줄임 */
+.is_fade .tech_feature--noise {
+  gap: 0;                          /* 기본 섹션 간격(.tech_feature의 gap)을 없앰 */
+  padding: 90px var(--gutter) 40px;
+}
+
+.is_fade .tech_feature--noise .anc_wave {
+  height: min(26vh, 240px);
+  margin-top: 28px;
+}
+
+.is_fade .tech_feature--noise .anc_controls {
+  margin-top: 22px;
 }
 
 
