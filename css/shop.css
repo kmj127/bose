@@ -1,107 +1,151 @@
 /* =========================================================
    shop.css — Shop 페이지 전용 스타일
+   기준: Figma "shop" 프레임 (node 7:10745, 1920px 데스크톱)
+   - 타이틀/필터 좌측 여백 74px
+   - 제품 그리드: 400px × 3열, 열 간격 160px (전체 1520px, 중앙 정렬)
+   - 1024px 이하 2열 / 640px 이하 1열
    ========================================================= */
-.eyebrow,
-.title-lg {
-  color: #F2F2F2;
-  font-family: Montserrat;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-  /* 48px */
+
+[data-page="shop"] {
+  /* 좌측 여백 (타이틀·필터) : 1920px 에서 74px */
+  --shop-edge: clamp(24px, 3.854vw, 74px);
+
+  /* 그리드 영역 */
+  --shop-grid-max: 1600px;                         /* 480px × 3열 + 간격 80px × 2 */
+  --shop-grid-edge: clamp(24px, 8.333vw, 160px);  /* 1920px 에서 좌우 160px */
+  --shop-col-gap: clamp(24px, 4.167vw, 80px);     /* 1920px 에서 80px */
+  --shop-row-gap: clamp(56px, 6.25vw, 120px);
 }
 
+/* ---------- 타이틀 ---------- */
 .shop_head {
-  padding-bottom: var(--sp-6);
+  padding: clamp(32px, 3.438vw, 66px) var(--shop-edge) 0;
 }
 
-.shop_head .title-lg {
-  margin-top: var(--sp-2);
+.shop_title {
+  font-family: var(--font-head);
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
-.shop_controls__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  padding-block: var(--sp-4);
+.shop_title span {
+  display: block;
+}
+
+/* ---------- 카테고리 필터 ---------- */
+.shop_filter {
+  padding: clamp(24px, 2.083vw, 40px) var(--shop-edge) 0;
 }
 
 .filter_chip_list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-2);
+  gap: 10px;
 }
 
 .filter_chip {
-  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px; /* 모든 칩 160 × 60 고정 */
+  height: 50px;
+  padding-inline: 8px;
   font-family: var(--font-head);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  border-radius: 30px;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background-color 0.2s var(--ease);
 }
 
-.filter_chip:hover {
-  color: var(--color-text);
+.filter_chip:hover,
+.filter_chip.is_active {
+  color: #fff;
   border-color: var(--color-accent);
   background: var(--color-accent);
 }
 
-.filter_chip.is_active {
-  color: var(--color-text);
-  border-color: var(--color-accent);
-  background: var(--color-accent);
+/* ---------- 정렬 + 그리드 영역 ---------- */
+.shop_list {
+  padding: clamp(40px, 3.646vw, 70px) 0 clamp(48px, 3.8vw, 73px);
+}
+
+.shop_list__inner {
+  width: min(var(--shop-grid-max), calc(100% - 2 * var(--shop-grid-edge)));
+  margin-inline: auto;
+}
+
+/* 정렬: 그리드 우측 끝에 맞춤 (Figma: 우측 200px) */
+.sort_select_wrap {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sort_select_wrap::before {
+  /* "Sort by" 오른쪽 아래 방향 삼각형 (10 × 6) */
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -2px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--color-text);
+  pointer-events: none;
 }
 
 .sort_select {
-  padding: 10px 16px;
+  height: 20px;
+  padding: 0 38px 0 0; /* 텍스트와 삼각형 사이 28px + 삼각형 10px */
   font-family: var(--font-head);
-  font-size: var(--fs-xs);
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.sort_select option {
   color: var(--color-text);
   background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-input);
-}
-.sort_select:hover,
-.sort_select:focus,
-.sort_select:focus-visible{
-  outline: none;
 }
 
 /* ---------- 제품 그리드 ---------- */
 .product_grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-6) var(--sp-5);
-  margin-top: var(--sp-7);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--shop-row-gap) var(--shop-col-gap);
+  margin-top: clamp(20px, 1.823vw, 35px);
 }
 
 .product_card {
   display: flex;
   flex-direction: column;
+  gap: clamp(24px, 2.083vw, 40px);
+}
+
+.product_card__link {
+  display: block;
 }
 
 .product_card__image {
-  width: 100%;
-  max-width: 400px;
-  height: 500px;
-  align-self: stretch;
-  /* aspect-ratio: 4 / 3;  ← 삭제 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-surface);
-  border-radius: var(--radius-card);
+  aspect-ratio: 4 / 5; /* 400 × 500 */
   overflow: hidden;
-  margin-bottom: var(--sp-4);
+  background: var(--color-surface);
   transition: background-color 0.25s var(--ease);
-
 }
 
 .product_card__image img {
@@ -109,8 +153,6 @@
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s var(--ease);
-  object-fit: cover;
-  /* 프레임을 꽉 채우고 넘치는 부분은 잘림 */
 }
 
 .product_card:hover .product_card__image {
@@ -121,98 +163,141 @@
   transform: scale(1.05);
 }
 
-/* 색상 스와치 (첫 제품: 클릭 가능 버튼 / 그 외: 장식용 dot) */
+/* 정보 영역: 색상 → 카테고리 → 이름 → 가격 (간격 10px) */
+.product_card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* ---------- 색상 스와치 (30 × 30 사각) ---------- */
 .swatch_list {
   display: flex;
-  gap: var(--sp-2);
-  margin-bottom: var(--sp-3);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .swatch_btn,
 .swatch_dot {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--swatch-color, #333);
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: var(--swatch-color, #1a1a1a);
+  border: 1px solid rgba(242, 242, 242, 0.2);
 }
 
 .swatch_btn {
-  border: 2px solid transparent;
-  padding: 2px;
-  background-clip: content-box;
-  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+  padding: 0;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .swatch_btn:hover {
-  transform: scale(1.12);
-}
-
-.swatch_btn.is_active {
   border-color: var(--color-text);
 }
 
+/* 선택 표시: 색이 아니라 "링" 모양으로 구분 */
+.swatch_btn.is_active {
+  border-color: var(--color-text);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 3px var(--color-text);
+}
+
+/* Figma: 스피커 카드 3종의 스와치에만 약한 그림자 */
+.product_card[data-category="speaker"] .swatch_dot {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- 카테고리 / 이름 / 가격 (Montserrat Bold 18) ---------- */
+.product_card__category,
+.product_card__name,
+.product_card__price {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .product_card__category {
-  font-size: var(--fs-xs);
-  color: var(--color-text-muted);
-  letter-spacing: 0.06em;
-  margin-bottom: 2px;
+  color: rgba(242, 242, 242, 0.5);
+}
+
+.product_card__name,
+.product_card__price {
+  color: var(--color-text);
 }
 
 .product_card__name {
-  font-family: var(--font-head);
-  font-weight: 600;
-  font-size: var(--fs-body);
   transition: color 0.2s var(--ease);
-
 }
 
 .product_card__name:hover {
   color: var(--color-accent);
 }
 
-.product_card__price {
-  margin-top: var(--sp-1);
-  font-weight: 700;
+/* "(2nd Gen)" 은 Figma 처럼 항상 다음 줄 */
+.product_card__name_sub {
+  display: block;
 }
 
-/* ---------- 페이지네이션 ---------- */
+/* ---------- 페이지네이션 (‹ 1/2 ›) ---------- */
 .pagination {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: var(--sp-2);
-  margin-top: var(--sp-8);
+  gap: 30px;
+  margin-top: clamp(72px, 8.646vw, 166px);
 }
 
 .pagination__btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  font-family: var(--font-head);
-  font-weight: 700;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-line);
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
-}
-
-.pagination__btn.is_active {
-  color: #0d0d0d;
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #fff;
 }
 
 .pagination__btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
+  cursor: default;
 }
 
-/* ---------- 반응형 최소 대응 ---------- */
-@media (max-width: 1100px) {
-  .product_grid {
-    grid-template-columns: repeat(2, 1fr);
+.pagination__count {
+  font-family: "Pretendard", var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+}
+
+/* ---------- 반응형 ---------- */
+
+/* 태블릿 : 2열 */
+@media (max-width: 1024px) {
+  [data-page="shop"] {
+    --shop-grid-edge: var(--shop-edge);
+    --shop-col-gap: clamp(24px, 4vw, 60px);
+    --shop-row-gap: clamp(48px, 6vw, 80px);
   }
 
-  .shop_controls__inner {
-    flex-direction: column;
-    align-items: flex-start;
+  .product_grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 모바일 : 1열 */
+@media (max-width: 640px) {
+  .product_grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filter_chip {
+    width: auto;
+    height: 36px;
+    padding-inline: 16px;
+    font-size: 13px;
+  }
+
+  .pagination {
+    gap: 20px;
   }
 }
