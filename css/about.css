@@ -174,7 +174,7 @@
 
 .journey_card--01 {
   left: 21%;
-  top: 28%;
+  top: 18%;
 
   width: 26vw;
   max-width: 500px;
@@ -196,7 +196,7 @@
 
 .journey_card--02 {
   left: 6%;
-  top: 48%;
+  top: 36%;
 
   width: 31vw;
   max-width: 600px;
@@ -218,7 +218,7 @@
 
 .journey_card--03 {
   left: 30%;
-  top: 58%;
+  top: 46%;
 
   width: 21vw;
   max-width: 400px;
@@ -237,7 +237,7 @@
   position: absolute;
 
   right: 7.7%;
-  bottom: 8%;
+  bottom: 14%;
 
   width: 41.8%;
   min-width: 280px;
@@ -352,10 +352,10 @@
   transform:
     translateY(-50%);
 
-  width: 41.7%;
+  width: 600px;
   min-width: 320px;
 
-  height: 600px;
+  height: 400px;
 
   border-radius:
     var(--radius-card);
