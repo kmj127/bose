@@ -80,33 +80,50 @@
 }
 
 /* 정렬: 그리드 우측 끝에 맞춤 */
+/* 정렬: 그리드 우측 끝에 맞춘 간결한 드롭다운 */
 .sort_select_wrap {
   position: relative;
   display: flex;
   justify-content: flex-end;
+  width: fit-content;
+  min-width: 164px;
+  height: 44px;
+  margin-left: auto;
+  border: 1px solid rgba(242, 242, 242, 0.28);
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.sort_select_wrap:hover,
+.sort_select_wrap:focus-within {
+  border-color: rgba(242, 242, 242, 0.72);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .sort_select_wrap::before {
   content: "";
   position: absolute;
-  right: 0;
+  right: 16px;
   top: 50%;
   width: 0;
   height: 0;
   margin-top: -2px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid var(--color-text);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--color-text);
   pointer-events: none;
 }
 
 .sort_select {
-  height: 20px;
-  padding: 0 38px 0 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 40px 0 16px;
   font-family: var(--font-head);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
   color: var(--color-text);
   background: transparent;
   border: 0;
@@ -119,6 +136,11 @@
 .sort_select option {
   color: var(--color-text);
   background: var(--color-surface);
+}
+
+.sort_select:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 /* ---------- 제품 그리드 ---------- */
@@ -148,6 +170,7 @@
 
 .product_card__image img {
   width: 100%;
+  
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
