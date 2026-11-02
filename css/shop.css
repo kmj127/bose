@@ -7,13 +7,10 @@
    ========================================================= */
 
 [data-page="shop"] {
-  /* 좌측 여백 (타이틀·필터) : 1920px 에서 74px */
   --shop-edge: clamp(24px, 3.854vw, 74px);
-
-  /* 그리드 영역 */
-  --shop-grid-max: 1600px;                         /* 480px × 3열 + 간격 80px × 2 */
-  --shop-grid-edge: clamp(24px, 8.333vw, 160px);  /* 1920px 에서 좌우 160px */
-  --shop-col-gap: clamp(24px, 4.167vw, 80px);     /* 1920px 에서 80px */
+  --shop-grid-max: 1600px;
+  --shop-grid-edge: clamp(24px, 8.333vw, 160px);
+  --shop-col-gap: clamp(24px, 4.167vw, 80px);
   --shop-row-gap: clamp(56px, 6.25vw, 120px);
 }
 
@@ -49,7 +46,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 160px; /* 모든 칩 160 × 60 고정 */
+  width: 160px;
   height: 50px;
   padding-inline: 8px;
   font-family: var(--font-head);
@@ -59,7 +56,10 @@
   color: var(--color-text);
   border: 1px solid var(--color-text);
   border-radius: 30px;
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+  transition:
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
 }
 
 .filter_chip:hover,
@@ -79,7 +79,7 @@
   margin-inline: auto;
 }
 
-/* 정렬: 그리드 우측 끝에 맞춤 (Figma: 우측 200px) */
+/* 정렬: 그리드 우측 끝에 맞춤 */
 .sort_select_wrap {
   position: relative;
   display: flex;
@@ -87,7 +87,6 @@
 }
 
 .sort_select_wrap::before {
-  /* "Sort by" 오른쪽 아래 방향 삼각형 (10 × 6) */
   content: "";
   position: absolute;
   right: 0;
@@ -103,7 +102,7 @@
 
 .sort_select {
   height: 20px;
-  padding: 0 38px 0 0; /* 텍스트와 삼각형 사이 28px + 삼각형 10px */
+  padding: 0 38px 0 0;
   font-family: var(--font-head);
   font-size: 16px;
   font-weight: 400;
@@ -142,28 +141,23 @@
 }
 
 .product_card__image {
-  aspect-ratio: 4 / 5; /* 400 × 500 */
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--color-surface);
-  transition: background-color 0.25s var(--ease);
 }
 
 .product_card__image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: transform 0.3s var(--ease);
-}
-
-.product_card:hover .product_card__image {
-  background: var(--color-surface-2);
+  transition: transform 0.3s ease;
 }
 
 .product_card:hover .product_card__image img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-/* 정보 영역: 색상 → 카테고리 → 이름 → 가격 (간격 10px) */
+/* 정보 영역: 색상 → 카테고리 → 이름 → 가격 */
 .product_card__info {
   display: flex;
   flex-direction: column;
@@ -171,7 +165,7 @@
   gap: 10px;
 }
 
-/* ---------- 색상 스와치 (30 × 30 사각) ---------- */
+/* ---------- 색상 스와치 ---------- */
 .swatch_list {
   display: flex;
   flex-wrap: wrap;
@@ -189,25 +183,29 @@
 
 .swatch_btn {
   padding: 0;
-  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  transition:
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
 }
 
 .swatch_btn:hover {
   border-color: var(--color-text);
 }
 
-/* 선택 표시: 색이 아니라 "링" 모양으로 구분 */
+/* 선택 표시 */
 .swatch_btn.is_active {
   border-color: var(--color-text);
-  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 3px var(--color-text);
+  box-shadow:
+    0 0 0 2px var(--color-bg),
+    0 0 0 3px var(--color-text);
 }
 
-/* Figma: 스피커 카드 3종의 스와치에만 약한 그림자 */
+/* 스피커 카드 3종의 스와치에만 약한 그림자 */
 .product_card[data-category="speaker"] .swatch_dot {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* ---------- 카테고리 / 이름 / 가격 (Montserrat Bold 18) ---------- */
+/* ---------- 카테고리 / 이름 / 가격 ---------- */
 .product_card__category,
 .product_card__name,
 .product_card__price {
@@ -234,12 +232,12 @@
   color: var(--color-accent);
 }
 
-/* "(2nd Gen)" 은 Figma 처럼 항상 다음 줄 */
+/* "(2nd Gen)"은 항상 다음 줄 */
 .product_card__name_sub {
   display: block;
 }
 
-/* ---------- 페이지네이션 (‹ 1/2 ›) ---------- */
+/* ---------- 페이지네이션 ---------- */
 .pagination {
   display: flex;
   align-items: center;
@@ -271,7 +269,7 @@
 
 /* ---------- 반응형 ---------- */
 
-/* 태블릿 : 2열 */
+/* 태블릿: 2열 */
 @media (max-width: 1024px) {
   [data-page="shop"] {
     --shop-grid-edge: var(--shop-edge);
@@ -284,7 +282,7 @@
   }
 }
 
-/* 모바일 : 1열 */
+/* 모바일: 1열 */
 @media (max-width: 640px) {
   .product_grid {
     grid-template-columns: minmax(0, 1fr);
