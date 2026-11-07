@@ -18,17 +18,15 @@
 }
 
 
-/* ── 인트로 (Figma: 제목·설명 모두 32px, 가운데 정렬, 두 줄 간격 20px) ──
-   --u = Figma 1px 에 해당하는 길이. 화면 너비/높이 중 작은 쪽에 맞춰 줄어듦 */
+/* ── 인트로 ── */
 
 .technology_page {
-  --u: min(0.052083vw, 0.094697vh);   /* 1920×1056 기준 */
+  --u: min(0.052083vw, 0.094697vh);
 }
 
 .tech_intro {
   min-height: 100vh;
   padding: var(--header-h) var(--gutter) 0;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,23 +48,19 @@
 }
 
 
-/* ── 분해도: 스크롤 길이 + 고정 화면 ── */
+/* ── 분해도 ── */
 
 .tech_seq {
   position: relative;
-  height: 480vh;                /* 늘리면 모션이 더 천천히 진행 */
+  height: 480vh;
 }
 
 .seq_stage {
   position: sticky;
   top: 0;
-
   height: 100vh;
   overflow: hidden;
 }
-
-
-/* ── 분해도: 부품 이미지 (위치·높이는 JS가 넣음) ── */
 
 .seq_parts {
   position: absolute;
@@ -77,10 +71,8 @@
   position: absolute;
   left: 50%;
   top: 44%;
-
   width: auto;
   max-width: none;
-
   transition: opacity 0.35s, filter 0.35s;
   will-change: transform;
   pointer-events: none;
@@ -94,30 +86,23 @@
   filter: drop-shadow(0 0 24px rgba(255, 107, 53, 0.35));
 }
 
-
-/* ── 분해도: 지시선 ── */
-
 .seq_svg {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   pointer-events: none;
 }
 
 .seq_lead {
   stroke: var(--color-accent);
   stroke-width: 1;
-
   opacity: 0;
   transition: opacity 0.35s;
 }
 
 .seq_dot {
   fill: var(--color-accent);
-
   opacity: 0;
   transition: opacity 0.35s;
 }
@@ -127,14 +112,10 @@
   opacity: 1;
 }
 
-
-/* ── 분해도: 설명 / 진행선 ── */
-
 .seq_info {
   position: absolute;
   left: var(--gutter);
   bottom: clamp(36px, 9vh, 90px);
-
   max-width: 380px;
 }
 
@@ -148,7 +129,6 @@
 .seq_info p {
   min-height: 5.2em;
   margin-top: 14px;
-
   font-size: var(--fs-sm);
   line-height: 1.75;
   color: var(--color-text-muted);
@@ -167,29 +147,24 @@
   position: absolute;
   right: var(--gutter);
   bottom: clamp(36px, 9vh, 90px);
-
   width: 90px;
   height: 1px;
-
   background: var(--color-line);
 }
 
 .seq_bar i {
   display: block;
-
   width: 0;
   height: 100%;
-
   background: var(--color-accent);
 }
 
 
-/* ── 기능 섹션 (이미지 + 글, 좌우 교차) ── */
+/* ── 기능 섹션 ── */
 
 .tech_feature {
   min-height: 110vh;
   padding: 0 var(--gutter);
-
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -198,18 +173,15 @@
 
 .feature_visual {
   margin: 0;
-
-  /* --shift 는 JS가 스크롤에 맞춰 넣음 (살짝 느리게 따라오는 효과) */
   transform: translateY(var(--shift, 0px));
   will-change: transform;
 }
 
 .feature_visual img {
   width: 100%;
-  height: auto;             /* HTML의 height 속성 때문에 늘어나는 것 방지 */
+  height: auto;
   max-width: 640px;
   margin: 0 auto;
-
   display: block;
   object-fit: contain;
 }
@@ -223,7 +195,6 @@
 
 .feature_sub {
   margin-top: 24px;
-
   font-size: clamp(17px, 1.5vw, 20px);
   line-height: 1.5;
 }
@@ -231,25 +202,19 @@
 .feature_desc {
   max-width: 30em;
   margin-top: 20px;
-
   font-size: var(--fs-sm);
   line-height: 1.85;
   color: var(--color-text-muted);
 }
 
 
-/* ── 기능 섹션: Figma 시안 (섹션 1920×1056, 이미지 500×500, 글자 20px) ──
-   모든 위치는 Figma 좌표(px)를 그대로 쓰고 --u 로 화면에 맞게 줄입니다.
-   섹션마다 아래 4개 숫자만 바꾸면 됩니다:
-     --img-x  : 이미지 가운데 x      --img-y  : 이미지 위쪽 y
-     --copy-x : 글 왼쪽 x            --copy-y : 글 위쪽 y (제목 기준)   */
+/* ── 기능 섹션 Figma 배치 ── */
 
 .tech_feature--art {
   position: relative;
   display: block;
   min-height: 0;
   padding: 0;
-
   aspect-ratio: 1920 / 1056;
 }
 
@@ -257,10 +222,7 @@
   position: absolute;
   left: calc(50% + (var(--img-x) - 960) * var(--u));
   top: calc(50% + (var(--img-y) - 528) * var(--u));
-
   width: calc(500 * var(--u));
-
-  /* 가운데 정렬 + 스크롤 패럴랙스(--shift) */
   transform: translate(-50%, var(--shift, 0px));
 }
 
@@ -275,12 +237,11 @@
   left: calc(50% + (var(--copy-x) - 960) * var(--u));
   top: calc(50% + (var(--copy-y) - 528) * var(--u));
   z-index: 2;
-
   white-space: nowrap;
 }
 
 .tech_feature--art .feature_name {
-  font-size: 36px;                             /* 제목 */
+  font-size: 36px;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 1.5;
@@ -290,37 +251,37 @@
 .tech_feature--art .feature_sub {
   margin-top: 15px;
   font-family: var(--font-body);
-  font-size: 18px;                             /* 소제목 */
+  font-size: 18px;
   line-height: 1.5;
   color: var(--color-text);
 }
 
 .tech_feature--art .feature_desc {
   max-width: none;
-  margin-top: var(--desc-gap, 35px);            /* 소제목 아래 간격 */
-  font-size: 14px;                             /* 설명 */
+  margin-top: var(--desc-gap, 35px);
+  font-size: 14px;
   line-height: 1.5;
   color: rgba(242, 242, 242, 0.5);
 }
 
 
-/* ── 기능 섹션별 위치 (Figma 좌표) ── */
+/* ── 기능 섹션별 위치 ── */
 
-.tech_feature--custom {           /* 이미지 왼쪽 / 글 오른쪽 */
-  --img-x: 480;                   /* 이미지 x 230~730 */
+.tech_feature--custom {
+  --img-x: 480;
   --img-y: 249;
   --copy-x: 1220;
   --copy-y: 399;
 }
 
-.tech_feature--immer {            /* 글 왼쪽 / 이미지 오른쪽 */
-  --img-x: 1450;                  /* 이미지 x 1200~1700 */
+.tech_feature--immer {
+  --img-x: 1450;
   --img-y: 259;
   --copy-x: 230;
   --copy-y: 399;
 }
 
-.tech_feature--active {           /* 글 왼쪽 / 이미지 오른쪽 (소제목이 두 줄이라 설명 간격이 좁음) */
+.tech_feature--active {
   --img-x: 1450;
   --img-y: 254;
   --copy-x: 230;
@@ -329,7 +290,7 @@
 }
 
 
-/* ── 섹션 등장 (공통 data-reveal 위에, 이미지는 조금 더 크게 올라오며 나타남) ── */
+/* ── 섹션 등장 ── */
 
 .feature_visual img[data-reveal] {
   transform: translateY(48px) scale(0.94);
@@ -341,7 +302,7 @@
 }
 
 
-/* ── 노이즈 캔슬링 (글 + 파형 + 스위치) ── */
+/* ── 노이즈 캔슬링 ── */
 
 .tech_feature--noise {
   display: flex;
@@ -350,75 +311,65 @@
 }
 
 .tech_feature--noise .feature_name {
-  font-size: 36px;                 /* 제목 */
+  font-size: 36px;
   letter-spacing: 0;
 }
 
 .tech_feature--noise .feature_sub {
   margin-top: 15px;
-  font-size: 18px;                 /* 소제목 */
+  font-size: 18px;
 }
 
 .tech_feature--noise .feature_desc {
   margin-top: 20px;
-  font-size: 14px;                 /* 설명 */
+  font-size: 14px;
   line-height: 1.5;
 }
 
 .anc_wave {
-  width: 100%;                  /* 파형이 섹션 폭을 따라 넓게 (기존에는 가운데 정렬 때문에 600px로 줄어 있었음) */
+  width: 100%;
   max-width: 1100px;
   align-self: center;
-
   height: min(36vh, 300px);
   margin-top: 48px;
 }
 
 .anc_wave canvas {
   display: block;
-
   width: 100%;
   height: 100%;
 }
 
 .anc_legend {
   margin-top: 18px;
-
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
-
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
 }
 
 .anc_legend span::before {
   content: "";
-
   display: inline-block;
   width: 18px;
   height: 2px;
   margin-right: 8px;
-
   vertical-align: middle;
   background: var(--c);
 }
 
 .anc_switch {
   padding: 12px 22px 12px 14px;
-
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
   gap: 14px;
-
   background: none;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-pill);
-
   color: var(--color-text);
   font: 500 15px var(--font-head);
-
   cursor: pointer;
   transition: border-color 0.3s;
 }
@@ -434,29 +385,22 @@
 
 .anc_switch b {
   position: relative;
-
   width: 36px;
   height: 20px;
-
   background: var(--color-line);
   border-radius: var(--radius-pill);
-
   transition: background 0.3s;
 }
 
 .anc_switch b::after {
   content: "";
-
   position: absolute;
   left: 3px;
   top: 3px;
-
   width: 14px;
   height: 14px;
-
   background: var(--color-text);
   border-radius: 50%;
-
   transition: transform 0.3s;
 }
 
@@ -468,12 +412,8 @@
   transform: translateX(16px);
 }
 
-
-/* ── 노이즈 캔슬링: 버튼 묶음 / 소리 버튼 / 안내 ── */
-
 .anc_controls {
   margin-top: 32px;
-
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -482,14 +422,11 @@
 
 .anc_sound {
   padding: 12px 22px;
-
   background: none;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-pill);
-
   color: var(--color-text);
   font: 500 15px var(--font-head);
-
   cursor: pointer;
   transition: border-color 0.3s, background 0.3s;
 }
@@ -511,15 +448,13 @@
 .anc_note {
   max-width: 34em;
   margin-top: 16px;
-
   font-size: var(--fs-xs);
   line-height: 1.7;
   color: var(--color-text-muted);
 }
 
 
-/* ── 제품 이동 (Figma: 섹션 1100px, 위 100 / 아래 244, 카드 400×500, 간격 100) ──
-   --s = Figma 1px (화면 너비에 맞춰 줄어들고 1920 이상에선 1px 고정) */
+/* ── 제품 이동 ── */
 
 .tech_shop {
   --s: min(1px, 0.052083vw);
@@ -541,7 +476,7 @@
 
 .tech_shop_title {
   font-family: var(--font-head);
-  font-size: 36px;                 /* 제목 */
+  font-size: 36px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0;
@@ -550,7 +485,7 @@
 
 .tech_shop_desc {
   margin-top: calc(20 * var(--s));
-  font-size: 18px;                 /* 설명 */
+  font-size: 18px;
   line-height: 1.5;
   color: var(--color-text);
 }
@@ -562,7 +497,6 @@
   min-height: 40px;
   margin-top: 32px;
   padding: 0;
-
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0;
@@ -583,22 +517,18 @@
   width: calc(1400 * var(--s));
   margin: 0 auto;
   padding: 0;
-
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: calc(100 * var(--s));
-
   list-style: none;
 }
 
 .tech_card a {
   display: block;
   overflow: hidden;
-
   background: #f2f2f2;
   border-radius: 10px;
   color: #000;
-
   transition: transform 0.5s var(--ease);
 }
 
@@ -616,7 +546,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-
   transition: transform 0.6s var(--ease);
 }
 
@@ -628,7 +557,6 @@
   height: calc(120 * var(--s));
   min-height: 84px;
   padding: 0 calc(30 * var(--s));
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -638,7 +566,6 @@
 
 .tech_card_category {
   margin: 0;
-
   font-family: var(--font-body, "Pretendard", sans-serif);
   font-size: max(13px, calc(18 * var(--s)));
   font-weight: 700;
@@ -659,7 +586,6 @@
 /* ── 반응형 ── */
 
 @media (max-width: 900px) {
-
   .tech_feature {
     min-height: auto;
     padding-top: 100px;
@@ -671,7 +597,6 @@
     aspect-ratio: auto;
     padding-top: 100px;
     padding-bottom: 100px;
-
     display: grid;
   }
 
@@ -698,40 +623,169 @@
     padding: 80px 0 100px;
   }
 
+  .tech_shop_head {
+    width: calc(100% - 2 * var(--gutter));
+    margin: 0 auto 48px;
+  }
+
+  .tech_shop_title {
+    font-size: clamp(30px, 4.2vw, 38px);
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .tech_shop_desc {
+    margin-top: 14px;
+    font-size: clamp(15px, 1.8vw, 18px);
+  }
+
   .tech_shop_cards {
-    width: 90%;
-    grid-template-columns: 1fr;
-    gap: 24px;
+    width: calc(100% - 2 * var(--gutter));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+  }
+
+  .tech_card a {
+    height: 100%;
+    border-radius: 14px;
+  }
+
+  .tech_card_visual {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(145deg, #fafafa, #e8e8e8);
+  }
+
+  .tech_card_visual img {
+    padding: 10px;
   }
 
   .tech_card_body {
     height: auto;
-    padding: 24px 30px;
+    min-height: 104px;
+    padding: 18px 20px;
+    gap: 7px;
+    align-items: flex-start;
   }
 
-  .tech_card_body {
-    gap: 10px;
+  .tech_card_category {
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 
-  .tech_card_category,
   .tech_card_name {
-    font-size: 16px;
+    font-size: clamp(14px, 1.55vw, 17px);
+    line-height: 1.35;
   }
 
-  /* 모바일에서는 36px 제목이 너무 커서 줄임 */
   .tech_feature--art .feature_name,
   .tech_feature--noise .feature_name,
   .tech_shop_title {
     font-size: 28px;
   }
+}
 
+@media (max-width: 600px) {
+  .tech_intro {
+    min-height: 78svh;
+    padding: var(--header-h) var(--gutter) 48px;
+  }
+
+  .tech_intro_title,
+  .tech_intro_desc {
+    font-size: clamp(17px, 4.5vw, 20px);
+  }
+
+  .tech_seq {
+    height: 360vh;
+  }
+
+  .seq_info {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 32px;
+    max-width: none;
+  }
+
+  .tech_feature,
+  .tech_feature--art {
+    padding-top: 56px;
+    padding-bottom: 64px;
+    gap: 24px;
+  }
+
+  .tech_feature--art .feature_copy {
+    padding-inline: var(--gutter);
+  }
+
+  .tech_shop {
+    padding: 56px 0 72px;
+  }
+
+  .tech_shop_head {
+    margin-bottom: 32px;
+  }
+
+  .tech_shop_title {
+    max-width: 12em;
+    font-size: clamp(27px, 8vw, 32px);
+    line-height: 1.18;
+  }
+
+  .tech_shop_desc {
+    max-width: 24em;
+    font-size: 15px;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  .tech_shop_cards {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 4px var(--gutter) 18px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tech_shop_cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tech_card {
+    flex: 0 0 min(82vw, 340px);
+    scroll-snap-align: start;
+  }
+
+  .tech_card_body {
+    min-height: 92px;
+    padding: 16px 18px;
+  }
+
+  .tech_card_visual {
+    aspect-ratio: 1 / 0.92;
+  }
+
+  .tech_card_category {
+    font-size: 11px;
+  }
+
+  .tech_card_name {
+    font-size: 15px;
+  }
+
+  .tech_shop .btn {
+    margin-top: 22px;
+  }
 }
 
 
-/* ── 섹션 전환 모드 ① fade: Home처럼 한 화면 안에서 섹션이 겹쳐 바뀜 ──
-   (JS의 SCROLL_MODE = "fade"일 때만 .is_fade 클래스가 붙어서 적용됨) */
+/* ── 섹션 전환 모드 ① fade ── */
 
-/* 공통 .page의 위쪽 여백(헤더 높이)을 없애서, 섹션이 화면 맨 위부터 꽉 차게 (헤더는 그 위에 겹쳐 보임) */
 .technology_page.is_fade {
   padding-top: 0;
 }
@@ -747,11 +801,9 @@
 .is_fade .tech_feature {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
   min-height: 0;
-
   aspect-ratio: auto;
   overflow: hidden;
 }
@@ -769,9 +821,8 @@
   padding: 0;
 }
 
-/* 노이즈 캔슬링: 한 화면에 다 들어오도록 간격을 조금 줄임 */
 .is_fade .tech_feature--noise {
-  gap: 0;                          /* 기본 섹션 간격(.tech_feature의 gap)을 없앰 */
+  gap: 0;
   padding: 90px var(--gutter) 40px;
 }
 
@@ -788,7 +839,6 @@
 /* ── 모션 줄이기 ── */
 
 @media (prefers-reduced-motion: reduce) {
-
   .seq_part,
   .seq_lead,
   .seq_dot,
@@ -799,13 +849,10 @@
   .feature_visual {
     transform: none;
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) and (min-width: 901px) {
-
   .tech_feature--art .feature_visual {
     transform: translate(-50%, 0);
   }
-
 }

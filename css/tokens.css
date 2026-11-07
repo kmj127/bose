@@ -6,34 +6,34 @@
 
 :root {
   /* ---- 컬러 (Figma 실측: node 1113:368) ---- */
-  --color-bg: #0d0d0d;              /* 기본 배경 (블랙) */
-  --color-surface: #1a1a1a;         /* 카드 표면 */
-  --color-surface-2: #232323;       /* 한 단계 밝은 표면 (hover) */
-  --color-line: #555555;            /* 구분선(실선) */
-  --color-line-soft: rgba(85, 85, 85, 0.5); /* 구분선(옅음, 리스트용) */
-  --color-text: #f2f2f2;            /* 본문 텍스트 */
-  --color-text-muted: rgba(242, 242, 242, 0.6); /* 보조 텍스트 */
-  --color-accent: #ff6b35;          /* 포인트 (오렌지) */
+  --color-bg: #0d0d0d;
+  --color-surface: #1a1a1a;
+  --color-surface-2: #232323;
+  --color-line: #555555;
+  --color-line-soft: rgba(85, 85, 85, 0.5);
+  --color-text: #f2f2f2;
+  --color-text-muted: rgba(242, 242, 242, 0.6);
+  --color-accent: #ff6b35;
   --color-accent-hover: #ff6b35;
 
   /* ---- 타이포 ---- */
-  --font-head: "Montserrat", "Pretendard", sans-serif; /* 제목(영문) */
-  --font-body: "Pretendard", "Montserrat", sans-serif; /* 본문(국문) */
+  --font-head: "Montserrat", "Pretendard", sans-serif;
+  --font-body: "Pretendard", "Montserrat", sans-serif;
 
-  --fs-display: 64px;   /* HEAR (Montserrat Black) */
-  --fs-h1: 48px;        /* MORE (Montserrat ExtraBold) */
-  --fs-h2: 40px;        /* 리스트 타이틀 / 앱 타이틀 (Bold/SemiBold) */
-  --fs-h3: 32px;        /* 카테고리 카드 라벨 (SemiBold) */
-  --fs-lead: 20px;      /* 리드 문단 / eyebrow */
+  --fs-display: 64px;
+  --fs-h1: 48px;
+  --fs-h2: 40px;
+  --fs-h3: 32px;
+  --fs-lead: 20px;
   --fs-body: 16px;
-  --fs-nav: 18px;       /* 헤더/푸터 내비 */
+  --fs-nav: 18px;
   --fs-sm: 14px;
   --fs-xs: 12px;
 
   --lh-tight: 1.2;
   --lh-base: 1.6;
 
-  /* ---- 간격 스케일 (4의 배수) ---- */
+  /* ---- 간격 스케일 ---- */
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
@@ -47,14 +47,14 @@
   --sp-11: 160px;
 
   /* ---- 라운드 ---- */
-  --radius-pill: 999px; /* 버튼 */
-  --radius-card: 12px;  /* 카드 */
-  --radius-input: 8px;  /* 입력창 */
+  --radius-pill: 999px;
+  --radius-card: 12px;
+  --radius-input: 8px;
 
   /* ---- 레이아웃 ---- */
-  --content-max: 1600px; /* 콘텐츠 최대 폭 (Figma 실측: home_menu 리스트 폭) */
-  --gutter: 60px;        /* 좌우 여백 (헤더 컨테이너 실측: left 60px) */
-  --header-h: 160px;     /* 고정 헤더 높이 (Figma 실측) */
+  --content-max: 1600px;
+  --gutter: 60px;
+  --header-h: 160px;
 
   /* ---- 모션 ---- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -63,4 +63,34 @@
   /* ---- z-index ---- */
   --z-header: 100;
   --z-nav: 200;
+}
+
+/* 태블릿 */
+@media (max-width: 900px) {
+  :root {
+    --gutter: 40px;
+    --header-h: 112px;
+    --fs-display: clamp(48px, 8vw, 64px);
+    --fs-h1: clamp(36px, 6vw, 48px);
+    --fs-h2: clamp(30px, 5vw, 40px);
+    --sp-10: 88px;
+    --sp-11: 112px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  :root {
+    --gutter: 20px;
+    --header-h: 80px;
+    --fs-display: clamp(40px, 12vw, 56px);
+    --fs-h1: clamp(30px, 9vw, 40px);
+    --fs-h2: clamp(26px, 7vw, 34px);
+    --fs-h3: clamp(22px, 6vw, 28px);
+    --fs-lead: 18px;
+    --sp-8: 48px;
+    --sp-9: 64px;
+    --sp-10: 72px;
+    --sp-11: 88px;
+  }
 }

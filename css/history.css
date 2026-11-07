@@ -27,28 +27,19 @@
   position: relative;
   width: 100%;
   height: 1000px;
-
   margin-top: calc(var(--header-h) * -1);
-
   overflow: hidden;
-
   background: #0d0d0d;
 }
 
-
 .history_hero_bg {
   position: absolute;
-
   width: 100.95%;
   height: 159.3%;
-
   left: -0.55%;
   top: -0.82%;
-
   max-width: none;
-
   object-fit: cover;
-
   opacity: 0.8;
 }
 
@@ -59,18 +50,13 @@
 
 .history_section {
   position: relative;
-
   width: 100%;
   height: 1000px;
-
   transform-origin: center top;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-
   overflow: hidden;
-
   background: #0d0d0d;
-
   perspective: 1600px;
 }
 
@@ -81,22 +67,15 @@
 
 .history_title {
   position: absolute;
-
   left: 50%;
   transform: translateX(-50%);
-
   margin: 0;
-
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 64px;
   font-weight: 500;
-
   line-height: normal;
-
   white-space: nowrap;
-
   z-index: 5;
 }
 
@@ -144,97 +123,69 @@
 
 .history_image {
   position: absolute;
-
   margin: 0;
-
   overflow: hidden;
-
   z-index: 2;
 }
 
-
 .history_image img {
   position: absolute;
-
   display: block;
-
   max-width: none;
-
   border: 0;
 }
 
 
 /* =========================================================
    EARLY LIFE
-   Figma
-   image : x 1140 / y 297 / 400 × 500
-   text  : x 320 / y 528
    ========================================================= */
 
 .history_image--early {
   left: calc(50% + 180px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--early img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--early {
   position: absolute;
-
   left: calc(50% - 640px);
   top: 528px;
-
   width: 700px;
-
   z-index: 4;
 }
 
 
 /* =========================================================
    1960s
-   image : x 320 / y 300 / 500 × 400
-   text  : x 1140 / y 479
    ========================================================= */
 
 .history_image--1960 {
   left: calc(50% - 640px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--1960 img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--1960 {
   position: absolute;
-
   left: calc(50% + 180px);
   top: 528px;
-
   width: 650px;
-
   z-index: 4;
 }
 
@@ -243,310 +194,217 @@
    1970s
    ========================================================= */
 
-
-/* ---------- text ---------- */
-
 .history_copy--1970 {
   position: absolute;
-
   left: calc(50% - 640px);
   top: 528px;
-
   width: 700px;
-
   z-index: 4;
 }
-
-
-/* ---------- large image ---------- */
 
 .history_image--1970-main {
   left: calc(50% + 180px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--1970-main img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
-/* ---------- tilted image ---------- */
-
 .history_image--1970-small {
   position: absolute;
-
   left: calc(50% - 1px);
   top: 570px;
-
   width: 415.857px;
   height: 377.643px;
-
   overflow: visible;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   z-index: 6;
 }
 
-
 .history_image--1970-small-inner {
   position: relative;
-
   width: 338.321px;
   height: 264.055px;
-
   transform: rotate(23.664deg);
-
   overflow: hidden;
-
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
-
 
 .history_image--1970-small-inner img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: contain;
-
   max-width: none;
 }
 
 
 /* =========================================================
    QUOTE
-   Figma : 7:10612
-   300px
    ========================================================= */
 
 .history_quote {
   position: relative;
-
   width: 100%;
   height: 300px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   overflow: hidden;
-
   background: #0d0d0d;
 }
 
-
 .history_quote p {
   margin: 0;
-
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 24px;
   font-weight: 400;
-
   line-height: 1.5;
-
   text-align: center;
-
   white-space: nowrap;
 }
 
 
 /* =========================================================
    1980s
-   image : x 550 / y 250 / 460 × 500
-   text  : x 1140 / y 423
    ========================================================= */
 
 .history_image--1980 {
   left: calc(50% - 640px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--1980 img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--1980 {
   position: absolute;
-
   left: calc(50% + 180px);
   top: 528px;
-
   width: 650px;
-
   z-index: 4;
 }
 
 
 /* =========================================================
    1990s
-   image : x 1180 / y 250 / 460 × 500
-   text  : x 320 / y 421
    ========================================================= */
 
 .history_image--1990 {
   left: calc(50% + 180px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--1990 img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--1990 {
   position: absolute;
-
   left: calc(50% - 640px);
   top: 528px;
-
   width: 700px;
-
   z-index: 4;
 }
 
 
 /* =========================================================
    2000s
-   image : x 550 / y 250 / 460 × 500
-   text  : x 1140 / y 404
    ========================================================= */
 
 .history_image--2000 {
   left: calc(50% - 640px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--2000 img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--2000 {
   position: absolute;
-
   left: calc(50% + 180px);
   top: 528px;
-
   width: 650px;
-
   z-index: 4;
 }
 
 
 /* =========================================================
    2010s
-   image : x 1340 / y 250 / 460 × 500
-   text  : x 261 / y 420
    ========================================================= */
 
 .history_image--2010 {
   left: calc(50% + 180px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--2010 img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--2010 {
   position: absolute;
-
   left: calc(50% - 640px);
   top: 528px;
-
   width: 720px;
-
   z-index: 4;
 }
 
 
 /* =========================================================
    2020s
-   image : x 550 / y 250 / 460 × 500
-   text  : x 1140 / y 442
    ========================================================= */
 
 .history_image--2020 {
   left: calc(50% - 640px);
   top: 297px;
-
   width: 400px;
   height: 500px;
 }
 
-
 .history_image--2020 img {
   width: 100%;
   height: 100%;
-
   inset: 0;
-
   object-fit: cover;
 }
 
-
 .history_copy--2020 {
   position: absolute;
-
   left: calc(50% + 180px);
   top: 528px;
-
   width: 700px;
-
   z-index: 4;
 }
 
@@ -557,53 +415,36 @@
 
 .history_eyebrow {
   margin: 0;
-
   color: rgba(242, 242, 242, 0.5);
-
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
   font-weight: 500;
-
   line-height: 1.5;
-
   white-space: nowrap;
 }
-
 
 .history_body {
   margin-top: 22px;
 }
 
-
 .history_body p {
   margin: 0;
-
   color: #f2f2f2;
-
   font-family: "Pretendard", sans-serif;
   font-size: 18px;
   font-weight: 500;
-
   line-height: 1.5;
-
   white-space: nowrap;
 }
-
 
 .history_body p + p {
   margin-top: 0;
 }
 
-
-/* Early Life 본문은 Figma 20px */
-
 .history_copy--early .history_body p {
   font-size: 20px;
   line-height: 1.5;
 }
-
-
-/* 각 섹션의 Figma 간격 미세 조정 */
 
 .history_copy--1970 .history_body {
   margin-top: 25px;
@@ -632,214 +473,136 @@
 
 /* =========================================================
    HISTORY 전용 FOOTER
-   common.js가 생성하는 footer를 history.js에서 교체
-   Figma : 7:10639
-   1920 × 550
    ========================================================= */
 
 .history_footer {
   position: relative;
-
   width: 100%;
   height: 550px;
-
   margin: 0;
-
   border-top: 1px solid #555;
-
   background: #0d0d0d;
-
   overflow: hidden;
-
   box-sizing: border-box;
-
   color: #f2f2f2;
 }
-
 
 .history_footer_inner {
   position: relative;
-
   width: 100%;
   max-width: 1920px;
   height: 100%;
-
   margin: 0 auto;
 }
 
-
-/* ---------- logo ---------- */
-
 .history_footer_logo {
   position: absolute;
-
   left: 94px;
   top: 104px;
-
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 30px;
   font-weight: 700;
-
   letter-spacing: 0.06em;
 }
 
-
-/* ---------- social ---------- */
-
 .history_footer_social {
   position: absolute;
-
   right: 101px;
   top: 46px;
-
   display: flex;
   align-items: center;
-
   gap: 30px;
 }
-
 
 .history_footer_social a {
   width: 30px;
   height: 30px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-
 .history_footer_social img {
   width: 30px;
   height: 30px;
-
   display: block;
 }
 
-
-/* ---------- footer navigation ---------- */
-
 .history_footer_nav {
   position: absolute;
-
   right: 402px;
   top: 245px;
-
   display: flex;
   align-items: center;
-
   gap: 60px;
 }
 
-
 .history_footer_nav a {
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
   font-weight: 400;
-
   line-height: 1.5;
-
   white-space: nowrap;
-
   transition: opacity 0.2s ease;
 }
-
 
 .history_footer_nav a:hover {
   opacity: 0.55;
 }
 
-
-/* ---------- customer center ---------- */
-
 .history_footer_contact {
   position: absolute;
-
   right: 296px;
   top: 312px;
-
   margin: 0;
-
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 400;
-
   line-height: 1.5;
-
   white-space: nowrap;
 }
-
-
-/* ---------- divider ---------- */
 
 .history_footer_line {
   position: absolute;
-
   left: 50%;
   transform: translateX(-50%);
-
   top: 386px;
-
   width: calc(100% - 203px);
-
   height: 1px;
-
   background: #555;
 }
 
-
-/* ---------- company info ---------- */
-
 .history_footer_company {
   position: absolute;
-
   left: 100px;
   top: 454px;
-
   margin: 0;
-
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 400;
-
   line-height: 1.5;
-
   white-space: nowrap;
 }
 
-
-/* ---------- policy ---------- */
-
 .history_footer_policy {
   position: absolute;
-
   right: 101px;
   top: 453px;
-
   display: flex;
   align-items: center;
-
   gap: 40px;
 }
 
-
 .history_footer_policy a {
   color: #f2f2f2;
-
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 400;
-
   line-height: 1.5;
-
   white-space: nowrap;
 }
 
@@ -860,33 +623,37 @@
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1100px) {
-
+@media (max-width: 1400px) {
   .history_section {
     height: auto;
     min-height: 1000px;
+    padding: 150px 40px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-
 
   .history_title {
-    top: 80px !important;
-
+    position: relative;
+    top: auto !important;
+    left: auto;
+    transform: none;
+    width: 100%;
+    margin: 0 0 44px;
+    text-align: center;
+    white-space: normal;
     font-size: clamp(42px, 7vw, 64px);
   }
-
 
   .history_image,
   .history_image--1970-main,
   .history_image--1970-small {
     position: relative;
-
     left: auto !important;
     right: auto !important;
     top: auto !important;
-
     margin: 0 auto;
   }
-
 
   .history_copy,
   .history_copy--early,
@@ -898,16 +665,12 @@
   .history_copy--2010,
   .history_copy--2020 {
     position: relative;
-
     left: auto !important;
     right: auto !important;
     top: auto !important;
-
-    width: min(90%, 700px);
-
-    margin: 50px auto 0;
+    width: min(100%, 700px);
+    margin: 36px auto 0;
   }
-
 
   .history_image--early,
   .history_image--1960,
@@ -922,113 +685,88 @@
     aspect-ratio: 4 / 5;
   }
 
-
   .history_image--early {
     aspect-ratio: 4 / 5;
   }
 
-
   .history_image--1970-small {
-    width: 338px;
-    height: 264px;
-
-    margin-top: -40px;
+    width: min(338px, 74vw);
+    height: auto;
+    aspect-ratio: 338 / 264;
+    margin-top: 20px;
   }
-
 
   .history_copy--early {
     order: 3;
   }
-
 
   .history_body p,
   .history_copy--early .history_body p {
     white-space: normal;
   }
 
-
   .history_eyebrow {
     white-space: normal;
   }
-
 
   .history_quote {
     height: 240px;
   }
 
-
   .history_quote p {
     font-size: 24px;
   }
-
 
   .history_footer {
     height: auto;
     min-height: 550px;
   }
 
-
   .history_footer_inner {
     min-height: 550px;
   }
-
 
   .history_footer_nav {
     right: 60px;
   }
 
-
   .history_footer_contact {
     right: 60px;
   }
 
-
   .history_footer_line {
     width: calc(100% - 120px);
   }
-
 }
 
-
 @media (max-width: 700px) {
-
   .history_hero {
-    height: 700px;
+    height: min(700px, 88svh);
+    min-height: 520px;
   }
-
 
   .history_section {
     min-height: auto;
-
-    padding: 140px 24px 100px;
-
+    padding: 112px 24px 76px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-
   .history_title {
     position: relative;
-
     top: auto !important;
-
-    margin-bottom: 60px;
-
-    font-size: 42px;
+    margin-bottom: 36px;
+    font-size: clamp(34px, 10vw, 42px);
   }
-
 
   .history_image,
   .history_image--1970-main {
     position: relative;
-
-    width: min(420px, 88vw);
+    width: min(420px, 100%);
     height: auto;
-
     aspect-ratio: 4 / 5;
   }
-
 
   .history_copy,
   .history_copy--early,
@@ -1040,135 +778,103 @@
   .history_copy--2010,
   .history_copy--2020 {
     width: 100%;
-
-    margin-top: 36px;
+    margin-top: 28px;
   }
-
 
   .history_body p,
   .history_copy--early .history_body p {
     font-size: 16px;
-
     line-height: 1.6;
   }
 
-
   .history_eyebrow {
     font-size: 15px;
-
     line-height: 1.5;
-
     white-space: normal;
   }
 
-
   .history_image--1970-small {
-    width: 280px;
-    height: 220px;
-
-    margin-top: -30px;
+    width: min(280px, 82vw);
+    height: auto;
+    aspect-ratio: 338 / 264;
+    margin-top: 16px;
   }
-
 
   .history_image--1970-small-inner {
-    width: 280px;
-    height: 220px;
+    width: 100%;
+    height: 100%;
   }
-
 
   .history_quote {
     height: 200px;
-
     padding: 0 24px;
   }
 
-
   .history_quote p {
     font-size: 20px;
-
     white-space: normal;
   }
-
 
   .history_footer {
     min-height: 600px;
   }
 
-
   .history_footer_inner {
     min-height: 600px;
   }
-
 
   .history_footer_logo {
     left: 24px;
     top: 60px;
   }
 
-
   .history_footer_social {
     right: 24px;
     top: 55px;
-
     gap: 20px;
   }
-
 
   .history_footer_nav {
     left: 24px;
     right: auto;
     top: 180px;
-
     flex-wrap: wrap;
-
     gap: 24px;
   }
-
 
   .history_footer_nav a {
     font-size: 15px;
   }
 
-
   .history_footer_contact {
     left: 24px;
     right: auto;
     top: 260px;
-
     font-size: 13px;
   }
 
-
   .history_footer_line {
     top: 340px;
-
     width: calc(100% - 48px);
   }
-
 
   .history_footer_company {
     left: 24px;
     top: 390px;
-
     font-size: 12px;
-
     white-space: normal;
   }
-
 
   .history_footer_policy {
     left: 24px;
     right: auto;
     top: 470px;
-
     gap: 20px;
   }
-
 
   .history_footer_policy a {
     font-size: 12px;
   }
-
 }
 
 
@@ -1177,7 +883,6 @@
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .history_section .history_title,
   .history_section .history_copy,
   .history_section .history_image,
@@ -1185,5 +890,4 @@
     transform: none !important;
     opacity: 1 !important;
   }
-
 }
